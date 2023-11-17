@@ -10,7 +10,7 @@
     "get-approved-signer": "ts-node getApprovedSigner.ts"
   },
   "author": "Neynar",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@neynar/nodejs-sdk": "^0.11.3",
     "@types/node": "^20.9.0",

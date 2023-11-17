@@ -70,7 +70,7 @@ yarn get-approved-signer
 
 ## License
 
-`gm_bot` is released under the ISC License. This license allows for the free use, modification, and distribution of the software.
+`gm_bot` is released under the MIT License. This license permits free use, modification, and distribution of the software, with the requirement that the original copyright and license notice are included in any substantial portion of the work.
 
 ## FAQs/Troubleshooting
 
