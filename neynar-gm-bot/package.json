@@ -1,7 +1,7 @@
 {
-  "name": "neynar_gm_bot",
+  "name": "gm_bot",
   "version": "1.0.0",
-  "description": "A bot that will cast a 'GM 🪐' message in Warpcast at scheduled time everyday (As long as system is online)",
+  "description": "A bot that will cast a 'gm 🪐' message in Warpcast at scheduled time everyday (As long as system is online)",
   "main": "./dist/app.js",
   "scripts": {
     "watch": "tsc --watch",

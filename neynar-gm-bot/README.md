@@ -1,65 +1,78 @@
-# neynar_gm_bot
+# gm_bot
 
-A bot that will cast a 'GM 🪐' message in Warpcast at the scheduled time every day (As long as the system is online).
+## Introduction
 
-Powered By [Neynar API's](https://docs.neynar.com/). Built on top of [@neynar/nodejs-sdk](https://www.npmjs.com/package/@neynar/nodejs-sdk).
+`gm_bot` is an automated messaging bot designed to cast a 'gm 🪐' message in Warpcast every day at a scheduled time. The bot operates continuously as long as the system remains online. It leverages [Neynar API](https://docs.neynar.com/) and is built using [@neynar/nodejs-sdk](https://www.npmjs.com/package/@neynar/nodejs-sdk).
 
-### Installation
+## Prerequisites
 
-#### Pre-requisite
+- [Node.js](https://nodejs.org/en/): A JavaScript runtime built on Chrome's V8 JavaScript engine. Ensure you have Node.js installed on your system.
 
-[NodeJS](https://nodejs.org/en/) must be installed.
+## Installation
 
-#### Setup
+### Setting Up the Environment
 
-```
-npm install -g pm2
-```
+1. **Install PM2**: PM2 is a process manager for Node.js applications. Install it globally using npm:
 
-#### Install project dependencies
+   ```bash
+   npm install -g pm2
+   ```
 
-```
-yarn install
-// or
-npm install
-```
+2. **Install Project Dependencies**: Navigate to the project directory and run one of the following commands to install all required dependencies:
 
-#### Setup Environment
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
 
-Add NEYNAR_API_KEY (Required), PUBLISH_CAST_TIME (Optional), TIME_ZONE (Optional) inside env.
+3. **Configure Environment Variables**:
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` to add your `NEYNAR_API_KEY`. Optionally, you can also specify `PUBLISH_CAST_TIME` and `TIME_ZONE` for custom scheduling.
 
-```
-cp .env.example .env
-```
+### Generating and Approving a Signer
 
-#### Generate Signer and get it approved
+Before running the bot, you need to generate a signer and get it approved. This is crucial for the bot's operation. Run the following command:
 
-```
+```bash
 yarn get-approved-signer
 ```
 
-#### Run Project
+## Running the Bot
 
-```
-yarn start
-// or
-npm run start
-```
+1. **Start the Bot**: Launch the bot using the following command:
 
-#### Verify process is running
+   ```bash
+   yarn start
+   # or
+   npm run start
+   ```
 
-```
-pm2 status
-```
+2. **Verify the Process**: Ensure that the bot is running correctly with:
 
-#### Logs
+   ```bash
+   pm2 status
+   ```
 
-```
-pm2 logs
-```
+3. **View Logs**: To check the bot's activity logs, use:
 
-#### Terminate process
+   ```bash
+   pm2 logs
+   ```
 
-```
-pm2 kill
-```
+4. **Stopping the Bot**: If you need to stop the bot, use:
+   ```bash
+   pm2 kill
+   ```
+
+## License
+
+`gm_bot` is released under the ISC License. This license allows for the free use, modification, and distribution of the software.
+
+## FAQs/Troubleshooting
+
+- **Q1**: What if `gm_bot` stops sending messages?
+  - **A1**: Check the PM2 logs for any errors and ensure your system's time settings align with the specified `TIME_ZONE`, also ensure that the process is running.
