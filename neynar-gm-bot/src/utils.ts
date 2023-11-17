@@ -102,15 +102,15 @@ export const getApprovedSigner = async () => {
       args: [farcasterDeveloper.custody_address as `0x${string}`],
     });
 
-    const SIGNED_KEY_REQUEST_VALIDATOR = {
-      name: "Farcaster SignedKeyRequestValidator",
+    const KEY_GATEWAY_EIP_712_DOMAIN = {
+      name: "Farcaster KeyGateway",
       version: "1",
       chainId: 10,
       verifyingContract:
-        "0x00000000fc700472606ed4fa22623acf62c60553" as `0x${string}`,
+        "0x00000000fc56947c7e7183f8ca4b62398caadf0b" as `0x${string}`,
     };
 
-    const SIGNED_KEY_REQUEST_TYPE_FOR_ADD_FOR = [
+    const ADD_TYPE = [
       { name: "owner", type: "address" },
       { name: "keyType", type: "uint32" },
       { name: "key", type: "bytes" },
@@ -121,11 +121,11 @@ export const getApprovedSigner = async () => {
     ];
 
     signature = await account.signTypedData({
-      domain: SIGNED_KEY_REQUEST_VALIDATOR,
+      domain: KEY_GATEWAY_EIP_712_DOMAIN,
       types: {
-        SignedKeyRequest: SIGNED_KEY_REQUEST_TYPE_FOR_ADD_FOR,
+        Add: ADD_TYPE,
       },
-      primaryType: "SignedKeyRequest",
+      primaryType: "Add",
       message: {
         owner: account.address,
         keyType: 1,
