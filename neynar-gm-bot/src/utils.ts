@@ -8,13 +8,11 @@ import { SignedKeyRequestMetadataABI } from "./abi/SignedKeyRequestMetadata";
 import { SignerStatusEnum } from "@neynar/nodejs-sdk/build/neynar-api/neynar-v2-api";
 import * as fs from "fs";
 import * as path from "path";
+import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export const MESSAGE = `GM 🪐`;
 
-const appendSignerUuidAndUsernameToEnv = (
-  signer_uuid: string,
-  usernameOrFid: string
-) => {
+const appendSignerUuidAndUsernameToEnv = (signer_uuid: string) => {
   const envPath = path.resolve(__dirname, "../.env"); // Adjust the path as necessary
 
   fs.readFile(envPath, "utf8", (err, data) => {
@@ -23,10 +21,7 @@ const appendSignerUuidAndUsernameToEnv = (
       return;
     }
 
-    const newContent =
-      data +
-      `\nSIGNER_UUID=${signer_uuid}` +
-      `\nUSERNAME_OR_FID=${usernameOrFid}`;
+    const newContent = data + `\nSIGNER_UUID=${signer_uuid}`;
     fs.writeFile(envPath, newContent, "utf8", (err) => {
       if (err) {
         console.error("Error writing to .env file:", err);
@@ -174,11 +169,10 @@ export const getApprovedSigner = async () => {
 
     console.log("✅ Transaction confirmed\n");
     console.log("✅ Approved signer", signer_uuid, "\n");
-    appendSignerUuidAndUsernameToEnv(
-      signer_uuid,
-      farcasterDeveloper.username ?? farcasterDeveloper.fid
-    );
+    appendSignerUuidAndUsernameToEnv(signer_uuid);
   } catch (err) {
-    console.log(err);
+    if (isApiErrorResponse(err)) {
+      console.log(err.response.data);
+    } else console.log(err);
   }
 };

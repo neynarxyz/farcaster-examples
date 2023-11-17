@@ -12,7 +12,7 @@
   "author": "Neynar",
   "license": "ISC",
   "dependencies": {
-    "@neynar/nodejs-sdk": "^0.11.1",
+    "@neynar/nodejs-sdk": "^0.11.3",
     "@types/node": "^20.9.0",
     "chatgpt": "^5.2.5",
     "dotenv": "^16.3.1",
