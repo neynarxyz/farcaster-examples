@@ -1,6 +1,6 @@
 # neynar_gm_bot
 
-A bot that will cast a 'Good Morning...{some emoji/emojis}' message in Warpcast at the scheduled time every day (As long as the system is online).
+A bot that will cast a 'GM 🪐' message in Warpcast at the scheduled time every day (As long as the system is online).
 
 Powered By [Neynar API's](https://docs.neynar.com/). Built on top of [@neynar/nodejs-sdk](https://www.npmjs.com/package/@neynar/nodejs-sdk).
 
