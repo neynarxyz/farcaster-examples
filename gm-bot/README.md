@@ -31,7 +31,7 @@
      ```bash
      cp .env.example .env
      ```
-   - Edit `.env` to add your `NEYNAR_API_KEY`. Optionally, you can also specify `PUBLISH_CAST_TIME` and `TIME_ZONE` for custom scheduling.
+   - Edit `.env` to add your `NEYNAR_API_KEY` and `FARCASTER_DEVELOPER_MNEMONIC`. Optionally, you can also specify `PUBLISH_CAST_TIME` and `TIME_ZONE` for custom scheduling.
 
 ### Generating and Approving a Signer
 
