@@ -35,7 +35,7 @@
 
 ### Generating and Approving a Signer
 
-Before running the bot, you need to generate a signer and get it approved. This is crucial for the bot's operation. Run the following command:
+Before running the bot, you need to generate a signer and get it approved via an onchain transaction. To execute the transaction, you'll need a browser extension wallet with funded roughly $2 worth of OP ETH on the Optimism mainnet. This is crucial for the bot's operation. Run the following command:
 
 ```bash
 yarn get-approved-signer
