@@ -1,4 +1,4 @@
-import { FARCASTER_DEVELOPER_MNEMONIC } from "./config";
+import { FARCASTER_BOT_MNEMONIC } from "./config";
 import neynarClient from "./neynarClient";
 import { mnemonicToAccount } from "viem/accounts";
 import { viemPublicClient } from "./viemClient";
@@ -71,7 +71,7 @@ export const getApprovedSigner = async () => {
     ];
 
     // Convert mnemonic to an account object.
-    const account = mnemonicToAccount(FARCASTER_DEVELOPER_MNEMONIC);
+    const account = mnemonicToAccount(FARCASTER_BOT_MNEMONIC);
 
     // Lookup user details using the custody address.
     const { user: farcasterDeveloper } =
