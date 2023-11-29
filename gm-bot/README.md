@@ -33,13 +33,22 @@
      ```
    - Edit `.env` to add your `NEYNAR_API_KEY` and `FARCASTER_DEVELOPER_MNEMONIC`. Optionally, you can also specify `PUBLISH_CAST_TIME` and `TIME_ZONE` for custom scheduling.
 
-### Generating and Approving a Signer
+### Generating a Signer
 
 Before running the bot, you need to generate a signer and get it approved via an onchain transaction. To execute the transaction, you'll need a browser extension wallet with funded roughly $2 worth of OP ETH on the Optimism mainnet. This is crucial for the bot's operation. Run the following command:
 
 ```bash
 yarn get-approved-signer
 ```
+
+### Approving a signer
+In order to get an approved signer you need to do an on-chain transaction on OP mainnet.
+Go to Farcaster KeyGateway optimism explorer
+https://optimistic.etherscan.io/address/0x00000000fc56947c7e7183f8ca4b62398caadf0b#writeContract
+
+Connect to Web3.
+
+Navigate to `addFor` function and add following values inside the respective placeholders.
 
 ## Running the Bot
 
