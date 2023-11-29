@@ -48,7 +48,9 @@ https://optimistic.etherscan.io/address/0x00000000fc56947c7e7183f8ca4b62398caadf
 
 Connect to Web3.
 
-Navigate to `addFor` function and add following values inside the respective placeholders.
+Navigate to `addFor` function and add following values inside the respective placeholders. You will see values for fidOwner, keyType, key, metadataType, metadata, deadline, sig in your terminal logs. 
+
+Press "Write" to execute the transaction. This will create a signer for your mnemonic on the OP mainnet.
 
 ## Running the Bot
 
