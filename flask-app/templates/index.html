@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My app!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .event {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .event-header {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .event-content {
+      margin-top: 5px;
+    }
+
+    .event-content a {
+      color: #337ab7;
+      text-decoration: none;
+    }
+
+    .event-content a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Casts in EVM channel!</h1>
+    {% for item in data %}
+    <div class="event">
+      <div class="event-header">fid:{{ item.fid }}</div>
+      <div class="event-content">{{ item.text }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+
+</html>
