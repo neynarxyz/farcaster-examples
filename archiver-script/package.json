@@ -1,0 +1,15 @@
+{
+  "name": "archiver-script",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^1.4.1",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@neynar/nodejs-sdk": "^1.1.1"
+  }
+}
