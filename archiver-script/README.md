@@ -30,7 +30,7 @@ Install the required Nodejs packages:
 bun install
 ```
 
-### Step 4: Edit the FID
+### Step 4: Edit the FID and the API key
 
 Open `index.js` and replace the `FID` with your own:
 
@@ -38,6 +38,12 @@ Open `index.js` and replace the `FID` with your own:
 // save all @rish.eth's casts in a file called data.ndjson
 const fid = 194;
 fetchAndDump(fid);
+```
+
+Also don't forget to edit use your API key:
+
+```javascript
+const client = new NeynarAPIClient("YOUR_NEYNAR_API_KEY");
 ```
 
 ### Step 5: Run the Script
