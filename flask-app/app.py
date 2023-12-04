@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import requests
 import os
-import dotenv
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -9,9 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main_app():
-    # Get data from Neynar API
-    dotenv.load_dotenv()
-    api_key = os.getenv("NEYNAR_API_KEY")
+    api_key = "YOUR_API_KEY_HERE"
     evm_channel = {
         "name": "EVM",
         "parent_url": "chain://eip155:1/erc721:0x37fb80ef28008704288087831464058a4a3940ae",

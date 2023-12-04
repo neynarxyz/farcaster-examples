@@ -43,7 +43,15 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
-### Step 5: Run the Application
+### Step 5: Edit the FID and the API key
+
+Open `app.py` and replace the `api_key` with your own:
+
+```python
+api_key = "YOUR_API_KEY_HERE"
+```
+
+### Step 6: Run the Application
 
 Start the Flask app:
 
