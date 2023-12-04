@@ -1,6 +1,6 @@
 {
   "name": "archiver-script",
-  "module": "index.ts",
+  "module": "index.js",
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",

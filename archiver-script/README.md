@@ -1,6 +1,6 @@
 # Neynar Archiver Mini-App
 
-Welcome to the Neynar Mini-App! This Nodejs (Bun) script uses Neynar's API to fetch and archive casts of a specific user. Follow these steps to get started:
+Welcome to the Neynar Mini-App! This Nodejs script uses Neynar's API to fetch and archive casts of a specific user. Follow these steps to get started:
 
 ## Steps
 
@@ -22,12 +22,12 @@ rm -rf farcaster-examples
 cd archiver-script
 ```
 
-### Step 3: Bun install
+### Step 3: NPM install
 
 Install the required Nodejs packages:
 
 ```sh
-bun install
+npm install
 ```
 
 ### Step 4: Edit the FID and the API key
@@ -49,7 +49,7 @@ const client = new NeynarAPIClient("YOUR_NEYNAR_API_KEY");
 ### Step 5: Run the Script
 
 ```sh
-bun run index.js
+node index.js
 ```
 
 You should now be ready to run the script, saving the casts of the user with the FID you specified to a file called `data.ndjson` in the same directory as `index.js`.
