@@ -1,8 +1,18 @@
+import ScreenLayout from "../layout";
+import styles from "./index.module.scss";
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <ScreenLayout>
+      <div className={`${styles.inputContainer} flex-grow`}>
+        <textarea
+          // type="text"
+          className={styles.userInput}
+          placeholder="Say Something"
+        />
+        <button className={styles.castButton}>Cast</button>
+      </div>
+    </ScreenLayout>
   );
 };
 

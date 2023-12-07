@@ -1,4 +1,4 @@
-import { useApp } from "@/Context/AppContext";
+import { ScreenState, useApp } from "@/Context/AppContext";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -23,18 +23,20 @@ const ScreenLayout = ({ children }: Props) => {
             SimpleCaster
           </h1>
         </div>
-        <div className="flex items-center">
-          <span className="mr-2">
-            <Image
-              src="https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_168/https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg"
-              width={40}
-              height={40}
-              alt="User Profile Picture"
-              className="rounded-full"
-            />
-          </span>
-          <span>UserName</span>
-        </div>
+        {screen !== ScreenState.Signin && (
+          <div className="flex items-center">
+            <span className="mr-2">
+              <Image
+                src="https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_168/https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg"
+                width={40}
+                height={40}
+                alt="User Profile Picture"
+                className="rounded-full"
+              />
+            </span>
+            <span>UserName</span>
+          </div>
+        )}
       </header>
       {children}
       <footer className="text-center p-4">Powered by Neynar</footer>

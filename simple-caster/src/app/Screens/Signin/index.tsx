@@ -3,9 +3,11 @@ import Image from "next/image";
 import ScreenLayout from "../layout";
 import { getMessage, welcomeMessages } from "@/utils/helpers";
 import { useEffect, useState } from "react";
+import { useApp, ScreenState } from "@/Context/AppContext";
 
 const Signin = () => {
   const [isClient, setIsClient] = useState(false);
+  const { setScreen } = useApp();
 
   useEffect(() => {
     setIsClient(true);
@@ -17,7 +19,10 @@ const Signin = () => {
         <h2 className="text-4xl font-extralight mb-4">
           {isClient && getMessage(welcomeMessages)}
         </h2>
-        <button className="border flex items-center border-white px-6 py-2 mt-6 rounded">
+        <button
+          onClick={() => setScreen(ScreenState.Home)}
+          className="border flex items-center border-white px-6 py-2 mt-6 rounded"
+        >
           <span>
             <Image
               src="/neynar-logo.svg"
