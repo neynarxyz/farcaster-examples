@@ -5,7 +5,7 @@ import "./globals.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Simple Caster",
+  title: "SimpleCaster",
   description: "A demo app (powered by Neynar) that will help user to cast",
 };
 
