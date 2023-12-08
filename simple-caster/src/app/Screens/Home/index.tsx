@@ -7,6 +7,9 @@ const Home = () => {
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
+        <p className="text-3xl">
+          Hello <span className="font-medium">Username</span>... 👋
+        </p>
         <div className={styles.inputContainer}>
           <Image
             src="https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_168/https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg"
