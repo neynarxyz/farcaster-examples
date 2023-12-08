@@ -20,12 +20,17 @@ const Signin = () => {
           {isClient && getMessage(welcomeMessages)}
         </h2>
         <button
-          onClick={() => setScreen(ScreenState.Home)}
+          onClick={() => {
+            window.open(
+              "https://app.neynar.com/login?client_id=a1092b41-629f-45e0-b196-b3ff3a8f193f&redirect_uri=https://demo.neynar.com",
+              "_blank"
+            );
+          }}
           className="border flex items-center border-white px-6 py-2 mt-6 rounded"
         >
           <span>
             <Image
-              src="/neynar-logo.svg"
+              src="/logos/neynar.svg"
               width={50}
               height={50}
               alt="Neynar Logo"
