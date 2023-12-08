@@ -6,7 +6,7 @@ import styles from "./index.module.scss";
 import Button from "@/components/Button";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";

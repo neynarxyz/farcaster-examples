@@ -85,11 +85,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
     // Check if the user is logged in based on the presence of user data in local storage
     const isLoggedIn = !!user;
 
-    console.log("User logged in", isLoggedIn);
-
     // If the user is logged in, show them the home screen
     if (isLoggedIn) {
-      console.log("User verified", isLoggedIn);
       setScreen(ScreenState.Home);
       if (signerUuid || fid) {
         removeSearchParams();
@@ -104,7 +101,6 @@ export const AppProvider: FC<Props> = ({ children }) => {
           setUser({ signerUuid, fid });
           removeSearchParams();
           setScreen(ScreenState.Home);
-          console.log("User verified");
         }
       } else {
         // If signer_uuid and fid are not present in searchParams, show the signin screen
