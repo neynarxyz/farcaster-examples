@@ -46,22 +46,6 @@ const Home = () => {
     }
   }, [user, text]);
 
-  const handleTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      if (e.target.value.length > 320) {
-        toast("Cast is too long", {
-          type: "error",
-          theme: "dark",
-          autoClose: 3000,
-          position: "bottom-right",
-          pauseOnHover: true,
-        });
-      }
-      setText(e.target.value);
-    },
-    [setText]
-  );
-
   const getContext = useCallback(() => {
     return displayName ? (
       <>
@@ -79,7 +63,7 @@ const Home = () => {
             className={`${styles.profilePic} rounded-full`}
           />
           <textarea
-            onChange={handleTextChange}
+            onChange={(e) => setText(e.target.value)}
             className={styles.userInput}
             placeholder="Say Something"
             rows={5}
@@ -90,7 +74,7 @@ const Home = () => {
     ) : (
       <p>Loading...</p>
     );
-  }, [displayName, handlePublishCast, handleTextChange]);
+  }, [displayName, handlePublishCast, setText]);
 
   return (
     <ScreenLayout>
