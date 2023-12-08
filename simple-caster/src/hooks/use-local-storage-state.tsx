@@ -8,14 +8,14 @@ interface UseLocalStorageStateOptions<T> {
   deserialize?: DeserializeFunction<T>;
 }
 
-function useLocalStorageState<T>(
+function useLocalStorage<T>(
   key: string,
   defaultValue: T | (() => T) = "" as T,
   {
     serialize = JSON.stringify,
     deserialize = JSON.parse,
   }: UseLocalStorageStateOptions<T> = {}
-): [T, React.Dispatch<React.SetStateAction<T>>] {
+): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   const [state, setState] = useState<T>(() => {
     const valueInLocalStorage = window.localStorage.getItem(key);
     if (valueInLocalStorage) {
@@ -41,7 +41,11 @@ function useLocalStorageState<T>(
     window.localStorage.setItem(key, serialize(state));
   }, [key, state, serialize]);
 
-  return [state, setState];
+  const removeItem = () => {
+    window.localStorage.removeItem(key);
+  };
+
+  return [state, setState, removeItem];
 }
 
-export default useLocalStorageState;
+export default useLocalStorage;

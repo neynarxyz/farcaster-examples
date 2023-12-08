@@ -1,4 +1,7 @@
 import { ScreenState, useApp } from "@/Context/AppContext";
+import Button from "@/components/Button";
+import Signout from "@/components/icons/Signout";
+import useLocalStorage from "@/hooks/use-local-storage-state";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -7,7 +10,13 @@ interface Props {
 }
 
 const ScreenLayout = ({ children }: Props) => {
-  const { screen } = useApp();
+  const { screen, setScreen } = useApp();
+  const [_, _1, removeItem] = useLocalStorage("user");
+
+  const handleSignout = () => {
+    removeItem();
+    setScreen(ScreenState.Signin);
+  };
 
   return (
     <div className="flex flex-col min-h-screen text-white">
@@ -23,16 +32,11 @@ const ScreenLayout = ({ children }: Props) => {
         </div>
         {screen !== ScreenState.Signin && (
           <div className="flex items-center">
-            <span className="mr-2">
-              <Image
-                src="https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_168/https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg"
-                width={40}
-                height={40}
-                alt="User Profile Picture"
-                className="rounded-full"
-              />
-            </span>
-            <span>UserName</span>
+            <Button
+              onClick={handleSignout}
+              title="Sign Out"
+              rightIcon={<Signout height="20px" width="20px" />}
+            />
           </div>
         )}
       </header>

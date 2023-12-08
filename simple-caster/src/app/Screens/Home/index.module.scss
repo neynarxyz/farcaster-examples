@@ -28,19 +28,3 @@
   top: 50px;
   left: 15px;
 }
-
-.castButton {
-  padding: 12px 20px;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 5px;
-  margin-top: 25px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  &:hover {
-    background-color: white;
-    color: black;
-  }
-}
