@@ -46,18 +46,21 @@ const Home = () => {
     }
   }, [user, text]);
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 320) {
-      toast("Cast is too long", {
-        type: "error",
-        theme: "dark",
-        autoClose: 3000,
-        position: "bottom-right",
-        pauseOnHover: true,
-      });
-    }
-    setText(e.target.value);
-  };
+  const handleTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (e.target.value.length > 320) {
+        toast("Cast is too long", {
+          type: "error",
+          theme: "dark",
+          autoClose: 3000,
+          position: "bottom-right",
+          pauseOnHover: true,
+        });
+      }
+      setText(e.target.value);
+    },
+    [setText]
+  );
 
   const getContext = useCallback(() => {
     return displayName ? (
@@ -87,7 +90,7 @@ const Home = () => {
     ) : (
       <p>Loading...</p>
     );
-  }, [displayName, handlePublishCast]);
+  }, [displayName, handlePublishCast, handleTextChange]);
 
   return (
     <ScreenLayout>
