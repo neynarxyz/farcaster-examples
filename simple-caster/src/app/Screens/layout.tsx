@@ -10,11 +10,11 @@ const ScreenLayout = ({ children }: Props) => {
   const { screen } = useApp();
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen text-white">
       <header className="flex justify-between items-center p-5">
         <div className="flex items-center">
           <Image
-            src="/simple-caster-logo.png"
+            src="/logos/simple-caster.png"
             width={40}
             height={40}
             alt="SimpleCaster Logo"
@@ -39,7 +39,15 @@ const ScreenLayout = ({ children }: Props) => {
         )}
       </header>
       {children}
-      <footer className="text-center p-4">Powered by Neynar</footer>
+      <footer className="flex justify-center items-center text-center p-4">
+        <span>Powered by</span>
+        <Image
+          src="/logos/powered-by-neynar.png"
+          height={150}
+          width={150}
+          alt="Neynar footer logo"
+        />
+      </footer>
     </div>
   );
 };

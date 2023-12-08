@@ -25,7 +25,7 @@ const Signin = () => {
         >
           <span>
             <Image
-              src="/neynar-logo.svg"
+              src="/logos/neynar.svg"
               width={50}
               height={50}
               alt="Neynar Logo"
