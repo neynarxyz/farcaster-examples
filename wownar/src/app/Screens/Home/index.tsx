@@ -67,6 +67,7 @@ const Home = () => {
                 className={`${styles.profilePic} rounded-full`}
               />
               <textarea
+                value={text}
                 onChange={(e) => setText(e.target.value)}
                 className={styles.userInput}
                 placeholder="Say Something"
