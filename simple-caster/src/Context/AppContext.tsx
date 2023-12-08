@@ -13,13 +13,9 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { toast } from "react-toastify";
-import axios, { AxiosError } from "axios";
 
 import useLocalStorage from "@/hooks/use-local-storage-state";
-import neynarClient from "@/clients/neynar";
-import { isApiErrorResponse } from "@neynar/nodejs-sdk";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { removeSearchParams, verifyUser } from "@/utils/helpers";
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -46,35 +42,16 @@ export const AppProvider: FC<Props> = ({ children }) => {
 
   const [user, setUser, removeUser] = useLocalStorage("user");
 
-  const verifyUser = async (signerUuid: string, fid: string) => {
-    let _isVerifiedUser = false;
-    try {
-      const {
-        data: { isVerifiedUser },
-      } = await axios.post("/api/verify-user", { signerUuid, fid });
-      _isVerifiedUser = isVerifiedUser;
-    } catch (err) {
-      const { message } = (err as AxiosError).response?.data as ErrorRes;
-      toast(message, {
-        type: "error",
-        theme: "dark",
-        autoClose: 3000,
-        position: "bottom-right",
-        pauseOnHover: true,
-      });
-    }
-    return _isVerifiedUser;
-  };
-
   const isUserLoggedIn = useCallback(async () => {
     // Check if the user is logged in based on the presence of user data in local storage
     const isLoggedIn = !!user;
 
-    console.log("Loggedin user", user);
-
     // If the user is logged in, show them the home screen
     if (isLoggedIn) {
       setScreen(ScreenState.Home);
+      if (signerUuid || fid) {
+        removeSearchParams();
+      }
     } else {
       // If signer_uuid and fid are present in searchParams, remove them and show the home screen
       if (signerUuid && fid) {
@@ -83,12 +60,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
           removeUser();
         } else {
           setUser({ signerUuid, fid });
-          // Remove query parameters
-          window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname
-          );
+          removeSearchParams();
           setScreen(ScreenState.Home);
         }
       } else {
