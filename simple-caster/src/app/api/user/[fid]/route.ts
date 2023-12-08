@@ -2,22 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import neynarClient from "@/clients/neynar";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
-export async function POST(request: NextRequest) {
-  const { signerUuid, fid } = (await request.json()) as {
-    signerUuid: string;
-    fid: string;
-  };
-
-  let isVerifiedUser = false;
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { fid: string } }
+) {
   try {
-    const { fid: userFid } = await neynarClient.lookupSigner(signerUuid);
-
-    if (userFid == fid) {
-      isVerifiedUser = true;
-    } else isVerifiedUser = false;
-    return NextResponse.json({ isVerifiedUser }, { status: 200 });
+    const fid = parseInt(params.fid);
+    const {
+      result: { user },
+    } = await neynarClient.lookupUserByFid(fid);
+    return NextResponse.json({ user }, { status: 200 });
   } catch (err) {
-    console.log("/api/verify-user", err);
+    console.log("/api/user/[fid]", err);
     if (isApiErrorResponse(err)) {
       return NextResponse.json(
         { ...err.response.data },

@@ -37,10 +37,11 @@ const AppContext = createContext<AppContextInterface | null>(null);
 
 export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
+
   const signerUuid = useSearchParams().get("signer_uuid");
   const fid = useSearchParams().get("fid");
 
-  const [user, setUser, removeUser] = useLocalStorage("user");
+  const [user, setUser, removeUser] = useLocalStorage("user", null);
 
   const isUserLoggedIn = useCallback(async () => {
     // Check if the user is logged in based on the presence of user data in local storage
