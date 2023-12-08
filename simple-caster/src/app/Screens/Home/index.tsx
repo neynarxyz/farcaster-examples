@@ -14,9 +14,7 @@ import { useApp } from "@/Context/AppContext";
 
 const Home = () => {
   const [user] = useLocalStorage<UserInfo>("user");
-  const { displayName } = useApp();
-
-  const [text, setText] = useState("");
+  const { displayName, text, setText } = useApp();
 
   const handlePublishCast = useCallback(async () => {
     if (user) {
