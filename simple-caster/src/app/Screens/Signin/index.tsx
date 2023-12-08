@@ -14,7 +14,7 @@ const Signin = () => {
   return (
     <ScreenLayout>
       <main className="flex-grow flex flex-col items-center justify-center">
-        <div className="mx-5">
+        <div className="mx-5 flex flex-col items-center justify-center">
           <h2 className="text-4xl font-extralight mb-4">
             {isClient && getMessage(welcomeMessages)}
           </h2>
