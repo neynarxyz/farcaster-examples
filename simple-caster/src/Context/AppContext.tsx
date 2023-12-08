@@ -88,9 +88,6 @@ export const AppProvider: FC<Props> = ({ children }) => {
     // If the user is logged in, show them the home screen
     if (isLoggedIn) {
       setScreen(ScreenState.Home);
-      if (signerUuid || fid) {
-        removeSearchParams();
-      }
     } else {
       // If signer_uuid and fid are present in searchParams, remove them and show the home screen
       if (signerUuid && fid) {
@@ -100,6 +97,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
         } else {
           setUser({ signerUuid, fid });
           removeSearchParams();
+          window.location.reload();
           setScreen(ScreenState.Home);
         }
       } else {
