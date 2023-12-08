@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 
 type DeserializeFunction<T> = (value: string) => T;

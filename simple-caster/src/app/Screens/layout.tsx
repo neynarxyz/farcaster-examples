@@ -1,3 +1,5 @@
+"use client";
+
 import { ScreenState, useApp } from "@/Context/AppContext";
 import Button from "@/components/Button";
 import Signout from "@/components/icons/Signout";
@@ -15,7 +17,7 @@ const ScreenLayout = ({ children }: Props) => {
 
   const handleSignout = () => {
     removeItem();
-    setScreen(ScreenState.Signin);
+    window.location.reload();
   };
 
   return (
