@@ -14,14 +14,12 @@ const ScreenLayout = ({ children }: Props) => {
       <header className="flex justify-between items-center p-5">
         <div className="flex items-center">
           <Image
-            src="/logos/simple-caster.png"
-            width={40}
-            height={40}
+            src="/logos/wownar.svg"
+            width={60}
+            height={60}
             alt="SimpleCaster Logo"
           />
-          <h1 className="text-xl font-extralight font-bold ml-3">
-            SimpleCaster
-          </h1>
+          <h1 className="text-xl font-extralight font-bold ml-3">Wownar</h1>
         </div>
         {screen !== ScreenState.Signin && (
           <div className="flex items-center">

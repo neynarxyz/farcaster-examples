@@ -21,6 +21,7 @@ const Signin = () => {
         </h2>
         <button
           onClick={() => {
+            // setScreen(ScreenState.Home);
             window.open(
               "https://app.neynar.com/login?client_id=a1092b41-629f-45e0-b196-b3ff3a8f193f&redirect_uri=https://demo.neynar.com",
               "_blank"

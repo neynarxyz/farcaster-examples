@@ -6,7 +6,7 @@ import { AppProvider } from "@/Context/AppContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SimpleCaster",
+  title: "Wownar",
   description: "A demo app (powered by Neynar) that will help user to cast",
 };
 

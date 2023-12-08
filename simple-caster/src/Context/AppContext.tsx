@@ -14,8 +14,8 @@ import {
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
 export enum ScreenState {
-  Signin = "SIGNIN",
-  Home = "HOME",
+  Signin = "signin",
+  Home = "home",
 }
 
 interface Props {
