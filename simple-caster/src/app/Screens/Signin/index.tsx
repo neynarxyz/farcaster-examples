@@ -3,7 +3,6 @@ import Image from "next/image";
 import ScreenLayout from "../layout";
 import { getMessage, welcomeMessages } from "@/utils/helpers";
 import { useEffect, useState } from "react";
-import { useApp, ScreenState } from "@/Context/AppContext";
 
 const Signin = () => {
   const [isClient, setIsClient] = useState(false);

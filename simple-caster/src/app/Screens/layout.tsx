@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ScreenLayout = ({ children }: Props) => {
-  const { screen, setScreen } = useApp();
+  const { screen } = useApp();
   const [_, _1, removeItem] = useLocalStorage<UserInfo>("user");
 
   const handleSignout = () => {
