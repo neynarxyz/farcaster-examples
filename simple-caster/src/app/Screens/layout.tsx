@@ -4,6 +4,7 @@ import { ScreenState, useApp } from "@/Context/AppContext";
 import Button from "@/components/Button";
 import Signout from "@/components/icons/Signout";
 import useLocalStorage from "@/hooks/use-local-storage-state";
+import { UserInfo } from "@/types";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -13,7 +14,7 @@ interface Props {
 
 const ScreenLayout = ({ children }: Props) => {
   const { screen, setScreen } = useApp();
-  const [_, _1, removeItem] = useLocalStorage("user");
+  const [_, _1, removeItem] = useLocalStorage<UserInfo>("user");
 
   const handleSignout = () => {
     removeItem();

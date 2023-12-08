@@ -16,6 +16,7 @@ import {
 
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { removeSearchParams, verifyUser } from "@/utils/helpers";
+import { UserInfo } from "@/types";
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -41,7 +42,10 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const signerUuid = useSearchParams().get("signer_uuid");
   const fid = useSearchParams().get("fid");
 
-  const [user, setUser, removeUser] = useLocalStorage("user", null);
+  const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
+    "user",
+    null
+  );
 
   const isUserLoggedIn = useCallback(async () => {
     // Check if the user is logged in based on the presence of user data in local storage
