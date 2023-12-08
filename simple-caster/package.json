@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@neynar/nodejs-sdk": "^1.3.0",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-toastify": "^9.1.3",
     "sass": "^1.69.5"
   },
   "devDependencies": {
