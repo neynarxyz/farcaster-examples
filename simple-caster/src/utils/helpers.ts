@@ -3,13 +3,13 @@ import axios, { AxiosError } from "axios";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 
 export const welcomeMessages = [
-  "Join the conversation. Sign in to share your story on Warpcast.",
-  "Ready to make your mark? Sign in to start casting on Warpcast.",
-  "Sign in to cast your thoughts and connect with the Warpcast community.",
+  "Join the conversation. Sign in to share your story on Farcaster.",
+  "Ready to make your mark? Sign in to start casting on Farcaster.",
+  "Sign in to cast your thoughts and connect with the Farcaster community.",
   "Be part of the decentralized dialogue. Sign in to cast your first post now.",
-  "Let's get your ideas out there. Sign in to start casting your unique perspective.",
+  "Let's get your ideas out there. Sign in to cast your unique perspective.",
   "Elevate your voice. Sign in and amplify your message.",
-  "Connect, engage, and influence. Sign in to begin your Warpcast journey.",
+  "Connect, engage, and influence. Sign in to begin your Farcaster journey.",
   "Make waves with your words. Sign in and cast away!",
   "Sign in and join a new era of social networking.",
 ];

@@ -25,17 +25,16 @@ const Signin = () => {
                 "_blank"
               );
             }}
-            className="border flex items-center border-white px-6 py-2 mt-6 rounded"
+            className="border flex items-center border-white px-6 py-2 mt-6 rounded-3xl"
           >
             <span>
               <Image
                 src="/logos/neynar.svg"
-                width={50}
-                height={50}
+                width={48}
+                height={48}
                 alt="Neynar Logo"
               />
             </span>
-            &nbsp;|&nbsp;
             <span className="ml-2 text-lg mr-2">Sign In with Neynar</span>
           </button>
         </div>
