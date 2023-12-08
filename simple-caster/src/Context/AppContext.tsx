@@ -38,8 +38,6 @@ interface AppContextInterface {
   setScreen: SetState<ScreenState>;
   displayName: string | null;
   setDisplayName: SetState<string | null>;
-  text: string;
-  setText: SetState<string>;
 }
 
 const AppContext = createContext<AppContextInterface | null>(null);
@@ -47,7 +45,6 @@ const AppContext = createContext<AppContextInterface | null>(null);
 export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
   const [displayName, setDisplayName] = useState<string | null>(null);
-  const [text, setText] = useState("");
 
   const signerUuid = useSearchParams().get("signer_uuid");
   const fid = useSearchParams().get("fid");
@@ -117,10 +114,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setScreen,
       displayName,
       setDisplayName,
-      text,
-      setText,
     }),
-    [screen, setScreen, displayName, setDisplayName, text, setText]
+    [screen, setScreen, displayName, setDisplayName]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

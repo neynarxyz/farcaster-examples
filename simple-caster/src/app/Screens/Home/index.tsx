@@ -10,10 +10,12 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { useApp } from "@/Context/AppContext";
+import { useState } from "react";
 
 const Home = () => {
   const [user] = useLocalStorage<UserInfo>("user");
-  const { displayName, text, setText } = useApp();
+  const { displayName } = useApp();
+  const [text, setText] = useState("");
 
   async function handlePublishCast() {
     const { signerUuid } = user;
@@ -31,6 +33,7 @@ const Home = () => {
         position: "bottom-right",
         pauseOnHover: true,
       });
+      setText("");
     } catch (err) {
       const { message } = (err as AxiosError).response?.data as ErrorRes;
       toast(message, {
@@ -42,7 +45,6 @@ const Home = () => {
       });
     }
   }
-
 
   return (
     <ScreenLayout>
