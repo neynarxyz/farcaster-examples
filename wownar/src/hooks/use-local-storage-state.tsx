@@ -19,17 +19,19 @@ function useLocalStorage<T>(
   }: UseLocalStorageStateOptions<T> = {}
 ): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   const [state, setState] = useState<T>(() => {
-    const valueInLocalStorage = window.localStorage.getItem(key);
-    if (valueInLocalStorage) {
-      try {
-        return deserialize(valueInLocalStorage);
-      } catch (error) {
-        window.localStorage.removeItem(key);
+    if (typeof window !== 'undefined') {
+      const valueInLocalStorage = window.localStorage.getItem(key);
+      if (valueInLocalStorage) {
+        try {
+          return deserialize(valueInLocalStorage);
+        } catch (error) {
+          window.localStorage.removeItem(key);
+        }
       }
+      return typeof defaultValue === "function"
+        ? (defaultValue as () => T)()
+        : (defaultValue as T);
     }
-    return typeof defaultValue === "function"
-      ? (defaultValue as () => T)()
-      : (defaultValue as T);
   });
 
   const prevKeyRef = useRef<string>(key);

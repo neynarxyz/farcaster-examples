@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const Home = () => {
   const [user] = useLocalStorage<UserInfo>("user");
-  const { displayName } = useApp();
+  const { displayName, pfp } = useApp();
   const [text, setText] = useState("");
 
   async function handlePublishCast() {
@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
-        {displayName ? (
+        {displayName && pfp ? (
           <>
             <p className="text-3xl">
               Hello{" "}
@@ -60,7 +60,7 @@ const Home = () => {
             </p>
             <div className={styles.inputContainer}>
               <Image
-                src="https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_168/https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg"
+                src={pfp}
                 width={40}
                 height={40}
                 alt="User Profile Picture"

@@ -38,6 +38,8 @@ interface AppContextInterface {
   setScreen: SetState<ScreenState>;
   displayName: string | null;
   setDisplayName: SetState<string | null>;
+  pfp: string | null;
+  setPfp: SetState<string | null>;
 }
 
 const AppContext = createContext<AppContextInterface | null>(null);
@@ -45,6 +47,7 @@ const AppContext = createContext<AppContextInterface | null>(null);
 export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [pfp, setPfp] = useState<string | null>(null);
 
   const signerUuid = useSearchParams().get("signer_uuid");
   const fid = useSearchParams().get("fid");
@@ -61,6 +64,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
           `/api/user/${user.fid}`
         );
         setDisplayName(() => data.user.displayName);
+        setPfp(() => data.user.pfp.url);
       } catch (err) {
         const { message } = (err as AxiosError).response?.data as ErrorRes;
         toast(message, {
@@ -114,8 +118,10 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setScreen,
       displayName,
       setDisplayName,
+      pfp,
+      setPfp,
     }),
-    [screen, setScreen, displayName, setDisplayName]
+    [screen, setScreen, displayName, setDisplayName, pfp, setPfp]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
