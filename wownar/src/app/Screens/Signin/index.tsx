@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 const Signin = () => {
   const [isClient, setIsClient] = useState(false);
+  const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
+  const redirect_uri = process.env.NEXT_PUBLIC_NEYNAR_REDIRECT_URI;
 
   useEffect(() => {
     setIsClient(true);
@@ -21,7 +23,7 @@ const Signin = () => {
           <button
             onClick={() => {
               window.open(
-                "https://app.neynar.com/login?client_id=a1092b41-629f-45e0-b196-b3ff3a8f193f&redirect_uri=https://demo.neynar.com",
+                `https://app.neynar.com/login?client_id=${client_id}&redirect_uri=${redirect_uri}`,
                 "_blank"
               );
             }}
