@@ -13,10 +13,7 @@ interface UseLocalStorageStateOptions<T> {
 function useLocalStorage<T>(
   key: string,
   defaultValue: T | (() => T) = "" as T,
-  {
-    serialize = JSON.stringify,
-    deserialize = JSON.parse,
-  }: UseLocalStorageStateOptions<T> = {}
+  { serialize = JSON.stringify, deserialize = JSON.parse }: UseLocalStorageStateOptions<T> = {}
 ): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   const [state, setState] = useState<T>(() => {
     if (typeof window !== 'undefined') {
@@ -28,10 +25,8 @@ function useLocalStorage<T>(
           window.localStorage.removeItem(key);
         }
       }
-      return typeof defaultValue === "function"
-        ? (defaultValue as () => T)()
-        : (defaultValue as T);
     }
+    return typeof defaultValue === 'function' ? (defaultValue as () => T)() : defaultValue;
   });
 
   const prevKeyRef = useRef<string>(key);
