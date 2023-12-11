@@ -22,9 +22,26 @@ const Signin = () => {
           </h2>
           <button
             onClick={() => {
-              window.open(
+              const authWindow = window.open(
                 `https://app.neynar.com/login?client_id=${client_id}&redirect_uri=${redirect_uri}`,
                 "_blank"
+              );
+
+              window.addEventListener(
+                "message",
+                (event) => {
+                  // Check the origin of the message
+                  if (
+                    event.origin === "https://app.neynar.com" &&
+                    event.data === "authCompleted"
+                  ) {
+                    // Close the authentication window if it's still open
+                    if (authWindow) {
+                      authWindow.close();
+                    }
+                  }
+                },
+                false
               );
             }}
             className="border flex items-center border-white px-6 py-2 mt-6 rounded"
