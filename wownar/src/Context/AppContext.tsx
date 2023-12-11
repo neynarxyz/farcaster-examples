@@ -40,6 +40,10 @@ interface AppContextInterface {
   setDisplayName: SetState<string | null>;
   pfp: string | null;
   setPfp: SetState<string | null>;
+  signerUuid: string | null;
+  setSignerUuid: SetState<string | null>;
+  fid: string | null;
+  setFid: SetState<string | null>;
 }
 
 const AppContext = createContext<AppContextInterface | null>(null);
@@ -48,9 +52,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [pfp, setPfp] = useState<string | null>(null);
-
-  const signerUuid = useSearchParams().get("signer_uuid");
-  const fid = useSearchParams().get("fid");
+  const [signerUuid, setSignerUuid] = useState<string | null>(null);
+  const [fid, setFid] = useState<string | null>(null);
 
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
@@ -120,8 +123,23 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setDisplayName,
       pfp,
       setPfp,
+      signerUuid,
+      setSignerUuid,
+      fid,
+      setFid,
     }),
-    [screen, setScreen, displayName, setDisplayName, pfp, setPfp]
+    [
+      screen,
+      setScreen,
+      displayName,
+      setDisplayName,
+      pfp,
+      setPfp,
+      signerUuid,
+      setSignerUuid,
+      fid,
+      setFid,
+    ]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

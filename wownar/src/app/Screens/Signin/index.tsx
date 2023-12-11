@@ -3,9 +3,11 @@ import Image from "next/image";
 import ScreenLayout from "../layout";
 import { getMessage, welcomeMessages } from "@/utils/helpers";
 import { useEffect, useState } from "react";
+import { useApp } from "@/Context/AppContext";
 
 const Signin = () => {
   const [isClient, setIsClient] = useState(false);
+  const { setSignerUuid, setFid } = useApp();
   const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
   const redirect_uri = process.env.NEXT_PUBLIC_NEYNAR_REDIRECT_URI;
 
@@ -33,8 +35,12 @@ const Signin = () => {
                   // Check the origin of the message
                   if (
                     event.origin === "https://app.neynar.com" &&
-                    event.data === "authCompleted"
+                    event.data.isAuthenticated === true
                   ) {
+                    // The user is authenticated
+                    setSignerUuid(event.data.signerUuid);
+                    setFid(event.data.fid);
+
                     // Close the authentication window if it's still open
                     if (authWindow) {
                       authWindow.close();
