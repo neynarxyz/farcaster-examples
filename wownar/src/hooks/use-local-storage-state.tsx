@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 
 type DeserializeFunction<T> = (value: string) => T;
@@ -13,31 +11,41 @@ interface UseLocalStorageStateOptions<T> {
 function useLocalStorage<T>(
   key: string,
   defaultValue: T | (() => T) = "" as T,
-  { serialize = JSON.stringify, deserialize = JSON.parse }: UseLocalStorageStateOptions<T> = {}
+  {
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+  }: UseLocalStorageStateOptions<T> = {}
 ): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   const [state, setState] = useState<T>(() => {
-    if (typeof window !== 'undefined') {
-      const valueInLocalStorage = window.localStorage.getItem(key);
-      if (valueInLocalStorage) {
-        try {
-          return deserialize(valueInLocalStorage);
-        } catch (error) {
-          window.localStorage.removeItem(key);
-        }
+    if (typeof window !== "undefined") {
+      try {
+        const valueInLocalStorage = window.localStorage.getItem(key);
+        return valueInLocalStorage
+          ? deserialize(valueInLocalStorage)
+          : defaultValue instanceof Function
+          ? defaultValue()
+          : defaultValue;
+      } catch (error) {
+        console.error("Error reading from localStorage:", error);
+        return defaultValue instanceof Function ? defaultValue() : defaultValue;
       }
     }
-    return typeof defaultValue === 'function' ? (defaultValue as () => T)() : defaultValue;
+    return defaultValue instanceof Function ? defaultValue() : defaultValue;
   });
 
   const prevKeyRef = useRef<string>(key);
 
   useEffect(() => {
     const prevKey = prevKeyRef.current;
-    if (prevKey !== key) {
+    if (prevKey !== key && typeof window !== "undefined") {
       window.localStorage.removeItem(prevKey);
     }
     prevKeyRef.current = key;
-    window.localStorage.setItem(key, serialize(state));
+    try {
+      window.localStorage.setItem(key, serialize(state));
+    } catch (error) {
+      console.error("Error writing to localStorage:", error);
+    }
   }, [key, state, serialize]);
 
   const removeItem = () => {

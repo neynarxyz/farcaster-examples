@@ -1,5 +1,4 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import {
   useContext,
@@ -7,14 +6,11 @@ import {
   useMemo,
   useState,
   FC,
-  Dispatch,
-  SetStateAction,
   ReactNode,
   useEffect,
   useCallback,
 } from "react";
 import axios, { AxiosError } from "axios";
-
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { removeSearchParams, verifyUser } from "@/utils/helpers";
 import { UserInfo } from "@/types";
@@ -22,7 +18,7 @@ import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { User } from "@neynar/nodejs-sdk/build/neynar-api/v1";
 
-type SetState<T> = Dispatch<SetStateAction<T>>;
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export enum ScreenState {
   Signin = "signin",
@@ -54,23 +50,22 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
-
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
     null
   );
 
   const lookupUser = useCallback(async () => {
-    if (user) {
+    if (user && user.fid) {
       try {
         const { data } = await axios.get<{ user: User }>(
           `/api/user/${user.fid}`
         );
-        setDisplayName(() => data.user.displayName);
-        setPfp(() => data.user.pfp.url);
+        setDisplayName(data.user.displayName);
+        setPfp(data.user.pfp.url);
       } catch (err) {
-        const { message } = (err as AxiosError).response?.data as ErrorRes;
-        toast(message, {
+        const axiosError = err as AxiosError<ErrorRes>;
+        toast(axiosError.response?.data.message || "An error occurred", {
           type: "error",
           theme: "dark",
           autoClose: 3000,
@@ -86,30 +81,23 @@ export const AppProvider: FC<Props> = ({ children }) => {
   }, [lookupUser]);
 
   const isUserLoggedIn = useCallback(async () => {
-    // Check if the user is logged in based on the presence of user data in local storage
-    const isLoggedIn = !!user;
-
-    // If the user is logged in, show them the home screen
-    if (isLoggedIn) {
+    if (user) {
       setScreen(ScreenState.Home);
     } else {
-      // If signer_uuid and fid are present in searchParams, remove them and show the home screen
       if (signerUuid && fid) {
         const verifiedUser = await verifyUser(signerUuid, fid);
-        if (!verifiedUser) {
-          removeUser();
-        } else {
+        if (verifiedUser) {
           setUser({ signerUuid, fid });
-          removeSearchParams();
-          window.location.reload();
           setScreen(ScreenState.Home);
+        } else {
+          removeUser();
+          setScreen(ScreenState.Signin);
         }
       } else {
-        // If signer_uuid and fid are not present in searchParams, show the signin screen
         setScreen(ScreenState.Signin);
       }
     }
-  }, [user, signerUuid, fid, removeUser, setUser]);
+  }, [user, signerUuid, fid, setUser, removeUser]);
 
   useEffect(() => {
     isUserLoggedIn();
@@ -128,18 +116,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
       fid,
       setFid,
     }),
-    [
-      screen,
-      setScreen,
-      displayName,
-      setDisplayName,
-      pfp,
-      setPfp,
-      signerUuid,
-      setSignerUuid,
-      fid,
-      setFid,
-    ]
+    [screen, displayName, pfp, signerUuid, fid]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
