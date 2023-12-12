@@ -50,10 +50,13 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
+  const searchParams = useSearchParams();
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
     null
   );
+
+  
 
   const lookupUser = useCallback(async () => {
     if (user && user.fid) {
@@ -77,6 +80,12 @@ export const AppProvider: FC<Props> = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
+    // Read from URL query params if we need to support old flow
+    // if (searchParams.get("signer_uuid") && searchParams.get("fid")) {
+    //     setSignerUuid(searchParams.get("signer_uuid"));
+    //     setFid(searchParams.get("fid"));
+    // }
+
     lookupUser();
   }, [lookupUser]);
 
