@@ -58,8 +58,8 @@ const Signin = () => {
           </h2>
           <div
             className="neynar_signin mt-6"
-            data-client_id="a1092b41-629f-45e0-b196-b3ff3a8f193f"
-            data-neynar_login_url="http://localhost:3001/login"
+            data-client_id={client_id}
+            data-neynar_login_url={neynar_login_url}
             data-success-callback="onSignInSuccess"
           ></div>
         </div>
