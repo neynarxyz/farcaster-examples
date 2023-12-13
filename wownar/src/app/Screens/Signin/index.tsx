@@ -1,20 +1,30 @@
-import Image from "next/image";
 import ScreenLayout from "../layout";
 import { getMessage, welcomeMessages } from "@/utils/helpers";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useApp } from "@/Context/AppContext";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 
+function useDynamicScript(url: string) {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = url;
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [url]);
+}
+
 const Signin = () => {
+  useDynamicScript("https://shreyaschorge.github.io/nsi/client.js");
   const [_, setUser] = useLocalStorage("user");
   const [isClient, setIsClient] = useState(false);
   const { setSignerUuid, setFid } = useApp();
   const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
   const redirect_uri = process.env.NEXT_PUBLIC_NEYNAR_REDIRECT_URI;
   const neynar_login_url = process.env.NEXT_PUBLIC_NEYNAR_LOGIN_URL;
-
-  const hasEventListener = useRef(false);
-  let authWindow = useRef<Window | null>(null);
 
   if (!neynar_login_url) {
     throw new Error("NEXT_PUBLIC_NEYNAR_LOGIN_URL is not defined in .env");
@@ -24,63 +34,21 @@ const Signin = () => {
   }
 
   useEffect(() => {
-    setIsClient(true);
+    window.onSignInSuccess = (data) => {
+      console.log("Sign-in success with data:", data);
+      setUser(data);
+      setSignerUuid(data.signer_uuid);
+      setFid(data.fid);
+    };
 
-    // Cleanup function to remove event listener when component unmounts
     return () => {
-      if (hasEventListener.current) {
-        window.removeEventListener("message", handleMessage);
-      }
+      delete window.onSignInSuccess; // Clean up the global callback
     };
   }, []);
 
-  const handleMessage = (event: MessageEvent) => {
-    const auth_origin = new URL(neynar_login_url).origin;
-    if (
-      event.origin === auth_origin &&
-      event.data.is_authenticated === true
-    ) {
-      setSignerUuid(event.data.signer_uuid);
-      setFid(event.data.fid);
-      setUser({ signerUuid: event.data.signer_uuid, fid: event.data.fid });
-
-      // Close the authentication window if it's still open
-      if (authWindow.current) {
-        authWindow.current.close();
-      }
-    }
-  };
-
-  function constructUrl(baseUrl: string | URL, queryParamsObj: { [x: string]: any; }) {
-    // Create a URL object with the base URL
-    const url = new URL(baseUrl);
-  
-    // Loop through the query parameters object and append them to the URL
-    for (const key in queryParamsObj) {
-      url.searchParams.append(key, queryParamsObj[key]);
-    }
-  
-    // Get the final URL as a string
-    return url.toString();
-  }
-
-  const handleOnClick = () => {    
-    if (!redirect_uri) {
-      window.addEventListener("message", handleMessage, false);
-      hasEventListener.current = true;
-    }
-
-    let query_params = {};
-    if (neynar_login_url) {
-      // Use the window.postMessage approach
-      query_params = { client_id: client_id };
-    // } else {
-    //   // Uses the redirect_uri approach
-    //   query_params = { client_id: client_id, redirect_uri: redirect_uri };
-    }
-    const auth_url = constructUrl(neynar_login_url, query_params);
-    authWindow.current = window.open(auth_url, "_blank");
-  };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <ScreenLayout>
@@ -89,21 +57,12 @@ const Signin = () => {
           <h2 className="text-4xl font-extralight mb-4">
             {isClient && getMessage(welcomeMessages)}
           </h2>
-          <button
-            onClick={handleOnClick}
-            className="border flex items-center border-white px-6 py-2 mt-6 rounded"
-          >
-            <span>
-              <Image
-                src="/logos/neynar.svg"
-                width={50}
-                height={50}
-                alt="Neynar Logo"
-              />
-            </span>
-            &nbsp;|&nbsp;
-            <span className="ml-2 text-lg mr-2">Sign In with Neynar</span>
-          </button>
+          <div
+            className="neynar_signin mt-6"
+            data-client_id="a1092b41-629f-45e0-b196-b3ff3a8f193f"
+            data-neynar_login_url="http://localhost:3001/login"
+            data-success-callback="onSignInSuccess"
+          ></div>
         </div>
       </main>
     </ScreenLayout>
