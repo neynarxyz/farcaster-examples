@@ -35,6 +35,7 @@ const Signin = () => {
 
   useEffect(() => {
     window.onSignInSuccess = (data) => {
+      console.log("onSignInSuccess", data);
       setUser(data);
       setSignerUuid(data.signer_uuid);
       setFid(data.fid);
@@ -61,7 +62,7 @@ const Signin = () => {
             data-client_id={client_id}
             data-neynar_login_url={neynar_login_url}
             data-success-callback="onSignInSuccess"
-            data-theme="dark"
+            data-theme="light"
           ></div>
         </div>
       </main>
