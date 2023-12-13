@@ -18,7 +18,7 @@ function useDynamicScript(url: string) {
 }
 
 const Signin = () => {
-  useDynamicScript("https://shreyaschorge.github.io/nsi/client.js");
+  useDynamicScript("https://neynarxyz.github.io/siwn/raw/1.0.0/index.js");
   const [_, setUser] = useLocalStorage("user");
   const [isClient, setIsClient] = useState(false);
   const { setSignerUuid, setFid } = useApp();
