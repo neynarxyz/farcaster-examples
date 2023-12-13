@@ -61,6 +61,7 @@ const Signin = () => {
             data-client_id={client_id}
             data-neynar_login_url={neynar_login_url}
             data-success-callback="onSignInSuccess"
+            data-theme="dark"
           ></div>
         </div>
       </main>
