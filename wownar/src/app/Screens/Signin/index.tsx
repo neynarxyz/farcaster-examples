@@ -36,7 +36,7 @@ const Signin = () => {
   useEffect(() => {
     window.onSignInSuccess = (data) => {
       setUser(data);
-      setSignerUuid(data.signer_uuid);
+      setSignerUuid(data.signerUuid);
       setFid(data.fid);
     };
 
