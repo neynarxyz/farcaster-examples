@@ -6,6 +6,7 @@ import Signout from "@/components/icons/Signout";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 interface Props {
@@ -44,14 +45,20 @@ const ScreenLayout = ({ children }: Props) => {
         )}
       </header>
       {children}
-      <footer className="flex justify-center items-center text-center p-4">
-        <span>Powered by</span>
-        <Image
-          src="/logos/powered-by-neynar.png"
-          height={150}
-          width={150}
-          alt="Neynar footer logo"
-        />
+      <footer className="flex flex-col justify-center items-center gap-y-6 text-center p-4">
+        <Link
+          href="https://docs.neynar.com/docs/how-to-let-users-connect-farcaster-accounts-with-write-access-for-free-using-sign-in-with-neynar-siwn"
+          target="_blank"
+        >
+          Connect Farcaster accounts for free using&nbsp;
+          <span className="font-bold">Sign in with Neynar</span>
+        </Link>
+        <Link
+          href="https://github.com/neynarxyz/farcaster-examples/tree/main/wownar"
+          target="_blank"
+        >
+          Github Repo -&gt; <span className="font-bold">Wownar</span>
+        </Link>
       </footer>
     </div>
   );
