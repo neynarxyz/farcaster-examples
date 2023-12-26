@@ -98,7 +98,7 @@ const Signin = () => {
   const [customLogoUrl, setCustomLogoUrl] = useState("");
 
   useDynamicScript(
-    "http://127.0.0.1:5500/client.js",
+    "https://neynarxyz.github.io/siwn/raw/1.2.0/index.js",
     theme,
     variant,
     logoSize,
