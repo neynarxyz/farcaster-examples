@@ -4,79 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useApp } from "@/Context/AppContext";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 
-function useDynamicScript(
-  url: string,
-  theme: string,
-  variant: string,
-  logoSize: string,
-  height: string,
-  width: string,
-  borderRadius: string,
-  fontSize: string,
-  fontWeight: string,
-  padding: string,
-  margin: string,
-  text: string,
-  color: string,
-  backgroundColor: string,
-  styles: string,
-  customLogoUrl: string
-): void {
-  useEffect(() => {
-    // Identify or create the script element
-    let script = document.getElementById(
-      "siwn-script"
-    ) as HTMLScriptElement | null;
-    if (!script) {
-      script = document.createElement("script");
-      script.id = "siwn-script";
-      document.body.appendChild(script);
-    }
-
-    // Set attributes and source of the script
-    script.src = url;
-    script.async = true;
-    script.setAttribute("data-theme", theme);
-    script.setAttribute("data-variant", variant);
-    script.setAttribute("data-logo_size", logoSize);
-    script.setAttribute("data-height", height);
-    script.setAttribute("data-width", width);
-    script.setAttribute("data-border_radius", borderRadius);
-    script.setAttribute("data-font_size", fontSize);
-    script.setAttribute("data-font_weight", fontWeight);
-    script.setAttribute("data-padding", padding);
-    script.setAttribute("data-margin", margin);
-    script.setAttribute("data-text", text);
-    script.setAttribute("data-color", color);
-    script.setAttribute("data-background_color", backgroundColor);
-    script.setAttribute("data-styles", styles);
-    script.setAttribute("data-custom_logo_url", customLogoUrl);
-    // Define a cleanup function to remove the script and its attribute
-    return () => {
-      if (script) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [
-    url,
-    theme,
-    variant,
-    logoSize,
-    height,
-    width,
-    borderRadius,
-    fontSize,
-    fontWeight,
-    padding,
-    margin,
-    text,
-    color,
-    backgroundColor,
-    styles,
-    customLogoUrl,
-  ]); // Re-run the effect when the theme changes
-}
-
 const Signin = () => {
   const [_, setUser] = useLocalStorage("user");
   const [isClient, setIsClient] = useState(false);
@@ -97,8 +24,53 @@ const Signin = () => {
   const [styles, setStyles] = useState("");
   const [customLogoUrl, setCustomLogoUrl] = useState("");
 
-  useDynamicScript(
-    "https://neynarxyz.github.io/siwn/raw/1.2.0/index.js",
+  useEffect(() => {
+    // Identify or create the script element
+    let script = document.getElementById(
+      "siwn-script"
+    ) as HTMLScriptElement | null;
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "siwn-script";
+      document.body.appendChild(script);
+    }
+
+    // Set attributes and source of the script
+    script.src = "https://neynarxyz.github.io/siwn/raw/1.2.0/index.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-variant", variant);
+    script.setAttribute("data-logo_size", logoSize);
+    script.setAttribute("data-height", height);
+    script.setAttribute("data-width", width);
+    script.setAttribute("data-border_radius", borderRadius);
+    script.setAttribute("data-font_size", fontSize);
+    script.setAttribute("data-font_weight", fontWeight);
+    script.setAttribute("data-padding", padding);
+    script.setAttribute("data-margin", margin);
+    script.setAttribute("data-text", text);
+    script.setAttribute("data-color", color);
+    script.setAttribute("data-background_color", backgroundColor);
+    script.setAttribute("data-styles", styles);
+    script.setAttribute("data-custom_logo_url", customLogoUrl);
+
+    return () => {
+      // Remove the script from the body
+      if (script) {
+        document.body.removeChild(script);
+      }
+
+      // Remove the button if it exists
+      let button = document.getElementById("siwn-button");
+      if (button && button.parentElement) {
+        button.parentElement.removeChild(button);
+      }
+    };
+  }, [
     theme,
     variant,
     logoSize,
@@ -113,8 +85,8 @@ const Signin = () => {
     color,
     backgroundColor,
     styles,
-    customLogoUrl
-  );
+    customLogoUrl,
+  ]);
 
   const { setSignerUuid, setFid } = useApp();
   const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
@@ -237,6 +209,7 @@ const Signin = () => {
           <h2 className="text-4xl font-extralight mb-4">
             {isClient && getMessage(welcomeMessages)}
           </h2>
+
           {getButton()}
           <div className="flex flex-wrap gap-4 justify-center items-center p-4 mt-20 max-w-6xl">
             {renderThemeDropdown(variant)}
@@ -368,7 +341,7 @@ const Signin = () => {
                 onChange={(e) => setStyles(e.target.value)}
                 type="text"
                 className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder={`{"margin": "10px"}`}
+                placeholder={`{"minWidth" : "300px"}`}
               />
             </div>
             <div className="flex flex-col items-start p-2 rounded shadow-sm">
