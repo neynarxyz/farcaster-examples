@@ -81,13 +81,15 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   castButton: {
-    backgroundColor: "white",
+    backgroundColor: "#000",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    borderColor: "white",
+    borderWidth: 1,
   },
   castButtonText: {
-    color: "black",
+    color: "white",
     fontSize: 16,
   },
   username: {
