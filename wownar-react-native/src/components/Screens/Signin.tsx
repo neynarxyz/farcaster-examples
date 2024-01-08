@@ -10,7 +10,7 @@ const Signin = () => {
       <Text style={styles.title}>Wowow Farcaster</Text>
       <TouchableOpacity onPress={handleSignIn} style={styles.signInButton}>
         <Image
-          source={require("../../../assets/favicon.png")} // Replace with your actual logo path
+          source={require("../../../assets/favicon.png")}
           style={styles.logo}
         />
         <Text style={styles.signInText}>Sign in with Neynar</Text>
