@@ -17,7 +17,9 @@ const Home: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello Shreyas...👋</Text>
+      <Text style={styles.greeting}>
+        Hello <Text style={styles.username}>Shreyas... 👋</Text>
+      </Text>
       <View style={styles.inputContainer}>
         <Image
           source={{
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   greeting: {
-    fontSize: 24,
+    fontSize: 30,
     color: "white",
     marginBottom: 16,
     flexDirection: "row",
@@ -87,6 +89,10 @@ const styles = StyleSheet.create({
   castButtonText: {
     color: "black",
     fontSize: 16,
+  },
+  username: {
+    fontWeight: "500",
+    fontSize: 30,
   },
 });
 
