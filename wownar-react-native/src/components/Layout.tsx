@@ -9,7 +9,6 @@ import {
   StatusBar,
   Image,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SignOutButton from "./SignoutButton";
 
 interface LayoutProps {
