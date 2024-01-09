@@ -11,7 +11,7 @@
   "dependencies": {
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",
-    "neynar-test": "^0.1.8",
+    "neynar-test": "^0.1.14",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
