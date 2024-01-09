@@ -1,4 +1,5 @@
 import { Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { NeynarSigninButton } from "neynar-test";
 
 const Signin = () => {
   const handleSignIn = () => {
@@ -7,14 +8,8 @@ const Signin = () => {
 
   return (
     <>
-      <Text style={styles.title}>Wowow Farcaster</Text>
-      <TouchableOpacity onPress={handleSignIn} style={styles.signInButton}>
-        <Image
-          source={require("../../../assets/favicon.png")}
-          style={styles.logo}
-        />
-        <Text style={styles.signInText}>Sign in with Neynar</Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>Wowow Farcaster...</Text>
+      <NeynarSigninButton onPress={handleSignIn} />
     </>
   );
 };
