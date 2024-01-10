@@ -9,7 +9,7 @@ const Signin = () => {
   return (
     <>
       <Text style={styles.title}>Wowow Farcaster</Text>
-      <NeynarSigninButton onPress={handleSignIn} />
+      <NeynarSigninButton />
     </>
   );
 };
