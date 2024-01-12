@@ -4916,10 +4916,10 @@ nested-error-stacks@~2.0.1:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.0.1.tgz#d2cc9fc5235ddb371fc44d506234339c8e4b0a4b"
   integrity sha512-SrQrok4CATudVzBS7coSz26QRSmlK9TzzoFbeKfcPBUFPjcQM9Rqvr/DlJkOrwI/0KcgvMub1n1g5Jt9EgRn4A==
 
-neynar-test@^0.1.20:
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/neynar-test/-/neynar-test-0.1.20.tgz#4dfdbae124b4d226299e94d260b09c8427da21c5"
-  integrity sha512-2FJWBOESHY4SELEdP1GD+Am6+pS02KTPasg5lR6pYysU4ozyGDzdG0FD5kW/BzEboXAHf35SFyBtS1XMz2wQ0g==
+neynar-test@^0.1.27:
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/neynar-test/-/neynar-test-0.1.27.tgz#067bfd07f5c7ceaeaf4776ec2bcda6bfe76312dc"
+  integrity sha512-yUkchNO9Rz+KRZ5NWkDCH8ErsM4UI6R8tyiG3VzhOHvi+j1iC9PSClT4NwT7pHhCD6w0yT25tSjTUmzK2aci2w==
   dependencies:
     expo-sensors "^12.5.0"
     react-native-svg "^14.1.0"

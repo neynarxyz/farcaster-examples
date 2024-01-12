@@ -2,14 +2,14 @@ import { Text, StyleSheet } from "react-native";
 import { NeynarSigninButton } from "neynar-test";
 
 const Signin = () => {
-  const handleSignIn = () => {
-    console.log("Sign in");
-  };
 
   return (
     <>
       <Text style={styles.title}>Wowow Farcaster</Text>
-      <NeynarSigninButton />
+      <NeynarSigninButton
+        apiKey="ntest"
+        clientId="50f40c78-a885-4290-8278-556a3c0b0ed4"
+      />
     </>
   );
 };
