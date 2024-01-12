@@ -8,7 +8,7 @@ const Signin = () => {
       <Text style={styles.title}>Wowow Farcaster</Text>
       <NeynarSigninButton
         apiKey="ntest"
-        clientId="50f40c78-a885-4290-8278-556a3c0b0ed4"
+        clientId=""
       />
     </>
   );
