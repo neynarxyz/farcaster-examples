@@ -3040,6 +3040,11 @@ dotenv-expand@~10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-10.0.0.tgz#12605d00fb0af6d0a592e6558585784032e4ef37"
   integrity sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==
 
+dotenv@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.3.1.tgz#369034de7d7e5b120972693352a3bf112172cc3e"
+  integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
+
 dotenv@~16.0.3:
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
@@ -4916,10 +4921,10 @@ nested-error-stacks@~2.0.1:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.0.1.tgz#d2cc9fc5235ddb371fc44d506234339c8e4b0a4b"
   integrity sha512-SrQrok4CATudVzBS7coSz26QRSmlK9TzzoFbeKfcPBUFPjcQM9Rqvr/DlJkOrwI/0KcgvMub1n1g5Jt9EgRn4A==
 
-neynar-test@^0.1.27:
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/neynar-test/-/neynar-test-0.1.27.tgz#067bfd07f5c7ceaeaf4776ec2bcda6bfe76312dc"
-  integrity sha512-yUkchNO9Rz+KRZ5NWkDCH8ErsM4UI6R8tyiG3VzhOHvi+j1iC9PSClT4NwT7pHhCD6w0yT25tSjTUmzK2aci2w==
+neynar-test@^0.1.28:
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/neynar-test/-/neynar-test-0.1.28.tgz#4f893e4247d38432e3ef036e65b485f00c62df45"
+  integrity sha512-IHUHSJToilEP/Nh+KYiptwTyU4Sji5wd5/h1JcuP074YE631rqH0ayUEEW/5z4RtxEmZKnLLBxr1+B4RCHQfHA==
   dependencies:
     expo-sensors "^12.5.0"
     react-native-svg "^14.1.0"
@@ -5482,6 +5487,11 @@ react-native-keyboard-aware-scroll-view@^0.9.5:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
+
+react-native-keychain@^8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-8.1.2.tgz#34291ae472878e5124d081211af5ede7d810e64f"
+  integrity sha512-bhHEui+yMp3Us41NMoRGtnWEJiBE0g8tw5VFpq4mpmXAx6XJYahuM6K3WN5CsUeUl83hYysSL9oFZNKSTPSvYw==
 
 react-native-svg@^14.1.0:
   version "14.1.0"
