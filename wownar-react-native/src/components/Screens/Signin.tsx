@@ -1,10 +1,12 @@
 import { Text, StyleSheet } from "react-native";
-import { ISuccessMessage, NeynarSigninButton } from "neynar-test";
-import { useState } from "react";
+import {
+  NeynarSigninButton,
+} from "@neynar-test/subfolder-test";
 import { NEYNAR_API_KEY, NEYNAR_CLIENT_ID } from "../../../constants";
+import { useApp } from "../../Context/AppContext";
 
 const Signin = () => {
-  const [data, setData] = useState<ISuccessMessage | null>(null);
+  const { handleSignin } = useApp();
 
   return (
     <>
@@ -12,9 +14,7 @@ const Signin = () => {
       <NeynarSigninButton
         apiKey={NEYNAR_API_KEY}
         clientId={NEYNAR_CLIENT_ID}
-        successCallback={(_data) => {
-          typeof data == "object" && setData(_data);
-        }}
+        successCallback={handleSignin}
       />
     </>
   );
