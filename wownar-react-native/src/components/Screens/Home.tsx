@@ -8,24 +8,26 @@ import {
   Image,
 } from "react-native";
 import Layout from "../Layout";
+import { useApp } from "../../Context/AppContext";
 
 const Home: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
+  const { displayName, pfp } = useApp();
 
   const handleCastPress = () => {
     console.log(inputValue);
   };
 
-  return (
+  return displayName && pfp ? (
     <Layout>
       <View style={styles.container}>
         <Text style={styles.greeting}>
-          Hello <Text style={styles.username}>Shreyas... 👋</Text>
+          Hello <Text style={styles.username}>{displayName}... 👋</Text>
         </Text>
         <View style={styles.inputContainer}>
           <Image
             source={{
-              uri: "https://demo.neynar.com/_next/image?url=https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg&w=96&q=75",
+              uri: pfp,
             }}
             style={styles.avatar}
           />
@@ -45,6 +47,10 @@ const Home: React.FC = () => {
         </TouchableOpacity>
       </View>
     </Layout>
+  ) : (
+    <View style={styles.loadingContainer}>
+      <Text style={styles.greeting}>Loading...</Text>
+    </View>
   );
 };
 
@@ -98,6 +104,13 @@ const styles = StyleSheet.create({
   username: {
     fontWeight: "500",
     fontSize: 30,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
   },
 });
 

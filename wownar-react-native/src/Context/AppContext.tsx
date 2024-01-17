@@ -46,6 +46,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setIsAuthenticated(false);
       return;
     }
+    await fetchUserAndSetUser(parseInt(user.fid));
     setSignerUuid(user.signer_uuid);
     setFid(user.fid);
     setIsAuthenticated(user.is_authenticated);
@@ -55,7 +56,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
     retrieveUserFromStorage();
   }, []);
 
-  const fetchUser = async (fid: number) => {
+  const fetchUserAndSetUser = async (fid: number) => {
     try {
       const response = await fetch(
         `https://api.neynar.com/v1/farcaster/user?fid=${fid}&api_key=${NEYNAR_API_KEY}`
@@ -80,7 +81,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
 
   const handleSignin = async (data: ISuccessMessage) => {
     storeUser(data);
-    await fetchUser(parseInt(data.fid));
+    await fetchUserAndSetUser(parseInt(data.fid));
     setIsAuthenticated(data.is_authenticated);
     setFid(data.fid);
     setSignerUuid(data.signer_uuid);
