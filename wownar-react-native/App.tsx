@@ -5,12 +5,7 @@ import {
   NavigationContainerRef,
 } from "@react-navigation/native";
 import { AppProvider, useApp } from "./src/Context/AppContext";
-import AppNavigator from "./src/AppNavigator";
-
-type RootStackParamList = {
-  Home: undefined;
-  Signin: undefined;
-};
+import AppNavigator, { RootStackParamList } from "./src/AppNavigator";
 
 const AuthNavigation: React.FC = () => {
   const { isAuthenticated } = useApp();
@@ -18,6 +13,11 @@ const AuthNavigation: React.FC = () => {
     useRef<NavigationContainerRef<RootStackParamList>>(null);
 
   useEffect(() => {
+    if (isAuthenticated === null) {
+      navigationRef.current?.navigate("Loading");
+      return;
+    }
+
     if (isAuthenticated) {
       navigationRef.current?.dispatch(
         CommonActions.reset({

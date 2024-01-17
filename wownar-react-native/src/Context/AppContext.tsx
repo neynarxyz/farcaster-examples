@@ -26,8 +26,8 @@ interface AppContextInterface {
   setSignerUuid: SetState<string | null>;
   fid: string | null;
   setFid: SetState<string | null>;
-  isAuthenticated: boolean;
-  setIsAuthenticated: SetState<boolean>;
+  isAuthenticated: boolean | null;
+  setIsAuthenticated: SetState<boolean | null>;
   handleSignin: (data: ISuccessMessage) => void;
 }
 
@@ -38,7 +38,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const retrieveUserFromStorage = async () => {
     const user = await retrieveUser();

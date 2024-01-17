@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Keyboard,
 } from "react-native";
 import Layout from "../Layout";
 import { useApp } from "../../Context/AppContext";
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleCastPress = async () => {
+    Keyboard.dismiss();
     if (inputValue === "") return;
     try {
       const rawResponse = await fetch(
