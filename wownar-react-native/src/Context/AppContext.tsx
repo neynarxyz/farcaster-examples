@@ -80,6 +80,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
   };
 
   const handleSignin = async (data: ISuccessMessage) => {
+    setIsAuthenticated(null);
     storeUser(data);
     await fetchUserAndSetUser(parseInt(data.fid));
     setIsAuthenticated(data.is_authenticated);
