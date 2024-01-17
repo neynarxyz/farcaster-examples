@@ -1,15 +1,48 @@
-import React from "react";
-import Layout from "./src/components/Layout";
-import Home from "./src/components/Screens/Home";
-import Signin from "./src/components/Screens/Signin";
-import { AppProvider } from "./src/Context/AppContext";
+// App.tsx
+import React, { useEffect, useRef } from "react";
+import {
+  CommonActions,
+  NavigationContainer,
+  NavigationContainerRef,
+} from "@react-navigation/native";
+import { AppProvider, useApp } from "./src/Context/AppContext";
+import AppNavigator from "./src/AppNavigator";
+
+type RootStackParamList = {
+  Home: undefined;
+  Signin: undefined;
+};
+
+const AuthNavigation: React.FC = () => {
+  const { isAuthenticated } = useApp();
+  const navigationRef =
+    useRef<NavigationContainerRef<RootStackParamList>>(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Reset the navigation stack and navigate to the Home screen
+      navigationRef.current?.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        })
+      );
+    } else {
+      // Navigate to the Signin screen
+      navigationRef.current?.navigate("Signin");
+    }
+  }, [isAuthenticated]);
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <AppNavigator />
+    </NavigationContainer>
+  );
+};
 
 const App: React.FC = () => {
   return (
     <AppProvider>
-      <Layout>
-        <Signin />
-      </Layout>
+      <AuthNavigation />
     </AppProvider>
   );
 };

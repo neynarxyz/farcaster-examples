@@ -1,4 +1,4 @@
-import { ISuccessMessage } from "@neynar-test/subfolder-test";
+import { ISuccessMessage } from "@neynar/react-native-signin";
 import {
   useContext,
   createContext,
@@ -11,11 +11,6 @@ import * as Keychain from "react-native-keychain";
 import { NEYNAR_API_KEY } from "../../constants";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
-
-export enum ScreenState {
-  Signin = "signin",
-  Home = "home",
-}
 
 interface Props {
   children: ReactNode;
@@ -68,9 +63,9 @@ export const AppProvider: FC<Props> = ({ children }) => {
   };
 
   const handleSignin = async (data: ISuccessMessage) => {
-    await Keychain.setGenericPassword("user", JSON.stringify(data));
+    // await Keychain.setGenericPassword("user", JSON.stringify(data));
     await fetchUser(parseInt(data.fid));
-    setIsAuthenticated(data.is_authenticated);
+    setIsAuthenticated(true);
     setFid(data.fid);
     setSignerUuid(data.signer_uuid);
   };

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import Layout from "../Layout";
 
 const Home: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -16,32 +17,34 @@ const Home: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.greeting}>
-        Hello <Text style={styles.username}>Shreyas... 👋</Text>
-      </Text>
-      <View style={styles.inputContainer}>
-        <Image
-          source={{
-            uri: "https://demo.neynar.com/_next/image?url=https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg&w=96&q=75",
-          }}
-          style={styles.avatar}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Say Something"
-          value={inputValue}
-          onChangeText={setInputValue}
-          placeholderTextColor="#b8b8b8ff"
-          multiline={true}
-          numberOfLines={8}
-          textAlignVertical="top"
-        />
+    <Layout>
+      <View style={styles.container}>
+        <Text style={styles.greeting}>
+          Hello <Text style={styles.username}>Shreyas... 👋</Text>
+        </Text>
+        <View style={styles.inputContainer}>
+          <Image
+            source={{
+              uri: "https://demo.neynar.com/_next/image?url=https%3A%2F%2Fi.imgur.com%2FLPzRlQl.jpg&w=96&q=75",
+            }}
+            style={styles.avatar}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Say Something"
+            value={inputValue}
+            onChangeText={setInputValue}
+            placeholderTextColor="#b8b8b8ff"
+            multiline={true}
+            numberOfLines={8}
+            textAlignVertical="top"
+          />
+        </View>
+        <TouchableOpacity style={styles.castButton} onPress={handleCastPress}>
+          <Text style={styles.castButtonText}>Cast</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.castButton} onPress={handleCastPress}>
-        <Text style={styles.castButtonText}>Cast</Text>
-      </TouchableOpacity>
-    </View>
+    </Layout>
   );
 };
 
