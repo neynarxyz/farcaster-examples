@@ -9,13 +9,43 @@ import {
 } from "react-native";
 import Layout from "../Layout";
 import { useApp } from "../../Context/AppContext";
+import { NEYNAR_API_KEY } from "../../../constants";
+import { Snackbar } from "react-native-paper";
 
 const Home: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
-  const { displayName, pfp } = useApp();
+  const { displayName, pfp, signerUuid } = useApp();
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  const handleCastPress = () => {
-    console.log(inputValue);
+  const handleCastPress = async () => {
+    if (inputValue === "") return;
+    try {
+      const rawResponse = await fetch(
+        "https://api.neynar.com/v2/farcaster/cast",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            api_key: NEYNAR_API_KEY,
+          },
+          body: JSON.stringify({
+            signer_uuid: signerUuid,
+            text: inputValue,
+          }),
+        }
+      );
+      if (!rawResponse.ok) throw new Error("Something went wrong");
+      const {
+        cast: { hash },
+      } = await rawResponse.json();
+      setSnackbarMessage(`Cast with hash ${hash} published successfully`);
+      setSnackbarVisible(true);
+      setInputValue("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return displayName && pfp ? (
@@ -45,6 +75,13 @@ const Home: React.FC = () => {
         <TouchableOpacity style={styles.castButton} onPress={handleCastPress}>
           <Text style={styles.castButtonText}>Cast</Text>
         </TouchableOpacity>
+        <Snackbar
+          visible={snackbarVisible}
+          onDismiss={() => setSnackbarVisible(false)}
+          style={{ backgroundColor: "#08bd0eff" }}
+        >
+          {snackbarMessage}
+        </Snackbar>
       </View>
     </Layout>
   ) : (
