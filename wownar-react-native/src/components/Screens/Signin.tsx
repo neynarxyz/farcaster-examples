@@ -5,7 +5,7 @@ import { useApp } from "../../Context/AppContext";
 import Layout from "../Layout";
 
 const Signin = () => {
-  const { handleSignin, isAuthenticated } = useApp();
+  const { handleSignin } = useApp();
 
   return (
     <Layout>
@@ -15,7 +15,6 @@ const Signin = () => {
         clientId={NEYNAR_CLIENT_ID}
         successCallback={handleSignin}
       />
-      <Text style={{ color: "white" }}>{`${isAuthenticated}`}</Text>
     </Layout>
   );
 };

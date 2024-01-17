@@ -6,9 +6,10 @@ import {
   useState,
   FC,
   ReactNode,
+  useEffect,
 } from "react";
-import * as Keychain from "react-native-keychain";
 import { NEYNAR_API_KEY } from "../../constants";
+import { retrieveUser, storeUser } from "../utils";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -39,10 +40,25 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [fid, setFid] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const retrieveUserFromStorage = async () => {
+    const user = await retrieveUser();
+    if (!user) {
+      setIsAuthenticated(false);
+      return;
+    }
+    setSignerUuid(user.signer_uuid);
+    setFid(user.fid);
+    setIsAuthenticated(user.is_authenticated);
+  };
+
+  useEffect(() => {
+    retrieveUserFromStorage();
+  }, []);
+
   const fetchUser = async (fid: number) => {
     try {
       const response = await fetch(
-        `https://api.neynar.com/v1/farcaster/user?fid=3&api_key=${NEYNAR_API_KEY}`
+        `https://api.neynar.com/v1/farcaster/user?fid=${fid}&api_key=${NEYNAR_API_KEY}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch user");
@@ -63,9 +79,9 @@ export const AppProvider: FC<Props> = ({ children }) => {
   };
 
   const handleSignin = async (data: ISuccessMessage) => {
-    // await Keychain.setGenericPassword("user", JSON.stringify(data));
+    storeUser(data);
     await fetchUser(parseInt(data.fid));
-    setIsAuthenticated(true);
+    setIsAuthenticated(data.is_authenticated);
     setFid(data.fid);
     setSignerUuid(data.signer_uuid);
   };

@@ -10,6 +10,8 @@ import {
   Image,
 } from "react-native";
 import SignOutButton from "./SignoutButton";
+import { useApp } from "../Context/AppContext";
+import { removeUser } from "../utils";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +19,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const handleSignIn = () => {};
+  const { isAuthenticated, setIsAuthenticated } = useApp();
 
   const handleOpenGithub = () => {
     const githubRepoUrl = "https://www.google.com";
@@ -24,7 +27,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const handleSignOut = () => {
-    console.log("Sign out");
+    setIsAuthenticated(false);
+    removeUser();
   };
 
   return (
@@ -38,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           />
           <Text style={styles.headerText}>Wownar</Text>
         </View>
-        <SignOutButton onPress={handleSignOut} />
+        {isAuthenticated && <SignOutButton onPress={handleSignOut} />}
       </View>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.content}>{children}</View>

@@ -20,7 +20,6 @@ const AuthNavigation: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Reset the navigation stack and navigate to the Home screen
       navigationRef.current?.dispatch(
         CommonActions.reset({
           index: 0,
@@ -28,10 +27,10 @@ const AuthNavigation: React.FC = () => {
         })
       );
     } else {
-      // Navigate to the Signin screen
       navigationRef.current?.navigate("Signin");
     }
   }, [isAuthenticated]);
+
   return (
     <NavigationContainer ref={navigationRef}>
       <AppNavigator />
