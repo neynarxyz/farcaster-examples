@@ -18,7 +18,9 @@ const Signin = () => {
         apiKey={NEYNAR_API_KEY}
         clientId={NEYNAR_CLIENT_ID}
         successCallback={handleSignin}
-        variant={Variant.FARCASTER}
+        
+// --------------- Customization options props --------------- 
+        // variant={Variant.FARCASTER} 
         // logoSize="40" // Only for variant not for customLogoUrl
         // paddingHorizontal={20}
         // paddingVertical={0}
