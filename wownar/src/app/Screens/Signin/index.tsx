@@ -39,24 +39,9 @@ const Signin = () => {
     // Set attributes and source of the script
     script.src = "https://neynarxyz.github.io/siwn/raw/1.2.0/index.js";
     script.async = true;
+    script.defer = true;
 
     document.body.appendChild(script);
-
-    script.setAttribute("data-theme", theme);
-    script.setAttribute("data-variant", variant);
-    script.setAttribute("data-logo_size", logoSize);
-    script.setAttribute("data-height", height);
-    script.setAttribute("data-width", width);
-    script.setAttribute("data-border_radius", borderRadius);
-    script.setAttribute("data-font_size", fontSize);
-    script.setAttribute("data-font_weight", fontWeight);
-    script.setAttribute("data-padding", padding);
-    script.setAttribute("data-margin", margin);
-    script.setAttribute("data-text", text);
-    script.setAttribute("data-color", color);
-    script.setAttribute("data-background_color", backgroundColor);
-    script.setAttribute("data-styles", styles);
-    script.setAttribute("data-custom_logo_url", customLogoUrl);
 
     return () => {
       // Remove the script from the body
