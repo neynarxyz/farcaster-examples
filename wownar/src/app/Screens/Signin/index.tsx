@@ -39,6 +39,7 @@ const Signin = () => {
     // Set attributes and source of the script
     script.src = "https://neynarxyz.github.io/siwn/raw/1.2.0/index.js";
     script.async = true;
+    script.defer = true;
 
     document.body.appendChild(script);
 
