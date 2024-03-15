@@ -6,14 +6,10 @@ import {
   SIGNER_UUID,
   TIME_ZONE,
   NEYNAR_API_KEY,
-  FARCASTER_BOT_MNEMONIC,
 } from "./config";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 // Validating necessary environment variables or configurations.
-if (!FARCASTER_BOT_MNEMONIC) {
-  throw new Error("FARCASTER_BOT_MNEMONIC is not defined");
-}
 if (!SIGNER_UUID) {
   throw new Error("SIGNER_UUID is not defined");
 }
