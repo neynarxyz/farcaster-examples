@@ -76,8 +76,11 @@ const Signin = () => {
   const { setSignerUuid, setFid } = useApp();
   const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
   const redirect_uri = process.env.NEXT_PUBLIC_NEYNAR_REDIRECT_URI;
-  const neynar_login_url = "https://app.neynar.com/login";
+  const neynar_login_url = process.env.NEXT_PUBLIC_NEYNAR_LOGIN_URL;
 
+  if (!neynar_login_url) {
+    throw new Error("NEXT_PUBLIC_NEYNAR_LOGIN_URL is not defined in .env");
+  }
   if (!client_id) {
     throw new Error("NEXT_PUBLIC_NEYNAR_CLIENT_ID is not defined in .env");
   }
