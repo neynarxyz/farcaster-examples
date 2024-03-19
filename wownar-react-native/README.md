@@ -28,7 +28,7 @@
      ```
    - Edit `.env` to add your `NEYNAR_API_KEY` and `NEYNAR_CLIENT_ID`.
 
-## Running the Bot
+## Running the App
 
 1. **Start the app**: Launch the app using the following command:
 
