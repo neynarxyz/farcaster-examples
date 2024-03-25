@@ -1642,10 +1642,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neynar/react-native-signin@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@neynar/react-native-signin/-/react-native-signin-0.2.3.tgz#f35ec1688349653174b1f589f011a025daba303f"
-  integrity sha512-oJv9B6b9u/x9h8vMG70OqW3OK/eBpSSTLzhduj4Ky97Z5+TtA1nli8pZRZgOdsgUd9o8lt0doFmNOF6cCX3HVg==
+"@neynar/react-native-signin@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@neynar/react-native-signin/-/react-native-signin-0.2.4.tgz#998493fb9ee33a2d09ba264d6cf77343c8771fb9"
+  integrity sha512-UN73sQrlKRiZF5WWm2LWGw1LPmKvMkP6UNTYdXhv7+ik3WfMEilM+sKAfiqwWkiaITz1LBu3HOcQrtJu9VoDVw==
   dependencies:
     expo-sensors "^12.5.0"
     react-native-svg "^14.1.0"
@@ -3363,9 +3363,9 @@ expo-secure-store@~12.3.1:
   integrity sha512-XLIgWDiIuiR0c+AA4NCWWibAMHCZUyRcy+lQBU49U6rvG+xmd3YrBJfQjfqAPyLroEqnLPGTWUX57GyRsfDOQw==
 
 expo-sensors@^12.5.0:
-  version "12.9.0"
-  resolved "https://registry.yarnpkg.com/expo-sensors/-/expo-sensors-12.9.0.tgz#f9d0a0b9b654285b00cbdcb081e0a1c08cf20c4c"
-  integrity sha512-yqywSbeEAI+eoi7Wyzlsurmp1G4v2LW6vxBQfSHyc4G1h1jw3Nr7ZkJWDiUnolL4TC95Zs5rL1X+WLSNE/NG7g==
+  version "12.9.1"
+  resolved "https://registry.yarnpkg.com/expo-sensors/-/expo-sensors-12.9.1.tgz#d7c856782ffcfa0860b2a713ab768f3fb197608b"
+  integrity sha512-G2WYHO+RMU9Vj7wvzjV3lPMPDEBvS3S9/oYs1ToaaS4LR6VH8Dr2pJqspS7n8GFq+n5ftEi/2oqE4EizlHX/lQ==
   dependencies:
     invariant "^2.2.4"
 
