@@ -1,6 +1,4 @@
-# Farcaster frames bot
-
-# Create a bot to reply with frames using neynar
+# Create a Farcaster bot to reply with frames using neynar
 
 In this guide, we’ll take a look at how to create a Farcaster bot that replies to specific keywords with a frame created on the go specifically for the reply! Here’s an example of the same:
 
@@ -30,7 +28,7 @@ cd frames-bot
 bun init
 ```
 
-We are going to need the `@neynar/nodejs-sdk` , so let’s install that as well:
+We are going to need the `@neynar/nodejs-sdk`, so let’s install that as well:
 
 ```tsx
 bun add @neynar/nodejs-sdk
@@ -53,7 +51,7 @@ const server = Bun.serve({
 console.log(`Listening on localhost:${server.port}`);
 ```
 
-This, creates a server using bun which we will be using soon!
+This creates a server using bun which we will be using soon!
 
 Finally, run the server using the following command:
 
@@ -63,7 +61,7 @@ bun run index.ts
 
 ### Serve the app via ngrok
 
-We’ll serve the app using ngrok, so that we can use this URL in the webhook. If you don’t already have it installed, install it from [here](https://ngrok.com/download). Once it’s installed authenticate using your authtoken and serve your app using this command:
+We’ll serve the app using ngrok so, we can use this URL in the webhook. If you don’t already have it installed, install it from [here](https://ngrok.com/download). Once it’s installed authenticate using your auth token and serve your app using this command:
 
 ```bash
 ngrok http http://localhost:3000
@@ -73,7 +71,7 @@ ngrok http http://localhost:3000
 
 ## Creating a webhook
 
-We need to create a webhook on the neynar dashboard that will listen for certain words/mentions and all our server which will then reply to the cast. So, head over to the neynar dashboard and go to the [webhooks tab](https://dev.neynar.com/webhook). Click on new webhook and enter the details as such:
+We need to create a webhook on the neynar dashboard that will listen for certain words/mentions and call our server which will then reply to the cast. So, head over to the neynar dashboard and go to the [webhooks tab](https://dev.neynar.com/webhook). Click on new webhook and enter the details as such:
 
 ![Create a new webhook on the neynar dashboard](https://github.com/neynarxyz/farcaster-examples/assets/76690419/81b65ce0-5b3a-4856-b1e5-7f46c2c648cd)
 
