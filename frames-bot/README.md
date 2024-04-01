@@ -12,6 +12,8 @@ For this guide, we'll go over:
 2. Creating a bot which replies to the casts
 3. Creating frames dynamically using the neynar SDK
 
+Before we begin, you can access the [complete source code](https://github.com/neynarxyz/farcaster-examples/tree/main/frames-bot) for this guide on GitHub.
+
 Let's get started!
 
 ## Setting up our server
@@ -75,96 +77,7 @@ We need to create a webhook on the neynar dashboard that will listen for certain
 
 ![Create a new webhook on the neynar dashboard](https://github.com/neynarxyz/farcaster-examples/assets/76690419/643fb19c-c19d-4534-8e30-fd567a845301)
 
-The target URL should be the URL you got from the ngrok command and you can select whichever event you want to listen to. I’ve chosen to listen to all the casts with “farcasterframesbot” in it. Once you have entered all the info click on create and copy the webhook secret:
-
-![Copy the webhook secret](https://github.com/neynarxyz/farcaster-examples/assets/76690419/7ec521a0-3de1-4da6-ab3d-20ee0f902824)
-
-Create a new file `.env` in your folder and add the webhook secret:
-
-```tsx
-NEYNAR_WEBHOOK_SECRET = "PASTE_SECRET";
-```
-
-Now, head back to the `index.ts` file and add the following in the try block:
-
-```tsx
-const body = await req.text();
-const sig = req.headers.get("X-Neynar-Signature");
-if (!sig) {
-  throw new Error("Neynar signature missing from request headers");
-}
-
-const webhookSecret = process.env.NEYNAR_WEBHOOK_SECRET;
-if (!webhookSecret) {
-  throw new Error("Make sure you set NEYNAR_WEBHOOK_SECRET in your .env file");
-}
-
-const hmac = createHmac("sha512", webhookSecret);
-hmac.update(body);
-
-const generatedSignature = hmac.digest("hex");
-
-const isValid = generatedSignature === sig;
-if (!isValid) {
-  throw new Error("Invalid webhook signature");
-}
-
-const hookData = JSON.parse(body);
-console.log("hookData:", hookData);
-```
-
-We also need to import `createHmac` from the crypto package:
-
-```tsx
-import { createHmac } from "crypto";
-```
-
-This block of code gets the signature from the req and checks if it is a valid signature by matching it against a signature generated using our webhook secret. Your `index.ts` should look similar to this, at this point:
-
-```tsx
-import { createHmac } from "crypto";
-
-const server = Bun.serve({
-  port: 3000,
-  async fetch(req) {
-    try {
-      const body = await req.text();
-      const sig = req.headers.get("X-Neynar-Signature");
-      if (!sig) {
-        throw new Error("Neynar signature missing from request headers");
-      }
-
-      const webhookSecret = process.env.NEYNAR_WEBHOOK_SECRET;
-      if (!webhookSecret) {
-        throw new Error(
-          "Make sure you set NEYNAR_WEBHOOK_SECRET in your .env file"
-        );
-      }
-
-      const hmac = createHmac("sha512", webhookSecret);
-      hmac.update(body);
-
-      const generatedSignature = hmac.digest("hex");
-
-      const isValid = generatedSignature === sig;
-      if (!isValid) {
-        throw new Error("Invalid webhook signature");
-      }
-
-      const hookData = JSON.parse(body);
-      console.log("hookData:", hookData);
-
-      return new Response("Welcome to bun!");
-    } catch (e: any) {
-      return new Response(e.message, { status: 500 });
-    }
-  },
-});
-
-console.log(`Listening on localhost:${server.port}`);
-```
-
-Now, that we have our webhook setup let’s get our bot up and running so we can reply to casts!
+The target URL should be the URL you got from the ngrok command and you can select whichever event you want to listen to. I’ve chosen to listen to all the casts with “farcasterframesbot” in it. Once you have entered all the info click on create, and it will create a webhook for you.
 
 ## Creating the bot
 
@@ -172,9 +85,14 @@ Head over to the [app section](https://dev.neynar.com/app) in the [neynar dashbo
 
 ![Copy the signer uuid for the bot](https://github.com/neynarxyz/farcaster-examples/assets/76690419/a6a56060-612c-4ff1-bf67-b01a0b43bcf3)
 
-Create a new variable `SIGNER_UUID` in `.env` and add the signer UUID in it.
+Create a new `.env` file in the root of your project and add the following:
 
-We are also going to need the `NEYNAR_API_KEY` in `.env` which you can get from the overview section:
+```bash
+SIGNER_UUID=your_signer_uuid
+NEYNAR_API_KEY=your_neynar_api_key
+```
+
+Add the signer UUID to the `SIGNER_UUID` and the neynar api key to the `NEYNAR_API_KEY` which you can get from the overview section of the neynar dashboard:
 
 ![Copy neynar api key from the dashboard](https://github.com/neynarxyz/farcaster-examples/assets/76690419/f55d7ee4-a2d2-4c61-ac0f-bf7074a80a60)
 
@@ -192,12 +110,15 @@ const neynarClient = new NeynarAPIClient(process.env.NEYNAR_API_KEY);
 export default neynarClient;
 ```
 
-Here we initialise the neynar client which we can use to publish casts. Head back to `index.ts` and add this:
+Here we initialise the neynar client which we can use to publish casts. Head back to `index.ts` and add this inside the try block:
 
 ```tsx
 if (!process.env.SIGNER_UUID) {
   throw new Error("Make sure you set SIGNER_UUID in your .env file");
 }
+
+const body = await req.text();
+const hookData = JSON.parse(body);
 
 const reply = await neynarClient.publishCast(
   process.env.SIGNER_UUID,
@@ -209,13 +130,19 @@ const reply = await neynarClient.publishCast(
 console.log("reply:", reply);
 ```
 
+You also need to import the neynar client in the `index.ts` file:
+
+```tsx
+import neynarClient from "./neynarClient";
+```
+
 This will now reply to every cast that has the word “farcasterframesbot” in it with a gm. Pretty cool, right?
 
 Let’s take this a step further and reply with a frame instead of boring texts!
 
 ## Creating the frame
 
-We’ll now generate a unique frame for every user on the fly using neynar frames. To create the frame add the following code in `index.ts`:
+We’ll now generate a unique frame for every user on the fly using neynar frames. To create the frame add the following code in `index.ts` before the reply:
 
 ```tsx
 const creationRequest: NeynarFrameCreationRequest = {
@@ -242,12 +169,37 @@ const creationRequest: NeynarFrameCreationRequest = {
 const frame = await neynarClient.publishNeynarFrame(creationRequest);
 ```
 
-You can edit the metadata here, I have just added a simple gm image but you can go crazy with it! Check out some templates in the [frame studio](https://dev.neynar.com/frames) for example. Anyways let’s continue building, putting it all together your final `index.ts` file should look similar to [this](https://github.com/avneesh0612/farcaster-bot-frames/blob/main/index.ts).
+You can edit the metadata here, I have just added a simple gm image but you can go crazy with it! Check out some templates in the [frame studio](https://dev.neynar.com/frames) for example.
+
+Anyways let’s continue building, you also need to add the frame as an embed in the reply body like this:
+
+```tsx
+const reply = await neynarClient.publishCast(
+  process.env.SIGNER_UUID,
+  `gm ${hookData.data.author.username}`,
+  {
+    replyTo: hookData.data.hash,
+    embeds: [
+      {
+        url: frame.link,
+      },
+    ],
+  }
+);
+```
+
+Putting it all together your final `index.ts` file should look similar to [this](https://github.com/neynarxyz/farcaster-examples/blob/main/frames-bot/index.ts).
+
+Don't forget to restart your server after making these changes!
+
+```bash
+bun run index.ts
+```
 
 You can now create a cast on Farcaster and your webhook should be working just fine! 🥳
 
 ## Conclusion
 
-This guide taught us how to create a Farcaster bot that replies to specific keywords with a frame created on the go!
+This guide taught us how to create a Farcaster bot that replies to specific keywords with a frame created on the go! If you want to look at the completed code, check out the [GitHub repository](https://github.com/neynarxyz/farcaster-examples/tree/main/frames-bot).
 
 Lastly, make sure to sure what you built with us on Farcaster by tagging [@neynar](https://warpcast.com/neynar) and if you have any questions, reach out to us on [warpcast](https://warpcast.com/~/channel/neynar) or [Telegram](https://t.me/rishdoteth)!
