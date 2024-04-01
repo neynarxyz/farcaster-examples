@@ -75,7 +75,7 @@ ngrok http http://localhost:3000
 
 We need to create a webhook on the neynar dashboard that will listen for certain words/mentions and all our server which will then reply to the cast. So, head over to the neynar dashboard and go to the [webhooks tab](https://dev.neynar.com/webhook). Click on new webhook and enter the details as such:
 
-![Create a new webhook on the neynar dashboard](https://github.com/neynarxyz/farcaster-examples/assets/76690419/643fb19c-c19d-4534-8e30-fd567a845301)
+![Create a new webhook on the neynar dashboard](https://github.com/neynarxyz/farcaster-examples/assets/76690419/81b65ce0-5b3a-4856-b1e5-7f46c2c648cd)
 
 The target URL should be the URL you got from the ngrok command and you can select whichever event you want to listen to. I’ve chosen to listen to all the casts with “farcasterframesbot” in it. Once you have entered all the info click on create, and it will create a webhook for you.
 
