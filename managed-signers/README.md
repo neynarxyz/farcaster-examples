@@ -30,7 +30,6 @@
    🔔 Notes:
 
    - NEYNAR_API_KEY: If you need one, sign up on [https://neynar.com](https://neynar.com)
-   - FARCASTER_DEVELOPER_FID: Visit [https://vasco.wtf/YOUR_APP_FNAME](https://vasco.wtf/YOUR_APP_FNAME) to lookup of your FARCASTER_DEVELOPER_FID if needed. e.g. [Neynar's](https://vasco.wtf/neynar) fid is 6131
    - FARCASTER_DEVELOPER_MNEMONIC: The 12 or 24 word recovery phrase for the Farcaster account. Make sure the value is within single quotes.
    - A farcaster developer account is the same as any farcaster account. You can use your personal account as a farcaster developer account e.g. https://warpcast.com/manan or your company / branded developer account like https://warpcast.com/neynar
 

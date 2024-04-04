@@ -1,17 +1,13 @@
 import { mnemonicToAccount } from "viem/accounts";
+import { getFid } from "./getFid";
 
 export const generate_signature = async function (public_key: string) {
-  if (
-    typeof process.env.FARCASTER_DEVELOPER_MNEMONIC === "undefined" ||
-    typeof process.env.FARCASTER_DEVELOPER_FID === "undefined"
-  ) {
-    throw new Error(
-      "FARCASTER_DEVELOPER_MNEMONIC or FARCASTER_DEVELOPER_FID is not defined"
-    );
+  if (typeof process.env.FARCASTER_DEVELOPER_MNEMONIC === "undefined") {
+    throw new Error("FARCASTER_DEVELOPER_MNEMONIC is not defined");
   }
 
   const FARCASTER_DEVELOPER_MNEMONIC = process.env.FARCASTER_DEVELOPER_MNEMONIC;
-  const FARCASTER_DEVELOPER_FID = process.env.FARCASTER_DEVELOPER_FID;
+  const FID = await getFid();
 
   // DO NOT CHANGE ANY VALUES IN THIS CONSTANT
   const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
@@ -44,7 +40,7 @@ export const generate_signature = async function (public_key: string) {
     },
     primaryType: "SignedKeyRequest",
     message: {
-      requestFid: BigInt(FARCASTER_DEVELOPER_FID),
+      requestFid: BigInt(FID),
       key: public_key,
       deadline: BigInt(deadline),
     },

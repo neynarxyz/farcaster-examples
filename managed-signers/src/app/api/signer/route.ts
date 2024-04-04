@@ -1,5 +1,6 @@
 import neynarClient from "@/lib/neynarClient";
 import { generate_signature } from "@/utils/generateSignature";
+import { getFid } from "@/utils/getFid";
 import { NextResponse } from "next/server";
 
 export async function POST() {
@@ -10,9 +11,11 @@ export async function POST() {
       createSigner.public_key
     );
 
+    const fid = await getFid();
+
     const signedKey = await neynarClient.registerSignedKey(
       createSigner.signer_uuid,
-      Number(process.env.FARCASTER_DEVELOPER_FID),
+      Number(fid),
       deadline,
       signature
     );
