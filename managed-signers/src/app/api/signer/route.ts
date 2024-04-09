@@ -1,24 +1,10 @@
 import neynarClient from "@/lib/neynarClient";
-import { generate_signature } from "@/utils/generateSignature";
-import { getFid } from "@/utils/getFid";
+import { getSignedKey } from "@/utils/getSignedKey";
 import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
-    const createSigner = await neynarClient.createSigner();
-
-    const { deadline, signature } = await generate_signature(
-      createSigner.public_key
-    );
-
-    const fid = await getFid();
-
-    const signedKey = await neynarClient.registerSignedKey(
-      createSigner.signer_uuid,
-      Number(fid),
-      deadline,
-      signature
-    );
+    const signedKey = await getSignedKey();
 
     return NextResponse.json(signedKey, {
       status: 200,
@@ -30,11 +16,17 @@ export async function POST() {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
+  const signer_uuid = searchParams.get("signer_uuid");
+
+  if (!signer_uuid) {
+    return NextResponse.json(
+      { error: "signer_uuid is required" },
+      { status: 400 }
+    );
+  }
 
   try {
-    const signer = await neynarClient.lookupSigner(
-      searchParams.get("signer_uuid")!
-    );
+    const signer = await neynarClient.lookupSigner(signer_uuid);
 
     return NextResponse.json(signer, { status: 200 });
   } catch (error) {

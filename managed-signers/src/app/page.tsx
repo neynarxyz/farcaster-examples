@@ -5,6 +5,8 @@ import axios from "axios";
 import QRCode from "qrcode.react";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import { User } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import Image from "next/image";
 
 interface FarcasterUser {
   signer_uuid: string;
@@ -22,6 +24,7 @@ export default function Home() {
   const [text, setText] = useState<string>("");
   const [isCasting, setIsCasting] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const storedData = localStorage.getItem(LOCAL_STORAGE_KEYS.FARCASTER_USER);
@@ -95,7 +98,6 @@ export default function Home() {
         text: castText,
         signer_uuid: farcasterUser?.signer_uuid,
       });
-      console.log("response", response);
       if (response.status === 200) {
         setText(""); // Clear the text field
         displayToast(); // Show the toast
@@ -113,6 +115,21 @@ export default function Home() {
       setShowToast(false);
     }, 2000);
   };
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`/api/user?fid=${farcasterUser?.fid}`);
+      setUser(response.data);
+    } catch (error) {
+      console.error("Could not fetch the user", error);
+    }
+  };
+
+  useEffect(() => {
+    if (farcasterUser?.status === "approved") {
+      fetchUser();
+    }
+  }, [farcasterUser]);
 
   return (
     <div className={styles.container}>
@@ -137,15 +154,24 @@ export default function Home() {
               rel="noopener noreferrer"
               className={styles.link}
             >
-              Click here to view the signer URL
+              Click here to view the signer URL (on mobile)
             </a>
           </div>
         )}
 
       {farcasterUser?.status == "approved" && (
-        <div>
+        <div className={styles.castSection}>
           <div className={styles.userInfo}>
-            {`You are logged in as fid ${farcasterUser.fid}`}
+            {user?.pfp_url && (
+              <Image
+                src={user?.pfp_url}
+                alt={user?.display_name || ""}
+                width={100}
+                height={100}
+                className={styles.profilePic}
+              />
+            )}
+            Hello {user?.display_name} 👋
           </div>
           <div className={styles.castContainer}>
             <textarea

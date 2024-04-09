@@ -12,5 +12,5 @@ export const getFid = async () => {
   const { user: farcasterDeveloper } =
     await neynarClient.lookupUserByCustodyAddress(account.address);
 
-  return farcasterDeveloper.fid;
+  return Number(farcasterDeveloper.fid);
 };
