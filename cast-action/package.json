@@ -1,0 +1,20 @@
+{
+  "name": "cast-action-bun",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "frog dev",
+    "serve": "bun run src/index.tsx",
+    "build": "bun build src/index.tsx"
+  },
+  "dependencies": {
+    "@neynar/nodejs-sdk": "^1.16.0",
+    "dotenv": "^16.4.5",
+    "frog": "latest",
+    "hono": "^4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bun": "latest"
+  }
+}
