@@ -1642,10 +1642,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@neynar/react-native-signin@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@neynar/react-native-signin/-/react-native-signin-0.2.7.tgz#1681682f507bdf6298e903ca952ef024fa36223c"
-  integrity sha512-1/Xp37N/xPMO2ElmglbG/FRFq8cPsoEo6IrMFlYGeUNni9zapj5SBXxH1Hqg3q3Xw9mud7ucTWLS3D95aupw5g==
+"@neynar/react-native-signin@^0.2.8":
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/@neynar/react-native-signin/-/react-native-signin-0.2.8.tgz#406c47836df6014e02163c51e577498ebe01e8ac"
+  integrity sha512-gY4CIZZTkTk88gkZIU3pD2zMCGJGLykwC1AZBOEuUJfbr85B3xwICwtDaxPyO0VHr6Rptsr7AkOPQ2D27HFKuw==
   dependencies:
     expo-sensors "^12.5.0"
     react-native-svg "^14.1.0"
