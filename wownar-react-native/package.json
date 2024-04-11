@@ -9,7 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@neynar/react-native-signin": "^0.2.8",
+    "@neynar/react-native-signin": "^1.0.2",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "dotenv": "^16.3.1",

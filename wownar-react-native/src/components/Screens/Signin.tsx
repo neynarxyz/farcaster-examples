@@ -1,26 +1,34 @@
 import { Text, StyleSheet } from "react-native";
-import {
-  NeynarSigninButton,
-  Theme,
-  Variant,
-} from "@neynar/react-native-signin";
-import { NEYNAR_API_KEY, NEYNAR_CLIENT_ID } from "../../../constants";
+import { NeynarSigninButton } from "@neynar/react-native-signin";
 import { useApp } from "../../Context/AppContext";
 import Layout from "../Layout";
+import { NEYNAR_API_KEY, NEYNAR_CLIENT_ID } from "../../../constants";
 
 const Signin = () => {
   const { handleSignin } = useApp();
+
+  // This function should be an API call to your server where NEYNAR_API_KEY and NEYNAR_CLIENT_ID are stored securely
+  const fetchAuthorizationUrl = async () => {
+    const res = await fetch(
+      `https://api.neynar.com/v2/farcaster/login/authorize?api_key=${NEYNAR_API_KEY}&response_type=code&client_id=${NEYNAR_CLIENT_ID}`
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch auth url");
+    }
+    const { authorization_url } = (await res.json()) as {
+      authorization_url: string;
+    };
+    return authorization_url;
+  };
 
   return (
     <Layout>
       <Text style={styles.title}>Wowow Farcaster</Text>
       <NeynarSigninButton
-        apiKey={NEYNAR_API_KEY}
-        clientId={NEYNAR_CLIENT_ID}
+        fetchAuthorizationUrl={fetchAuthorizationUrl}
         successCallback={handleSignin}
-        
-// --------------- Customization options props --------------- 
-        // variant={Variant.FARCASTER} 
+        // --------------- Customization options props ---------------
+        // variant={Variant.FARCASTER}
         // logoSize="40" // Only for variant not for customLogoUrl
         // paddingHorizontal={20}
         // paddingVertical={0}
