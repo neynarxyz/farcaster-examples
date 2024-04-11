@@ -17,6 +17,6 @@ export async function GET() {
     return NextResponse.json({ authorization_url }, { status: 200 });
   } catch (err) {
     console.log("/api/get-auth-url", err);
-    return NextResponse.json({ message: err.message }, { status: 500 });
+    return NextResponse.json({ err }, { status: 500 });
   }
 }
