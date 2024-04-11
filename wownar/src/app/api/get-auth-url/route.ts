@@ -7,7 +7,7 @@ export async function GET() {
         .NEYNAR_API_KEY!}&response_type=code&client_id=${
         process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID
       }`,
-      { cache: "no-store" }
+      { cache: "no-store", next: { revalidate: 0 } }
     );
 
     if (!response.ok)
