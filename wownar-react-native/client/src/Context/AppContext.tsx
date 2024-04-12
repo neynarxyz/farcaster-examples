@@ -8,7 +8,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { NEYNAR_API_KEY } from "../../constants";
+import { NEYNAR_API_KEY, SERVER_IP } from "../../constants";
 import { retrieveUser, storeUser } from "../utils";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
@@ -58,22 +58,13 @@ export const AppProvider: FC<Props> = ({ children }) => {
 
   const fetchUserAndSetUser = async (fid: number) => {
     try {
-      const response = await fetch(
-        `https://api.neynar.com/v1/farcaster/user?fid=${fid}&api_key=${NEYNAR_API_KEY}`
-      );
+      const response = await fetch(`http://${SERVER_IP}:5500/user?fid=${fid}`);
       if (!response.ok) {
         throw new Error("Failed to fetch user");
       }
-      const {
-        result: {
-          user: {
-            displayName,
-            pfp: { url },
-          },
-        },
-      } = await response.json();
+      const { displayName, pfp_url } = await response.json();
       setDisplayName(displayName);
-      setPfp(url);
+      setPfp(pfp_url);
     } catch (err) {
       console.log(err);
     }
