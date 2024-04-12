@@ -9,41 +9,102 @@
 - [Node.js](https://nodejs.org/en/): A JavaScript runtime built on Chrome's V8 JavaScript engine. Ensure you have Node.js installed on your system.
 - [Expo Go](https://expo.dev/client): Install Expo Go on your phone
 
-## Installation
+## Installation and Setup Environment
 
-### Setting Up the Environment
+### Server
 
-1. **Install Project Dependencies**: Navigate to the project directory and run one of the following commands to install all required dependencies:
+1. **Navigate to server directory**: Navigate to the server directory
+
+   ```bash
+   cd server
+   ```
+
+2. **Install Project Dependencies**: Based on the package manager run one of the following commands to install all required dependencies:
+
+   For yarn
 
    ```bash
    yarn install
-   # or
+   ```
+
+   For npm
+
+   ```bash
    npm install
    ```
 
-2. **Configure Environment Variables**:
+3. **Configure Environment Variables**:
+
    - Copy the example environment file:
      ```bash
      cp .env.example .env
      ```
    - Edit `.env` to add your `NEYNAR_API_KEY` and `NEYNAR_CLIENT_ID`.
 
-## Running the App
-
-1. **Start the app**: Launch the app using the following command:
+4. **Start the server**:
+   For yarn
 
    ```bash
    yarn start
-   # or
+   ```
+
+   For npm
+
+   ```bash
    npm run start
    ```
 
-    you'll see a QR Code
+### Client
 
-2. **Run App**: 
+Open new terminal
+
+1. **Navigate to server directory**: Navigate to the client directory
+
+   ```bash
+   cd client
+   ```
+
+2. **Install Project Dependencies**: Based on the package manager run one of the following commands to install all required dependencies:
+
+   For yarn
+
+   ```bash
+   yarn install
+   ```
+
+   For npm
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**:
+
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` to add your `COMPUTER_IP_ADDRESS`. Refer [find-IP-address article](https://www.avg.com/en/signal/find-ip-address) to get IP address of your Computer
+
+4. **Start the app**: (Make sure your phone and computer is connected to the same network)
+
+   For yarn
+
+   ```bash
+   yarn start
+   ```
+
+   For npm
+
+   ```bash
+   npm run start
+   ```
+
+   you'll see a QR Code
+
+5. **Run App**:
 
    Open Expo Go app on your phone and scan the QR Code
-
 
 ## License
 
