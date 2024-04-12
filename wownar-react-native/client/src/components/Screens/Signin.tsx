@@ -2,7 +2,7 @@ import { Text, StyleSheet } from "react-native";
 import { NeynarSigninButton } from "@neynar/react-native-signin";
 import { useApp } from "../../Context/AppContext";
 import Layout from "../Layout";
-import { SERVER_IP } from "../../../constants";
+import { API_URL } from "../../../constants";
 import ip from "ip";
 
 const Signin = () => {
@@ -10,7 +10,7 @@ const Signin = () => {
 
   // This function should be an API call to your server where NEYNAR_API_KEY and NEYNAR_CLIENT_ID are stored securely
   const fetchAuthorizationUrl = async () => {
-    const res = await fetch(`http://${SERVER_IP}:5500/get-auth-url`);
+    const res = await fetch(`${API_URL}/get-auth-url`);
     if (!res.ok) {
       throw new Error("Failed to fetch auth url");
     }

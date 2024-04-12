@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Layout from "../Layout";
 import { useApp } from "../../Context/AppContext";
-import { SERVER_IP } from "../../../constants";
+import { API_URL } from "../../../constants";
 import { Snackbar } from "react-native-paper";
 
 const Home: React.FC = () => {
@@ -23,9 +23,8 @@ const Home: React.FC = () => {
     Keyboard.dismiss();
     if (inputValue === "") return;
     try {
-      const apiUrl = `http://${SERVER_IP}:5500/cast`;
 
-      const response = await fetch(apiUrl, {
+      const response = await fetch(`${API_URL}/cast`, {
         method: "POST",
         headers: {
           Accept: "application/json",

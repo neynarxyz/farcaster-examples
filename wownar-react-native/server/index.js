@@ -12,10 +12,18 @@ const NEYNAR_CLIENT_ID = process.env.NEYNAR_CLIENT_ID;
 const API_URL = "https://api.neynar.com/v2/farcaster";
 
 app.get("/get-auth-url", async (_, res) => {
-  const apiUrl = `${API_URL}/login/authorize?api_key=${NEYNAR_API_KEY}&response_type=code&client_id=${NEYNAR_CLIENT_ID}`;
-
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(
+      `${API_URL}/login/authorize?response_type=code&client_id=${NEYNAR_CLIENT_ID}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          api_key: NEYNAR_API_KEY,
+        },
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch auth url");
     }

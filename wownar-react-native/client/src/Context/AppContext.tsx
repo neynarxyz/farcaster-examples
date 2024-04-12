@@ -8,7 +8,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { SERVER_IP } from "../../constants";
+import { API_URL } from "../../constants";
 import { retrieveUser, storeUser } from "../utils";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
@@ -58,7 +58,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
 
   const fetchUserAndSetUser = async (fid: number) => {
     try {
-      const response = await fetch(`http://${SERVER_IP}:5500/user?fid=${fid}`);
+      const response = await fetch(`${API_URL}/user?fid=${fid}`);
       if (!response.ok) {
         throw new Error("Failed to fetch user");
       }
