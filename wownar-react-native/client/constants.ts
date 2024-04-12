@@ -1,5 +1,5 @@
 import Constants from "expo-constants";
 
-const SERVER_IP = Constants.expoConfig!.extra!.SERVER_IP;
+const COMPUTER_IP_ADDRESS = Constants.expoConfig!.extra!.COMPUTER_IP_ADDRESS;
 
-export const API_URL = `http://${SERVER_IP}:5500`;
+export const API_URL = `http://${COMPUTER_IP_ADDRESS}:5500`;

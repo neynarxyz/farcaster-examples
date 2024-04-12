@@ -4,7 +4,7 @@ export default ({ config }: any) => {
   return {
     ...config,
     extra: {
-      SERVER_IP: process.env.SERVER_IP,
+      COMPUTER_IP_ADDRESS: process.env.COMPUTER_IP_ADDRESS,
     },
   };
 };
