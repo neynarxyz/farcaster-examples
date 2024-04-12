@@ -8,7 +8,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { NEYNAR_API_KEY, SERVER_IP } from "../../constants";
+import { SERVER_IP } from "../../constants";
 import { retrieveUser, storeUser } from "../utils";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
@@ -62,8 +62,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
       if (!response.ok) {
         throw new Error("Failed to fetch user");
       }
-      const { displayName, pfp_url } = await response.json();
-      setDisplayName(displayName);
+      const { display_name, pfp_url } = await response.json();
+      setDisplayName(display_name);
       setPfp(pfp_url);
     } catch (err) {
       console.log(err);

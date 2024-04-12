@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Layout from "../Layout";
 import { useApp } from "../../Context/AppContext";
-import { NEYNAR_API_KEY } from "../../../constants";
+import { SERVER_IP } from "../../../constants";
 import { Snackbar } from "react-native-paper";
 
 const Home: React.FC = () => {
@@ -23,30 +23,29 @@ const Home: React.FC = () => {
     Keyboard.dismiss();
     if (inputValue === "") return;
     try {
-      const rawResponse = await fetch(
-        "https://api.neynar.com/v2/farcaster/cast",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            api_key: NEYNAR_API_KEY,
-          },
-          body: JSON.stringify({
-            signer_uuid: signerUuid,
-            text: inputValue,
-          }),
-        }
-      );
-      if (!rawResponse.ok) throw new Error("Something went wrong");
-      const {
-        cast: { hash },
-      } = await rawResponse.json();
-      setSnackbarMessage(`Cast with hash ${hash} published successfully`);
+      const apiUrl = `http://${SERVER_IP}:5500/cast`;
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signerUuid,
+          text: inputValue,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to cast");
+      }
+      const { hash } = await response.json();
+      setSnackbarMessage(`Cast successful! Hash: ${hash}`);
       setSnackbarVisible(true);
       setInputValue("");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
