@@ -21,12 +21,17 @@ const Signin = () => {
     return authorization_url;
   };
 
+  const handleError = (error: Error) => {
+    console.error(error);
+  };
+
   return (
     <Layout>
       <Text style={styles.title}>Wowow Farcaster</Text>
       <NeynarSigninButton
         fetchAuthorizationUrl={fetchAuthorizationUrl}
         successCallback={handleSignin}
+        errorCallback={handleError}
         // --------------- Customization options props ---------------
         // variant={Variant.FARCASTER}
         // logoSize="40" // Only for variant not for customLogoUrl
