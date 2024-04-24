@@ -2,8 +2,7 @@ import { Text, StyleSheet } from "react-native";
 import { NeynarSigninButton } from "@neynar/react-native-signin";
 import { useApp } from "../../Context/AppContext";
 import Layout from "../Layout";
-import { API_URL } from "../../../constants";
-import ip from "ip";
+import { API_URL, COMPUTER_IP_ADDRESS } from "../../../constants";
 
 const Signin = () => {
   const { handleSignin } = useApp();
@@ -31,6 +30,7 @@ const Signin = () => {
         fetchAuthorizationUrl={fetchAuthorizationUrl}
         successCallback={handleSignin}
         errorCallback={handleError}
+        redirectUrl={`exp://${COMPUTER_IP_ADDRESS}:8081`}
         // --------------- Customization options props ---------------
         // variant={Variant.FARCASTER}
         // logoSize="40" // Only for variant not for customLogoUrl
