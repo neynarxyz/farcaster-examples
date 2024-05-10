@@ -4,7 +4,7 @@ import { ScreenState, useApp } from "@/Context/AppContext";
 import { NeynarAuthButton, useNeynarContext } from "@neynar/react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface Props {
   children: ReactNode;
@@ -14,11 +14,13 @@ const ScreenLayout = ({ children }: Props) => {
   const { setScreen } = useApp();
   const { isAuthenticated } = useNeynarContext();
 
-  if (isAuthenticated) {
-    setScreen(ScreenState.Home);
-  } else {
-    setScreen(ScreenState.Signin);
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      setScreen(ScreenState.Home);
+    } else {
+      setScreen(ScreenState.Signin);
+    }
+  }, [isAuthenticated, setScreen]);
 
   return (
     <div className="flex flex-col min-h-screen text-white">
