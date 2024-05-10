@@ -656,10 +656,10 @@
     rxjs "7.8.1"
     tslib "2.6.2"
 
-"@pigment-css/react@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@pigment-css/react/-/react-0.0.11.tgz#edd8af6d4c9c44abf4a0c5fb986b35a47cbb1b22"
-  integrity sha512-uOUhLM7keqBEupSC5J+pZkqF3CTkRmk/BN2Dri9t1i1NWAfLJkOByPnyP4M9xAXazLM7EiAlxg16L0rS4Sn2Fw==
+"@pigment-css/react@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@pigment-css/react/-/react-0.0.9.tgz#3dfa33a172096041a973c352451a78adbbb9ecfb"
+  integrity sha512-mGiZ+Dvy01+HJMQKdtDJWn+ZGuq22o4Drh9Q5o3lVOU+GPrsR6LEWW8HQZ63WAWpSPsXtXRsWyudgIVO+oHQmQ==
   dependencies:
     "@babel/core" "^7.24.4"
     "@babel/helper-module-imports" "^7.24.3"
@@ -673,9 +673,9 @@
     "@emotion/styled" "^11.11.5"
     "@mui/system" "^6.0.0-alpha.1"
     "@mui/utils" "^6.0.0-alpha.1"
-    "@wyw-in-js/processor-utils" "^0.5.3"
-    "@wyw-in-js/shared" "^0.5.3"
-    "@wyw-in-js/transform" "^0.5.3"
+    "@wyw-in-js/processor-utils" "^0.5.1"
+    "@wyw-in-js/shared" "^0.5.1"
+    "@wyw-in-js/transform" "^0.5.1"
     clsx "^2.1.0"
     cssesc "^3.0.0"
     csstype "^3.1.3"
@@ -810,7 +810,7 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@wyw-in-js/processor-utils@0.5.3", "@wyw-in-js/processor-utils@^0.5.3":
+"@wyw-in-js/processor-utils@0.5.3", "@wyw-in-js/processor-utils@^0.5.1":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@wyw-in-js/processor-utils/-/processor-utils-0.5.3.tgz#eb1cf796d4f454f7496454e775f0137c64dd1c79"
   integrity sha512-DATsRHLqq8cWYkTD8iwEmvWzG2UvmsFN6Poru4NJ1RwjxtcEdnNKCKZBaBdlH5XyhL7jRTcURUMyee3lqGljhg==
@@ -818,7 +818,7 @@
     "@babel/generator" "^7.23.5"
     "@wyw-in-js/shared" "0.5.3"
 
-"@wyw-in-js/shared@0.5.3", "@wyw-in-js/shared@^0.5.3":
+"@wyw-in-js/shared@0.5.3", "@wyw-in-js/shared@^0.5.1":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@wyw-in-js/shared/-/shared-0.5.3.tgz#2be6c58be57a5b40901f01dadada81b1e32923b2"
   integrity sha512-sgST/P2QPIz4UwOK5NtpvaLXUsACcHRkd9/wTlNSOM5si2hOoeIRvakyuqK33wShHK3bpEZZOXQ9YztSXK3bwg==
@@ -827,7 +827,7 @@
     find-up "^5.0.0"
     minimatch "^9.0.3"
 
-"@wyw-in-js/transform@^0.5.3":
+"@wyw-in-js/transform@^0.5.1":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@wyw-in-js/transform/-/transform-0.5.3.tgz#218baafac6f66cb3731d3034f161645fb4257950"
   integrity sha512-Bt1Ey8MN88FzYJekvZBYFT69157UmwURj2N7Dy8yauErcxtpuNe/1P0Jxd56tdFz0f6uooat5ntzvWgej/iBZg==
