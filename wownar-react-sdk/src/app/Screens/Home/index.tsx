@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import ScreenLayout from "../layout";
 import styles from "./index.module.scss";
