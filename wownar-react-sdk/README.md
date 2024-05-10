@@ -36,17 +36,17 @@
 
 ## Run Application
 
-    For yarn
+   - For yarn
 
-    ```bash
-    yarn dev
-    ```
+      ```bash
+      yarn dev
+      ```
 
-    For npm
+   - For npm
 
-    ```bash
-    npm run dev
-    ```
+      ```bash
+      npm run dev
+      ```
 
 ## License
 
