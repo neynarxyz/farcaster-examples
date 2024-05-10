@@ -1,5 +1,3 @@
-"use client";
-
 import { ScreenState, useApp } from "@/Context/AppContext";
 import { NeynarAuthButton, useNeynarContext } from "@neynar/react";
 import Image from "next/image";
