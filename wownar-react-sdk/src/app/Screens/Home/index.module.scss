@@ -1,0 +1,30 @@
+.inputContainer {
+  width: 100%;
+  max-width: 500px; // Adjust as needed
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.userInput {
+  width: 100%;
+  padding: 20px 15px 15px 65px;
+  margin-bottom: 16px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+
+  &::placeholder {
+    color: white;
+    opacity: 0.7; // Adjust as needed
+  }
+}
+
+.profilePic {
+  position: relative;
+  top: 50px;
+  left: 15px;
+}
