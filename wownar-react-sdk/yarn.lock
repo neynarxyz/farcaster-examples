@@ -580,10 +580,10 @@
     semver "^7.6.0"
     viem "^1.19.9"
 
-"@neynar/react@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@neynar/react/-/react-0.2.5.tgz#0c103b0ab0042316c530f8ab5e389ec3af2e178f"
-  integrity sha512-WCtAKi70/OoOB4VSuvxgvZchiAXzOssdfjMJZTsZclW67x4VRQ5XMegBJaglklV0ezKKW0erHEDKH5Wkd47hfw==
+"@neynar/react@^0.2.8":
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/@neynar/react/-/react-0.2.8.tgz#74702dbb7738170361f17c0c7ea1598bb208013e"
+  integrity sha512-2oCFgSp9lJzEIUFZBlpgzUaW70b1Z/+JLUeOrdB/HaL9/2Nz/2vTfyXaMhivJUVln2pzOxEMJ2Ftffrn5+LyLQ==
 
 "@noble/curves@1.2.0", "@noble/curves@~1.2.0":
   version "1.2.0"

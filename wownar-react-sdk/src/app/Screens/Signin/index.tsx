@@ -1,5 +1,5 @@
 import ScreenLayout from "../layout";
-import { NeynarAuthButton } from "@neynar/react";
+import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
 
 const Signin = () => {
   return (
@@ -8,7 +8,7 @@ const Signin = () => {
         <div className="mx-5 flex flex-col items-center justify-center">
           <h2 className="text-4xl font-extralight mb-4">Wowow Farcaster</h2>
         </div>
-        <NeynarAuthButton />
+        <NeynarAuthButton variant={SIWN_variant.NEYNAR}  />
       </main>
     </ScreenLayout>
   );
