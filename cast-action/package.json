@@ -8,7 +8,7 @@
     "build": "bun build src/index.tsx"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "^1.16.0",
+    "@neynar/nodejs-sdk": "^1.28.0",
     "dotenv": "^16.4.5",
     "frog": "latest",
     "hono": "^4"

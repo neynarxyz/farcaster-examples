@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "^1.3.0",
+    "@neynar/nodejs-sdk": "^1.28.0",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
