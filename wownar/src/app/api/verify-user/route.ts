@@ -12,8 +12,10 @@ export async function POST(request: NextRequest) {
   try {
     const { fid: userFid } = await neynarClient.lookupSigner(signerUuid);
 
-    if (userFid == fid) {
-      isVerifiedUser = true;
+    if (userFid) {
+      if (userFid == parseInt(fid)) {
+        isVerifiedUser = true;
+      }
     } else isVerifiedUser = false;
     return NextResponse.json({ isVerifiedUser }, { status: 200 });
   } catch (err) {
