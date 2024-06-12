@@ -21,11 +21,11 @@ const ScreenLayout = ({ children }: Props) => {
   }, [isAuthenticated, setScreen]);
 
   return (
-    <div className="flex flex-col min-h-screen text-white">
+    <div className="flex flex-col min-h-screen">
       <header className="flex justify-between items-center p-5">
         <div className="flex items-center">
           <Image
-            src="/logos/wownar.svg"
+            src="/logos/wownar-black.svg"
             width={60}
             height={60}
             alt="SimpleCaster Logo"

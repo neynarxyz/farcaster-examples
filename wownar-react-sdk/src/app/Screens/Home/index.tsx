@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { useState } from "react";
-import { useNeynarContext } from "@neynar/react";
+import { NeynarProfileCard, useNeynarContext } from "@neynar/react";
 
 const Home = () => {
   const { user } = useNeynarContext();
@@ -45,7 +45,8 @@ const Home = () => {
       <main className="flex flex-col flex-grow justify-center items-center">
         {user ? (
           <>
-            <p className="text-3xl">
+            <NeynarProfileCard fid={user.fid} viewerFid={3} />
+            {/* <p className="text-3xl">
               Hello <span className="font-medium">{user.display_name}</span>
               ... 👋
             </p>
@@ -65,7 +66,7 @@ const Home = () => {
                 rows={5}
               />
             </div>
-            <Button onClick={handlePublishCast} title="Cast" />
+            <Button onClick={handlePublishCast} title="Cast" /> */}
           </>
         ) : (
           <p>Loading...</p>
