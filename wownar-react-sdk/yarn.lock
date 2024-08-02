@@ -587,10 +587,10 @@
     semver "^7.6.0"
     viem "^1.19.9"
 
-"@neynar/react@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@neynar/react/-/react-0.4.3.tgz#1a7afd79a79abe2b24f87cd0b8cea317c1297f86"
-  integrity sha512-BE02+GSN+ag+FuIIMRQD8sl+WBxQ7iWj8wq/xdYNIwnHdVOET0vlnlI+7tdY9oJSOQmSvk52nCl3J9TNr+mEmw==
+"@neynar/react@^0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@neynar/react/-/react-0.6.3.tgz#13ac6c61f922d8bae2ce4696f70e61fd60336cb0"
+  integrity sha512-s466C/LDDtPx5J0Gckb3w1T5g7ZiE1aTjaEq3l1gHGvZOPobM7fcuay9/vYe54LzD90HOlM3uWuZUkkDIsquqQ==
 
 "@noble/curves@1.2.0", "@noble/curves@~1.2.0":
   version "1.2.0"
