@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
-    const signedKey = await getSignedKey();
+    const signedKey = await getSignedKey(true);
 
     return NextResponse.json(signedKey, {
       status: 200,
