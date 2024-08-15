@@ -10,7 +10,6 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    console.log('action', action);
     const response = await neynarClient.postFrameAction(signer_uuid, castHash, action);
 
     if (response) {

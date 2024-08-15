@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "@neynar/react/dist/style.css";
 import NeynarProviderWrapper from "@/Context/NeynarProviderWrapper";
+import { base } from "viem/chains";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppProvider>
-          <NeynarProviderWrapper>
-            {children}
-            <ToastContainer />
-          </NeynarProviderWrapper>
+            <NeynarProviderWrapper>
+              {children}
+              <ToastContainer />
+            </NeynarProviderWrapper>
         </AppProvider>
       </body>
     </html>
