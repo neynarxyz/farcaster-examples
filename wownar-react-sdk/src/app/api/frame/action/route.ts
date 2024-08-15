@@ -2,34 +2,34 @@ import { NextRequest, NextResponse } from "next/server";
 import neynarClient from "@/clients/neynar";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
-export async function GET(request: NextRequest) {
-  const fid = (await await request.json()) as { fid: number };
-  return NextResponse.json({ fid }, { status: 200 });
-}
-
 export async function POST(request: NextRequest) {
-  const { signerUuid, text } = (await request.json()) as {
-    signerUuid: string;
-    text: string;
+  const { signer_uuid, castHash, action} = (await request.json()) as {
+    signer_uuid: string;
+    castHash: string;
+    action: any;
   };
 
   try {
-    const { hash } = await neynarClient.publishCast(signerUuid, text);
-    return NextResponse.json(
-      { message: `Cast with hash ${hash} published successfully` },
-      { status: 200 }
-    );
+    console.log('action', action);
+    const response = await neynarClient.postFrameAction(signer_uuid, castHash, action);
+
+    if (response) {
+      return NextResponse.json(response, { status: 200 });
+    } else {
+      return NextResponse.json(response, { status: 500 });
+    }
   } catch (err) {
-    console.log("/api/cast", err);
+    console.log("/api/frame/action", err);
     if (isApiErrorResponse(err)) {
       return NextResponse.json(
         { ...err.response.data },
         { status: err.response.status }
       );
-    } else
+    } else {
       return NextResponse.json(
         { message: "Something went wrong" },
         { status: 500 }
       );
+    }
   }
 }

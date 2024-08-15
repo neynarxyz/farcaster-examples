@@ -81,22 +81,22 @@ const Home = () => {
 
     const button = localFrame.buttons.find((btn: { index: number }) => btn.index === btnIndex);
     const postUrl = button?.post_url;
-
     try {
-      const response = await fetchWithTimeout(`${NEYNAR_API_URL}/v2/farcaster/frame/action?client_id=${client_id}`, {
+      const response = await fetchWithTimeout('/api/frame/action', {
         method: "POST",
         headers: {
           "accept": "application/json",
           "content-type": "application/json"
         },
         body: JSON.stringify({
-          "signer_uuid": signerValue,
-          "action": {
+          signer_uuid: signerValue,
+          castHash: '0xeff44ecf9982ef5f706d3f7bdeb116af489d30e7',
+          action: {
             "button": button,
             "frames_url": localFrame.frames_url,
             "post_url": postUrl ? postUrl : localFrame.frames_url,
             "input": {
-              "text": inputValue
+                "text": inputValue
             }
           }
         })
@@ -104,9 +104,9 @@ const Home = () => {
 
       if (response.ok) {
         const json = await response.json() as NeynarFrame;
-        if(Object.keys(json).includes('transaction_calldata')){
-
-        } else{
+        if (Object.keys(json).includes('transaction_calldata')) {
+          return localFrame;
+        } else {
           return json;
         }
       } else {
