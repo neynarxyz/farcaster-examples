@@ -24,11 +24,6 @@
    npm install
    ```
 
-   Note: in order for the in-progress frames feature to work, you must run this command which pulls the `@neynar/react` sdk in locally and links it with `npm link`:
-   ```bash
-   npm i && git clone -b ds/create-isolated-frame-component https://github.com/neynarxyz/react.git && cd react && npm i && npm run build && npm link && cd .. && npm link @neynar/react
-   ``` 
-
 2. **Configure Environment Variables**
 
    - Copy the example environment file:
