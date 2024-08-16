@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NeynarFrameCard, NeynarProfileCard, useNeynarContext } from "@neynar/react";
 import {
   http,
@@ -68,6 +68,12 @@ const Home = () => {
   const [text, setText] = useState("");
   const [signerValue, setSignerValue] = useState<string | null>(user?.signer_uuid || null);
   const [account, setAccount] = useState<Address | null>(null);
+  const [frameUrl, setFrameUrl] = useState<string>('https://highlight.xyz/mint/667dfcfe5229c603647108f0');
+  const [key, setKey] = useState<number>(0);
+
+  useEffect(() => {
+    setKey(prevKey => prevKey + 1);
+  }, [frameUrl]);
 
   const getChainConfig = (chainId: string) => {
     switch (chainId) {
@@ -106,11 +112,9 @@ const Home = () => {
             ],
           });
         } catch (addError) {
-          console.error(addError);
           throw new Error("Failed to add chain to MetaMask.");
         }
       } else {
-        console.error(switchError);
         throw new Error("Failed to switch chain in MetaMask.");
       }
     }
@@ -276,13 +280,14 @@ const Home = () => {
         {user ? (
           <>
             <NeynarProfileCard fid={user.fid} viewerFid={3} />
-            <div className="max-w-[60%] md:max-w-[45%] mt-[2.5%] flex flex-row gap-8 items-end overflow-x-scroll">
+            <div className="max-w-[60%] md:max-w-[45%] mt-[2.5%] flex flex-col gap-1 items-start overflow-x-scroll">
+              <div className="flex flex-row gap-2 items-center">
+                <p className="font-medium">Frame URL:</p>
+                <input className="rounded-lg p-2 min-w-[550px]" type="text" placeholder="Enter frame url" value={frameUrl} onChange={(e) => setFrameUrl(e.target.value)} />
+              </div>
               <NeynarFrameCard 
-                url="https://highlight.xyz/mint/667dfcfe5229c603647108f0" 
-                onFrameBtnPress={handleFrameBtnPress} 
-              />
-              <NeynarFrameCard 
-                url="https://slice.so/slicer/0/products/12"
+                key={key}
+                url={frameUrl}
                 onFrameBtnPress={handleFrameBtnPress} 
               />
             </div>
