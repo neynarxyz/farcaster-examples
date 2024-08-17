@@ -48,6 +48,7 @@ export type NeynarFrame = {
   version: string;
   title: string;
   image: string;
+  image_aspect_ratio: string;
   buttons: {
     index: number;
     title: string;
