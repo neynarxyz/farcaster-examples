@@ -48,6 +48,7 @@ export type NeynarFrame = {
   version: string;
   title: string;
   image: string;
+  image_aspect_ratio: string;
   buttons: {
     index: number;
     title: string;
@@ -265,11 +266,10 @@ const Home = () => {
           return json;
         }
       } else {
-        showToast(ToastType.Error, `HTTP error! status: ${response.status}`);
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const responseError = await response.json();
+        throw responseError.message;
       }
     } catch (error) {
-      showToast(ToastType.Error, `An error occurred while processing the button press: ${(error as Error).message}`);
       throw error;
     }
   };
@@ -277,25 +277,31 @@ const Home = () => {
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
-        {user ? (
-          <>
-            <NeynarProfileCard fid={user.fid} viewerFid={3} />
-            <div className="max-w-[60%] md:max-w-[45%] mt-[2.5%] flex flex-col gap-1 items-start overflow-x-scroll">
-              <div className="flex flex-row gap-2 items-center">
-                <p className="font-medium">Frame URL:</p>
-                <input className="rounded-lg p-2 min-w-[550px]" type="text" placeholder="Enter frame url" value={frameUrl} onChange={(e) => setFrameUrl(e.target.value)} />
-              </div>
-              <NeynarFrameCard 
-                key={key}
-                url={frameUrl}
-                onFrameBtnPress={handleFrameBtnPress} 
+      {user ? (
+        <>
+          <NeynarProfileCard fid={user.fid} viewerFid={3} />
+          <div className="max-w-[60%] md:max-w-[45%] mt-[2.5%] flex flex-col gap-1 items-start">
+            <div className="flex flex-row gap-2 items-center w-full">
+              <p className="font-medium text-sm">Frame URL:</p>
+              <input
+                className="rounded-lg p-2 flex-grow"
+                type="text"
+                placeholder="Enter frame url"
+                value={frameUrl}
+                onChange={(e) => setFrameUrl(e.target.value)}
               />
             </div>
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </main>
+            <NeynarFrameCard 
+              key={key}
+              url={frameUrl}
+              onFrameBtnPress={handleFrameBtnPress} 
+            />
+          </div>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </main>
     </ScreenLayout>
   );
 };
