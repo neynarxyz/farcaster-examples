@@ -513,10 +513,10 @@
     semver "^7.6.0"
     viem "^1.19.9"
 
-"@neynar/react@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.npmjs.org/@neynar/react/-/react-0.8.2.tgz"
-  integrity sha512-bTaRMo8HlaUC7Bzd3zBIo853kZiOChIXOrPexFVlOlzq1YCq8YNPFHIiL0iKI/JYiIBv6GhRCF+tIbjrMqlOYA==
+"@neynar/react@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/@neynar/react/-/react-0.8.3.tgz"
+  integrity sha512-8i56s1axJCrqWQh/8q1JuB2lUnaOJM9uFE1K1/f4Mu4AaRKsaawAdwjmkJSSK3xI7VemnnQZmamxzLWNYzPaUw==
 
 "@noble/curves@^1.4.0", "@noble/curves@~1.4.0", "@noble/curves@1.4.0":
   version "1.4.0"
