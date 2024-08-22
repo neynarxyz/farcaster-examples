@@ -1,0 +1,16 @@
+{
+  "author": "Neynar",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "start": "npm run build && node ./dist/index.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
