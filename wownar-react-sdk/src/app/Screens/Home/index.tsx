@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import Button from "@/components/Button";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { useState, useEffect } from "react";
 import { NeynarFrameCard, NeynarProfileCard, NeynarCastCard, useNeynarContext } from "@neynar/react";
 import {
@@ -70,7 +70,7 @@ const Home = () => {
   const [signerValue, setSignerValue] = useState<string | null>(user?.signer_uuid || null);
   const [account, setAccount] = useState<Address | null>(null);
   const [frameUrl, setFrameUrl] = useState<string>('https://highlight.xyz/mint/667dfcfe5229c603647108f0');
-  const [castUrl, setCastUrl] = useState<string>('https://warpcast.com/dylsteck.eth/0xc3674103');
+  const [castUrl, setCastUrl] = useState<string>('https://warpcast.com/slokh/0x57e03c32');
   const [key, setKey] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<"frame" | "cast">("frame");
 
@@ -135,6 +135,42 @@ const Home = () => {
     setAccount(address);
     return { address, walletClient };
   };
+
+  function handleLikeBtnPress() {
+    let success = false;
+  
+    function sendLikeRequest() {
+      return fetch("/api/cast/reaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signerUuid: signerValue,
+          reaction: ReactionType.Like,
+          castOrCastHash: castUrl,
+        }),
+      });
+    }
+  
+    sendLikeRequest()
+      .then((response) => {
+        success = response.ok;
+      })
+      .catch(() => {
+        success = false;
+      });
+  
+    return success;
+  }  
+
+  function handleCommentBtnPress(){
+    return false;
+  }
+
+  function handleRecastBtnPress(){
+    return false;
+  }
 
   async function handlePublishCast() {
     try {
@@ -336,7 +372,13 @@ const Home = () => {
                   <NeynarCastCard 
                     type="url"
                     identifier={castUrl}
+                    allowReactions={true}
                     renderEmbeds={true}
+                    renderFrames={true}
+                    onLikeBtnPress={handleLikeBtnPress}
+                    onCommentBtnPress={handleCommentBtnPress}
+                    onRecastBtnPress={handleRecastBtnPress}
+                    onFrameBtnPress={handleFrameBtnPress}
                   />
                 </>
               )}
