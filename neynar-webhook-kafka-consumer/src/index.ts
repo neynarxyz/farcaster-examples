@@ -55,7 +55,7 @@ const kafka = new Kafka({
 
 // Consider fine-tuning the consumer configuration based on your application’s load
 // https://kafka.js.org/docs/consuming#a-name-options-a-options
-const consumer: Consumer = kafka.consumer({ groupId: "test-group-consumer-1" });
+const consumer: Consumer = kafka.consumer({ groupId: "test-group-consumer-1" }); // Contact us to get your group ID
 
 // Create Redis client to store processed messagesIds to avoid duplicate processing of messages
 // You can use any other database or storage solution for this purpose
@@ -207,12 +207,12 @@ async function main() {
         const message_id = `${topic}-${partition}-${message.offset}`;
         await handle_message_with_backoff(message_id, message);
         // Commit the offset manually after processing the message successfully.
-        // This should happen in handle_message_with_backoff based on your use case.
+        // This should happen in process_event based on your use case.
         // For simplicity in this example, we commit the offset here.
         await consumer.commitOffsets([
           { topic, partition, offset: (Number(message.offset) + 1).toString() },
         ]);
-        // If handle_message_with_backoff could potentially be blocking,
+        // If process_event could potentially be blocking,
         // consider offloading heavy processing to a separate thread or process
         // to keep the main event loop free and allow heartbeats to be sent.
         // relying on KafkaJS's built-in heartbeat mechanism. i.e. heartbeatInterval config in kafka.consumer()
