@@ -28,6 +28,11 @@ if (!process.env.KAFKA_PASSWORD) {
   process.exit(1);
 }
 
+if (!process.env.KAFKA_CONSUMER_GROUP) {
+  console.error("KAFKA_CONSUMER_GROUP environment variable is required");
+  process.exit(1);
+}
+
 const is_production = process.env.NODE_ENV === "production";
 
 const KAFKA_USERNAME = process.env.KAFKA_USERNAME;
@@ -55,7 +60,9 @@ const kafka = new Kafka({
 
 // Consider fine-tuning the consumer configuration based on your application’s load
 // https://kafka.js.org/docs/consuming#a-name-options-a-options
-const consumer: Consumer = kafka.consumer({ groupId: "test-group-consumer-1" }); // Contact us to get your group ID
+const consumer: Consumer = kafka.consumer({
+  groupId: process.env.KAFKA_CONSUMER_GROUP,
+});
 
 // Create Redis client to store processed messagesIds to avoid duplicate processing of messages
 // You can use any other database or storage solution for this purpose
@@ -176,7 +183,7 @@ async function subscribe_with_retry() {
   while (true) {
     try {
       await consumer.subscribe({
-        topic: "farcaster-mainnet-events",
+        topic: "farcaster-mainnet-events", // All webhook events are published to this topic
       });
       console.log("Successfully subscribed to topic");
       break;
