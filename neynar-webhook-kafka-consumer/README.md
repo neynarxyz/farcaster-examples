@@ -1,4 +1,4 @@
-# Kafka Consumer Example
+# Neynar Webhook Kafka Consumer Example
 
 This repository provides an example of a Kafka consumer that interacts with Neynar's Kafka stream. With Neynar's Kafka stream, developers can ingest hydrated events from a hosted Kafka stream (as compared to dehydrated events from gRPC hub)
 
