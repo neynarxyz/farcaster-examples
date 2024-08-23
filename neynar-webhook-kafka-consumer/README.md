@@ -38,7 +38,7 @@ Then, open the `.env` file and update the placeholders with your actual configur
 ```env
 NODE_ENV=production
 
-KAFKA_BROKERS=<your_kafka_brokers>
+KAFKA_BROKERS=<your_kafka_brokers> // Please checkout docs
 
 # Contact Neynar to get the following credentials
 
