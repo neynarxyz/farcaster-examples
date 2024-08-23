@@ -2,7 +2,6 @@
 
 A collection of Farcaster mini-apps powered by Neynar
 
-### All mini-apps
 
 | Name                   | Description                                     |
 |------------------------|-------------------------------------------------|

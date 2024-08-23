@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   try {
     const { success, message } = await neynarClient.publishReactionToCast(signerUuid, reaction, castOrCastHash);
     return NextResponse.json(
-      { message: `Cast with hash ${castOrCastHash} published successfully` },
+      { message: `Cast ${reaction} with hash ${castOrCastHash} published successfully` },
       { status: 200 }
     );
   } catch (err) {

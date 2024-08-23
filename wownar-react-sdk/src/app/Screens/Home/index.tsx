@@ -138,7 +138,6 @@ const Home = () => {
 
   function handleLikeBtnPress() {
     let success = false;
-  
     function sendLikeRequest() {
       return fetch("/api/cast/reaction", {
         method: "POST",
@@ -152,15 +151,15 @@ const Home = () => {
         }),
       });
     }
-  
     sendLikeRequest()
       .then((response) => {
-        success = response.ok;
+        if (response.status === 200) {
+          success = true;
+        }
       })
-      .catch(() => {
+      .catch((error) => {
         success = false;
       });
-  
     return success;
   }  
 
@@ -168,8 +167,31 @@ const Home = () => {
     return false;
   }
 
-  function handleRecastBtnPress(){
-    return false;
+  function handleRecastBtnPress() {
+    let success = false;
+    function sendLikeRequest() {
+      return fetch("/api/cast/reaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signerUuid: signerValue,
+          reaction: ReactionType.Recast,
+          castOrCastHash: castUrl,
+        }),
+      });
+    }
+    sendLikeRequest()
+      .then((response) => {
+        if (response.status === 200) {
+          success = true;
+        }
+      })
+      .catch((error) => {
+        success = false;
+      });
+    return success;
   }
 
   async function handlePublishCast() {
