@@ -22,7 +22,7 @@ Make sure you have the following installed:
 Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/neynarxyz/farcaster-examples.git && cd neynar-webhook-kafka-consumer
+git clone https://github.com/neynarxyz/farcaster-examples.git && cd farcaster-examples/neynar-webhook-kafka-consumer
 ```
 
 ### Step 2: Configure Environment Variables
