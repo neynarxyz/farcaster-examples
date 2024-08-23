@@ -7,8 +7,26 @@ import {
 } from "kafkajs";
 import { createClient } from "redis";
 import { v4 as uuidv4 } from "uuid";
+import dotenv from "dotenv";
 
 import { FarcasterEvent } from "./types";
+
+dotenv.config();
+
+if (!process.env.KAFKA_BROKERS) {
+  console.error("KAFKA_BROKERS environment variable is required");
+  process.exit(1);
+}
+
+if (!process.env.KAFKA_USERNAME) {
+  console.error("KAFKA_USERNAME environment variable is required");
+  process.exit(1);
+}
+
+if (!process.env.KAFKA_PASSWORD) {
+  console.error("KAFKA_PASSWORD environment variable is required");
+  process.exit(1);
+}
 
 const is_production = process.env.NODE_ENV === "production";
 
@@ -37,9 +55,7 @@ const kafka = new Kafka({
 
 // Consider fine-tuning the consumer configuration based on your application’s load
 // https://kafka.js.org/docs/consuming#a-name-options-a-options
-const consumer: Consumer = kafka.consumer({
-  groupId: "test-1_consumer_group",
-});
+const consumer: Consumer = kafka.consumer({ groupId: "test-group-consumer-1" });
 
 // Create Redis client to store processed messagesIds to avoid duplicate processing of messages
 // You can use any other database or storage solution for this purpose
@@ -140,11 +156,43 @@ async function handle_message_with_backoff(
   }
 }
 
+async function connect_with_retry() {
+  while (true) {
+    try {
+      await consumer.connect();
+      console.log("Successfully connected to Kafka");
+      break;
+    } catch (error) {
+      console.error(
+        "Failed to connect to Kafka, retrying in 5 seconds:",
+        error
+      );
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+  }
+}
+
+async function subscribe_with_retry() {
+  while (true) {
+    try {
+      await consumer.subscribe({
+        topic: "farcaster-mainnet-events",
+      });
+      console.log("Successfully subscribed to topic");
+      break;
+    } catch (error) {
+      console.error(
+        "Failed to subscribe to topic, retrying in 5 seconds:",
+        error
+      );
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+  }
+}
+
 async function main() {
-  await consumer.connect();
-  await consumer.subscribe({
-    topic: "farcaster-mainnet-events",
-  });
+  await connect_with_retry();
+  await subscribe_with_retry();
 
   await consumer.run({
     autoCommit: false,

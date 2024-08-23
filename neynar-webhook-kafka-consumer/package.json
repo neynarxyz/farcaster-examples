@@ -7,6 +7,7 @@
     "start": "npm run build && node ./dist/index.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "kafkajs": "^2.2.4",
     "redis": "^4.7.0",
     "uuid": "^10.0.0"

@@ -1,1 +1,10 @@
 dist/
+node_modules/
+.env
+.env.local
+.env.development.local
+.env.development
+.env.test.local
+.env.test
+.env.production.local
+.env.production
