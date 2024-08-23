@@ -8,3 +8,4 @@ node_modules/
 .env.test
 .env.production.local
 .env.production
+dump.rdb

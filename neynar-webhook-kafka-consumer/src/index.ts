@@ -194,6 +194,18 @@ async function main() {
   await connect_with_retry();
   await subscribe_with_retry();
 
+  let isRebalancing = false;
+
+  consumer.on(consumer.events.GROUP_JOIN, () => {
+    console.log("Consumer has joined the group");
+    isRebalancing = false;
+  });
+
+  consumer.on(consumer.events.REBALANCING, () => {
+    console.log("Rebalance in progress");
+    isRebalancing = true;
+  });
+
   await consumer.run({
     autoCommit: false,
     eachMessage: async ({
@@ -201,8 +213,11 @@ async function main() {
       partition,
       message,
       heartbeat,
-      pause,
     }: EachMessagePayload) => {
+      if (isRebalancing) {
+        console.log("Skipping message processing due to ongoing rebalance");
+        return;
+      }
       try {
         const message_id = `${topic}-${partition}-${message.offset}`;
         await handle_message_with_backoff(message_id, message);
@@ -220,8 +235,6 @@ async function main() {
         await heartbeat();
       } catch (error) {
         console.error("Error processing message:", error);
-        pause();
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds before resuming
       }
     },
   });

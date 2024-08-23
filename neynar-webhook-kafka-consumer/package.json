@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "start": "npm run build && node ./dist/index.js"
+    "start": "node ./dist/index.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
