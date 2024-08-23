@@ -115,50 +115,59 @@ interface ReactionDeletedEventData {
   cast: CastDehydrated;
 }
 
-export interface UserCreatedEvent {
+interface UserCreatedEvent {
   event_type: "user.created";
   data: UserHydrated;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
 
-export interface UserUpdatedEvent {
+interface UserUpdatedEvent {
   event_type: "user.updated";
   data: UserHydrated;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
 
-export interface CastCreatedEvent {
+interface CastCreatedEvent {
   event_type: "cast.created";
   data: CastCreatedEventData;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
 
-export interface FollowCreatedEvent {
+interface FollowCreatedEvent {
   event_type: "follow.created";
   data: FollowCreatedEventData;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
 
-export interface FollowDeletedEvent {
+interface FollowDeletedEvent {
   event_type: "follow.deleted";
   data: FollowDeletedEventData;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
 
-export interface ReactionCreatedEvent {
+interface ReactionCreatedEvent {
   event_type: "reaction.created";
   data: ReactionCreatedEventData;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
-export interface ReactionDeletedEvent {
+interface ReactionDeletedEvent {
   event_type: "reaction.deleted";
   data: ReactionDeletedEventData;
   custom_headers: CustomHeaders;
   idempotency_key?: string;
 }
+
+export type FarcasterEvent =
+  | UserCreatedEvent
+  | UserUpdatedEvent
+  | CastCreatedEvent
+  | FollowCreatedEvent
+  | FollowDeletedEvent
+  | ReactionCreatedEvent
+  | ReactionDeletedEvent;
