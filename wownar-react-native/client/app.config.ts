@@ -6,5 +6,8 @@ export default ({ config }: any) => {
     extra: {
       COMPUTER_IP_ADDRESS: process.env.COMPUTER_IP_ADDRESS,
     },
+    plugins: [
+      "expo-secure-store"
+    ]
   };
 };
