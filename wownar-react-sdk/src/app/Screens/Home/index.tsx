@@ -4,9 +4,9 @@ import styles from "./index.module.scss";
 import Button from "@/components/Button";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { useState, useEffect } from "react";
-import { NeynarFrameCard, NeynarProfileCard, useNeynarContext } from "@neynar/react";
+import { NeynarFrameCard, NeynarProfileCard, NeynarCastCard, useNeynarContext } from "@neynar/react";
 import {
   http,
   custom,
@@ -46,9 +46,9 @@ export type TransactionCalldata = {
 
 export type NeynarFrame = {
   version: string;
-  title: string;
+  title?: string;
   image: string;
-  image_aspect_ratio: string;
+  image_aspect_ratio?: string;
   buttons: {
     index: number;
     title: string;
@@ -70,11 +70,13 @@ const Home = () => {
   const [signerValue, setSignerValue] = useState<string | null>(user?.signer_uuid || null);
   const [account, setAccount] = useState<Address | null>(null);
   const [frameUrl, setFrameUrl] = useState<string>('https://highlight.xyz/mint/667dfcfe5229c603647108f0');
+  const [castUrl, setCastUrl] = useState<string>('https://warpcast.com/slokh/0x57e03c32');
   const [key, setKey] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<"frame" | "cast">("frame");
 
   useEffect(() => {
     setKey(prevKey => prevKey + 1);
-  }, [frameUrl]);
+  }, [frameUrl, castUrl]);
 
   const getChainConfig = (chainId: string) => {
     switch (chainId) {
@@ -89,7 +91,7 @@ const Home = () => {
 
   const switchChain = async (chainId: string) => {
     if (!window.ethereum) {
-      throw new Error("MetaMask is not installed.");
+      throw new Error("Injected wallet is not installed.");
     }
     
     const targetChain = getChainConfig(chainId);
@@ -113,10 +115,10 @@ const Home = () => {
             ],
           });
         } catch (addError) {
-          throw new Error("Failed to add chain to MetaMask.");
+          throw new Error("Failed to add chain to injected wallet.");
         }
       } else {
-        throw new Error("Failed to switch chain in MetaMask.");
+        throw new Error("Failed to switch chain in injected wallet.");
       }
     }
   };
@@ -133,6 +135,64 @@ const Home = () => {
     setAccount(address);
     return { address, walletClient };
   };
+
+  function handleLikeBtnPress() {
+    let success = false;
+    function sendLikeRequest() {
+      return fetch("/api/cast/reaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signerUuid: signerValue,
+          reaction: ReactionType.Like,
+          castOrCastHash: castUrl,
+        }),
+      });
+    }
+    sendLikeRequest()
+      .then((response) => {
+        if (response.status === 200) {
+          success = true;
+        }
+      })
+      .catch((error) => {
+        success = false;
+      });
+    return success;
+  }  
+
+  function handleCommentBtnPress(){
+    return false;
+  }
+
+  function handleRecastBtnPress() {
+    let success = false;
+    function sendLikeRequest() {
+      return fetch("/api/cast/reaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          signerUuid: signerValue,
+          reaction: ReactionType.Recast,
+          castOrCastHash: castUrl,
+        }),
+      });
+    }
+    sendLikeRequest()
+      .then((response) => {
+        if (response.status === 200) {
+          success = true;
+        }
+      })
+      .catch((error) => {
+        success = false;
+      });
+    return success;
+  }
 
   async function handlePublishCast() {
     try {
@@ -253,7 +313,7 @@ const Home = () => {
               }
             }
           } catch (txError) {
-            if ((txError as any).message.includes("User rejected the request")) {
+            if ((txError as any).message.indexOf("User rejected the request") !== -1) {
               showToast(ToastType.Warning, "Transaction rejected by the user.");
             } else {
               showToast(ToastType.Error, `Transaction failed: ${(txError as Error).message}`);
@@ -280,22 +340,71 @@ const Home = () => {
       {user ? (
         <>
           <NeynarProfileCard fid={user.fid} viewerFid={3} />
+          <p className="pt-5 text-lg font-medium">Write components</p>
           <div className="max-w-[60%] md:max-w-[45%] mt-[2.5%] flex flex-col gap-1 items-start">
-            <div className="flex flex-row gap-2 items-center w-full">
-              <p className="font-medium text-sm">Frame URL:</p>
-              <input
-                className="rounded-lg p-2 flex-grow"
-                type="text"
-                placeholder="Enter frame url"
-                value={frameUrl}
-                onChange={(e) => setFrameUrl(e.target.value)}
-              />
+            <div className="flex flex-row gap-4 mb-4">
+              <button
+                onClick={() => setActiveTab("frame")}
+                className={`px-4 py-2 rounded-full ${
+                  activeTab === "frame" ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                Frame
+              </button>
+              <button
+                onClick={() => setActiveTab("cast")}
+                className={`px-4 py-2 rounded-full ${
+                  activeTab === "cast" ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                Cast
+              </button>
             </div>
-            <NeynarFrameCard 
-              key={key}
-              url={frameUrl}
-              onFrameBtnPress={handleFrameBtnPress} 
-            />
+            <div className="w-full min-h-[300px]">
+              {activeTab === "frame" ? (
+                <>
+                  <div className="flex flex-row gap-2 items-center w-full">
+                    <p className="font-medium text-sm">Frame URL:</p>
+                    <input
+                      className="rounded-lg p-2 flex-grow"
+                      type="text"
+                      placeholder="Enter frame url"
+                      value={frameUrl}
+                      onChange={(e) => setFrameUrl(e.target.value)}
+                    />
+                  </div>
+                  <NeynarFrameCard 
+                    key={key}
+                    url={frameUrl}
+                    onFrameBtnPress={handleFrameBtnPress} 
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-row gap-2 items-center w-full pb-4">
+                    <p className="font-medium text-sm">Cast URL:</p>
+                    <input
+                      className="rounded-lg p-2 flex-grow"
+                      type="text"
+                      placeholder="Enter cast url"
+                      value={castUrl}
+                      onChange={(e) => setCastUrl(e.target.value)}
+                    />
+                  </div>
+                  <NeynarCastCard 
+                    type="url"
+                    identifier={castUrl}
+                    allowReactions={true}
+                    renderEmbeds={true}
+                    renderFrames={true}
+                    onLikeBtnPress={handleLikeBtnPress}
+                    onCommentBtnPress={handleCommentBtnPress}
+                    onRecastBtnPress={handleRecastBtnPress}
+                    onFrameBtnPress={handleFrameBtnPress}
+                  />
+                </>
+              )}
+            </div>
           </div>
         </>
       ) : (

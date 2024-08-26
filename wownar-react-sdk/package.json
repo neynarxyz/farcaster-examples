@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@neynar/nodejs-sdk": "^1.28.0",
-    "@neynar/react": "^0.9.0",
+    "@neynar/react": "^0.9.1",
     "@pigment-css/react": "^0.0.9",
     "next": "14.0.3",
     "react": "^18",
