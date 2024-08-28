@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode, useEffect } from "react";
 
+import { useAccount } from 'wagmi'; // coinbase
+import LoginButton from "@/components/Button/LoginButton";
+import SignupButton from "@/components/Button/SignupButton";
+
 interface Props {
   children: ReactNode;
 }
@@ -11,6 +15,8 @@ interface Props {
 const ScreenLayout = ({ children }: Props) => {
   const { setScreen } = useApp();
   const { isAuthenticated } = useNeynarContext();
+
+  const { address } = useAccount(); // coinbase
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -32,6 +38,9 @@ const ScreenLayout = ({ children }: Props) => {
           />
           <h1 className="text-xl font-extralight font-bold ml-3">Wownar</h1>
         </div>
+
+        <SignupButton />
+        {!address && <LoginButton />}
         {isAuthenticated && <NeynarAuthButton />}
       </header>
       {children}
