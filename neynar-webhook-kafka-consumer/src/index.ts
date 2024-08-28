@@ -198,53 +198,72 @@ async function subscribe_with_retry() {
 }
 
 async function main() {
-  await connect_with_retry();
-  await subscribe_with_retry();
+  while (true) {
+    try {
+      await connect_with_retry();
+      await subscribe_with_retry();
 
-  let isRebalancing = false;
+      let isRebalancing = false;
 
-  consumer.on(consumer.events.GROUP_JOIN, () => {
-    console.log("Consumer has joined the group");
-    isRebalancing = false;
-  });
+      consumer.on(consumer.events.GROUP_JOIN, () => {
+        console.log("Consumer has joined the group");
+        isRebalancing = false;
+      });
 
-  consumer.on(consumer.events.REBALANCING, () => {
-    console.log("Rebalance in progress");
-    isRebalancing = true;
-  });
+      consumer.on(consumer.events.REBALANCING, () => {
+        console.log("Rebalance in progress");
+        isRebalancing = true;
+      });
 
-  await consumer.run({
-    autoCommit: false,
-    eachMessage: async ({
-      topic,
-      partition,
-      message,
-      heartbeat,
-    }: EachMessagePayload) => {
-      if (isRebalancing) {
-        console.log("Skipping message processing due to ongoing rebalance");
-        return;
-      }
-      try {
-        const message_id = `${topic}-${partition}-${message.offset}`;
-        await handle_message_with_backoff(message_id, message);
-        // Commit the offset manually after processing the message successfully.
-        // This should happen in process_event based on your use case.
-        // For simplicity in this example, we commit the offset here.
-        await consumer.commitOffsets([
-          { topic, partition, offset: (Number(message.offset) + 1).toString() },
-        ]);
-        // If process_event could potentially be blocking,
-        // consider offloading heavy processing to a separate thread or process
-        // to keep the main event loop free and allow heartbeats to be sent.
-        // relying on KafkaJS's built-in heartbeat mechanism. i.e. heartbeatInterval config in kafka.consumer()
-        // or manually sending heartbeats if needed.
-        await heartbeat();
-      } catch (error) {
-        console.error("Error processing message:", error);
-      }
-    },
-  });
+      consumer.on(consumer.events.DISCONNECT, async () => {
+        console.error("Consumer disconnected, attempting to reconnect...");
+        await connect_with_retry(); // Reconnect logic
+      });
+
+      await consumer.run({
+        autoCommit: false,
+        eachMessage: async ({
+          topic,
+          partition,
+          message,
+          heartbeat,
+        }: EachMessagePayload) => {
+          if (isRebalancing) {
+            console.log("Skipping message processing due to ongoing rebalance");
+            return;
+          }
+          try {
+            const message_id = `${topic}-${partition}-${message.offset}`;
+            await handle_message_with_backoff(message_id, message);
+            // Commit the offset manually after processing the message successfully.
+            // This should happen in process_event based on your use case.
+            // For simplicity in this example, we commit the offset here.
+            await consumer.commitOffsets([
+              {
+                topic,
+                partition,
+                offset: (Number(message.offset) + 1).toString(),
+              },
+            ]);
+            // If process_event could potentially be blocking,
+            // consider offloading heavy processing to a separate thread or process
+            // to keep the main event loop free and allow heartbeats to be sent.
+            // rely on KafkaJS's built-in heartbeat mechanism. i.e. heartbeatInterval config in kafka.consumer()
+            // or manually sending heartbeats if needed.
+            await heartbeat();
+          } catch (error) {
+            console.error("Error processing message:", error);
+          }
+        },
+      });
+
+      break;
+    } catch (error) {
+      console.error("Kafka consumer encountered an error:", error);
+      console.log("Attempting to reconnect in 5 seconds...");
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+  }
 }
 
 let shutdown_in_progress = false;
