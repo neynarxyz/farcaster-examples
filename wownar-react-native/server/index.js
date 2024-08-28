@@ -5,6 +5,7 @@ const {
 } = require("@neynar/nodejs-sdk");
 var { json } = require("body-parser");
 require("dotenv").config({ path: ".env" });
+const os = require('os');
 
 const app = express();
 
@@ -70,6 +71,14 @@ app.post("/cast", async (req, res) => {
 });
 
 const PORT = 5500;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  const networkInterfaces = os.networkInterfaces();
+  for (const interfaceName in networkInterfaces) {
+      const addresses = networkInterfaces[interfaceName];
+      for (const address of addresses) {
+          if (address.family === 'IPv4' && !address.internal) {
+              console.log(`Server running at http://${address.address}:${PORT}/`);
+          }
+      }
+  }
 });

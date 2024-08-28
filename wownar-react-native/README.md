@@ -84,7 +84,9 @@ Open new terminal
      ```bash
      cp .env.example .env
      ```
-   - Edit `.env` to add your `COMPUTER_IP_ADDRESS`. Refer [find-IP-address article](https://www.avg.com/en/signal/find-ip-address) to get IP address of your Computer
+   - Edit `.env` to add your `COMPUTER_IP_ADDRESS`
+   - Protip - If running locally, start the server first and use the displayed IP address in your client code's .env 
+   - Refer [find-IP-address article](https://www.avg.com/en/signal/find-ip-address) to get IP address of your Computer
 
 4. **Start the app**: (Make sure your phone and computer is connected to the same network)
 
