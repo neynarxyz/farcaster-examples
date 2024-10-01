@@ -1,6 +1,6 @@
 # farcaster-examples
 
-A collection of Farcaster mini-apps powered by Neynar
+A collection of Farcaster mini-apps powered by [Neynar](https://neynar.com)
 
 
 | Name                   | Description                                     |
