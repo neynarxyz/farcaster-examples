@@ -12,7 +12,6 @@ import {
 } from "react";
 import axios, { AxiosError } from "axios";
 import useLocalStorage from "@/hooks/use-local-storage-state";
-import { removeSearchParams, verifyUser } from "@/utils/helpers";
 import { UserInfo } from "@/types";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
@@ -56,8 +55,6 @@ export const AppProvider: FC<Props> = ({ children }) => {
     null
   );
 
-  
-
   const lookupUser = useCallback(async () => {
     if (user && user.fid) {
       try {
@@ -94,14 +91,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setScreen(ScreenState.Home);
     } else {
       if (signerUuid && fid) {
-        const verifiedUser = await verifyUser(signerUuid, fid);
-        if (verifiedUser) {
-          setUser({ signerUuid, fid });
-          setScreen(ScreenState.Home);
-        } else {
-          removeUser();
-          setScreen(ScreenState.Signin);
-        }
+        setUser({ signerUuid, fid });
+        setScreen(ScreenState.Home);
       } else {
         setScreen(ScreenState.Signin);
       }
