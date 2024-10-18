@@ -132,7 +132,7 @@ export default function Home() {
           </Link>
         </div>
       ) : (
-        <p className='text-center font-bold text-xl'>Cross post your Farcaster casts to Twitter</p>
+        <p className='text-center font-bold text-xl'>Crosspost your Farcaster casts to Twitter</p>
       )}
   
       <Card className="w-full max-w-md mx-auto bg-transparent border-none">
