@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { createHmac } from 'crypto';
 import axios from 'axios';
-import { NEYNAR_API_BASE_URL } from './constants';
+import { NEYNAR_API_BASE_URL, VERCEL_URL } from './constants';
 
 export async function verifyWebhookSignature(req: NextRequest): Promise<any> {
   const body = await req.text();
@@ -52,7 +52,7 @@ export async function updateNeynarWebhook(author_fids: (string | number)[]) {
         name: 'Neynar Twitter Cross-Post Webhook',
         webhook_id: webhookId,  
         subscription,
-        url: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? "https://x-crosspost.vercel.app"}/api/webhook`,
+        url: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? VERCEL_URL}/api/webhook`,
       },
       {
         headers: {
