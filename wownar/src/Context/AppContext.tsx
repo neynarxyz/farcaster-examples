@@ -1,5 +1,4 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import {
   useContext,
   createContext,
@@ -49,7 +48,6 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
-  const searchParams = useSearchParams();
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
     null
