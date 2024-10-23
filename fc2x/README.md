@@ -29,7 +29,7 @@ Then, copy `.env.example` to a new `.env.local` file and add the necessary envir
 | `NEYNAR_WEBHOOK_ID` and `NEYNAR_WEBHOOK_SECRET`            | Go to the [Neynar Dev Portal](https://dev.neynar.com) and create a webhook where the target URL is `${YOUR_PROD_URL}/api/webhook`. Then grab the webhook's ID and set it as your `NEYNAR_WEBHOOK_ID` value, as well the webhook's secret value for `NEYNAR_WEBHOOK_SECRET`. |
 | `POSTGRES_URL`              | The connection URL for your Postgres DB. To create all of the tables necessary for this project, run the SQL query in `Initial Migration.md`. |
 | `TWITTER_CALLBACK_URL`              | The callback URL for Twitter authentication. Set this value to `${YOUR_PROD_URL}/api/callback`, and make sure to set this on the [Twitter/X Developer Portal](https://developer.x.com/en/portal) as well. |
-| `TWITTER_CONSUMER_KEY` and `TWITTER_CONSUMER_KEY`  | The API Key and API Key Secret for your Twitter app, which you find(or create) on the [Twitter/X Developer Portal](https://developer.x.com/en/portal). |
+| `TWITTER_CONSUMER_KEY` and `TWITTER_CONSUMER_SECRET`  | The API Key and API Key Secret for your Twitter app, which you find(or create) on the [Twitter/X Developer Portal](https://developer.x.com/en/portal). |
 
 ### 3. Run the development server
 

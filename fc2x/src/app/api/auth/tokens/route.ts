@@ -24,6 +24,10 @@ export async function GET(request: NextRequest) {
     response.headers.set('Expires', '0');
     return response;
   } catch (error) {
+    // Improved logging for error handling
+    console.error('Error generating authentication link:', error.message);
+    console.error('Stack trace:', error.stack);
+
     const errorResponse = NextResponse.json({ error: 'Error generating authentication link' }, { status: 500 });
     errorResponse.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     errorResponse.headers.set('Pragma', 'no-cache');
