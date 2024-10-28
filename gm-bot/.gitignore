@@ -2,4 +2,3 @@
 .env.local
 node_modules
 dist
-pm2.log

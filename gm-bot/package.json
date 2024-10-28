@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tsc --watch",
     "build": "rm -rf dist && tsc",
-    "start": "npm run build && pm2 start ecosystem.config.cjs",
+    "start": "npm run build && node dist/app.js",
     "get-approved-signer": "ts-node getApprovedSigner.ts"
   },
   "author": "Neynar",
