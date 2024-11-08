@@ -1008,9 +1008,9 @@ hono-og@0.0.27:
     workers-og "~0.0.23"
 
 hono@^4:
-  version "4.6.5"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.6.5.tgz#9d5a1ada5b40dc865e2d28c0bcc5d24cc755b9f1"
-  integrity sha512-qsmN3V5fgtwdKARGLgwwHvcdLKursMd+YOt69eGpl1dUCJb8mCd7hZfyZnBYjxCegBG7qkJRQRUy2oO25yHcyQ==
+  version "4.6.7"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.6.7.tgz#5389be797be4e049991d29ad7aea499e70d28085"
+  integrity sha512-wX4ZbOnzfNO61hUjuQbJ7OPGs1fWXXVVJ8VTPDb2Ls/x9HjCbVTm80Je6VTHMz5n5RGDtBgV9d9ZFZxBqx56ng==
 
 https-proxy-agent@7.0.4:
   version "7.0.4"
