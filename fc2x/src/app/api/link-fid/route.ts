@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import pool from '@/lib/db';
 import { updateNeynarWebhook } from '@/lib/webhook';
 

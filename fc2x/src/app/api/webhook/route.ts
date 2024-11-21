@@ -3,7 +3,6 @@ import { TwitterApi } from 'twitter-api-v2';
 import pool from '@/lib/db';
 import axios from 'axios';
 import { verifyWebhookSignature } from '@/lib/webhook';
-import { NeynarAPIClient } from "@neynar/nodejs-sdk";
 
 export async function POST(request: NextRequest) {
   try {

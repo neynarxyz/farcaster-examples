@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "^1.62.1",
     "@neynar/react": "^0.9.5",
     "@pigment-css/react": "^0.0.9",
     "@radix-ui/react-avatar": "^1.1.0",

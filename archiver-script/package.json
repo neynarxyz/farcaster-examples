@@ -10,6 +10,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "2.0.0"
+    "@neynar/nodejs-sdk": "^2.0.0"
   }
 }
