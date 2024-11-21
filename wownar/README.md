@@ -18,12 +18,6 @@
    yarn install
    ```
 
-   For npm
-
-   ```bash
-   npm install
-   ```
-
 2. **Configure Environment Variables**
 
    - Copy the example environment file:
@@ -40,12 +34,6 @@
 
       ```bash
       yarn dev
-      ```
-
-   - For npm
-
-      ```bash
-      npm run dev
       ```
 
 ## License

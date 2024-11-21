@@ -22,12 +22,12 @@ rm -rf farcaster-examples
 cd archiver-script
 ```
 
-### Step 3: NPM install
+### Step 3: Yarn install
 
 Install the required Nodejs packages:
 
 ```sh
-npm install
+yarn install
 ```
 
 ### Step 4: Edit the FID and the API key

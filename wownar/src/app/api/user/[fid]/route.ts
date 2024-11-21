@@ -9,9 +9,9 @@ export async function GET(
   try {
     const fid = parseInt(params.fid);
     const {
-      result: { user },
-    } = await neynarClient.lookupUserByFid(fid);
-    return NextResponse.json({ user }, { status: 200 });
+      users
+    } = await neynarClient.fetchBulkUsers({ fids: [fid] });
+    return NextResponse.json({ user: users[0] }, { status: 200 });
   } catch (err) {
     console.log("/api/user/[fid]", err);
     if (isApiErrorResponse(err)) {
