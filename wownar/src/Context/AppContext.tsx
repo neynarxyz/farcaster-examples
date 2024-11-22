@@ -59,8 +59,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
         const { data } = await axios.get<{ user: User }>(
           `/api/user/${user.fid}`
         );
-        setDisplayName(data.user.displayName);
-        setPfp(data.user.pfp.url);
+        setDisplayName(data.user.display_name ?? "");
+        setPfp(data.user.pfp_url ?? "");
       } catch (err) {
         const axiosError = err as AxiosError<ErrorRes>;
         toast(axiosError.response?.data.message || "An error occurred", {
