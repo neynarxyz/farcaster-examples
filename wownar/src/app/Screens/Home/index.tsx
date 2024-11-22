@@ -8,7 +8,7 @@ import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ErrorRes } from "@neynar/nodejs-sdk/build/api/models";
 import { useApp } from "@/Context/AppContext";
 import { useState } from "react";
 

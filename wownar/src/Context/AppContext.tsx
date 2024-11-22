@@ -13,8 +13,8 @@ import axios, { AxiosError } from "axios";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import { toast } from "react-toastify";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
-import { User } from "@neynar/nodejs-sdk/build/neynar-api/v1";
+import { ErrorRes } from "@neynar/nodejs-sdk/build/api/models";
+import { User } from "@neynar/nodejs-sdk/build/api/models";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 

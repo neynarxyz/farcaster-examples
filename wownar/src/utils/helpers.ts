@@ -1,7 +1,3 @@
-import { toast } from "react-toastify";
-import axios, { AxiosError } from "axios";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
-
 export const welcomeMessages = [
   "Wowow Farcaster",
   // "Join the conversation. Sign in to share your story on Warpcast.",
