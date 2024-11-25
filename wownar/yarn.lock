@@ -195,10 +195,10 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-14.2.10.tgz#ee1d036cb5ec871816f96baee7991035bb242455"
   integrity sha512-UjeVoRGKNL2zfbcQ6fscmgjBAS/inHBh63mjIlfPg/NG8Yn2ztqylXt5qilYb6hoHIwaU2ogHknHWWmahJjgZQ==
 
-"@neynar/nodejs-sdk@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@neynar/nodejs-sdk/-/nodejs-sdk-2.0.0.tgz#acddae7344d043ca6b6f7d24e68505f3c01d287c"
-  integrity sha512-0iI+B8oI1FxV7Si1ANG36H8wiK6kI7mgSj+XRpRcBYCxtlVAHC0NlsmMd5iJfg25tdss8U+DYyvKMIkXXa2CTw==
+"@neynar/nodejs-sdk@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@neynar/nodejs-sdk/-/nodejs-sdk-2.0.3.tgz#d00147f90555915ec8f03453f7b303d3dd36043d"
+  integrity sha512-v+nXUuCOjXRLm05PQArbpONfDeN2v7rM5AlDpzqN6wy7ms35zAtCO43IVkJN/bvECDJxo4yPvnCTMECrWnqILA==
   dependencies:
     "@openapitools/openapi-generator-cli" "^2.14.1"
     semver "^7.6.3"
