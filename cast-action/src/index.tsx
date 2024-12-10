@@ -52,19 +52,13 @@ app.frame("/", (c) => {
 app.hono.post("/followers", async (c) => {
   try {
     const body = await c.req.json();
-    const result = await neynarClient.validateFrameAction(
-      body.trustedData.messageBytes
-    );
+    const result = await neynarClient.validateFrameAction({
+      messageBytesInHex: body.trustedData.messageBytes,
+    });
 
-    const { users } = await neynarClient.fetchBulkUsers([
-      Number(result.action.cast.author.fid),
-    ]);
+    const user = result.action.cast.author;
 
-    if (!users) {
-      return c.json({ message: "Error. Try Again." }, 500);
-    }
-
-    let message = `Count:${users[0].follower_count}`;
+    let message = `Count:${user.follower_count}`;
 
     return c.json({ message });
   } catch (e) {

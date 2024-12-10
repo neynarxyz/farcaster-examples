@@ -1,5 +1,4 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import {
   useContext,
   createContext,
@@ -12,11 +11,10 @@ import {
 } from "react";
 import axios, { AxiosError } from "axios";
 import useLocalStorage from "@/hooks/use-local-storage-state";
-import { removeSearchParams, verifyUser } from "@/utils/helpers";
 import { UserInfo } from "@/types";
 import { toast } from "react-toastify";
-import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
-import { User } from "@neynar/nodejs-sdk/build/neynar-api/v1";
+import { ErrorRes } from "@neynar/nodejs-sdk/build/api/models";
+import { User } from "@neynar/nodejs-sdk/build/api/models";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -50,13 +48,10 @@ export const AppProvider: FC<Props> = ({ children }) => {
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
-  const searchParams = useSearchParams();
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
     null
   );
-
-  
 
   const lookupUser = useCallback(async () => {
     if (user && user.fid) {
@@ -64,8 +59,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
         const { data } = await axios.get<{ user: User }>(
           `/api/user/${user.fid}`
         );
-        setDisplayName(data.user.displayName);
-        setPfp(data.user.pfp.url);
+        setDisplayName(data.user.display_name ?? "");
+        setPfp(data.user.pfp_url ?? "");
       } catch (err) {
         const axiosError = err as AxiosError<ErrorRes>;
         toast(axiosError.response?.data.message || "An error occurred", {
@@ -94,14 +89,8 @@ export const AppProvider: FC<Props> = ({ children }) => {
       setScreen(ScreenState.Home);
     } else {
       if (signerUuid && fid) {
-        const verifiedUser = await verifyUser(signerUuid, fid);
-        if (verifiedUser) {
-          setUser({ signerUuid, fid });
-          setScreen(ScreenState.Home);
-        } else {
-          removeUser();
-          setScreen(ScreenState.Signin);
-        }
+        setUser({ signerUuid, fid });
+        setScreen(ScreenState.Home);
       } else {
         setScreen(ScreenState.Signin);
       }

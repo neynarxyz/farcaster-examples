@@ -66,15 +66,25 @@ This route will return a GM message every time the action is clicked, but let's 
 Create a new `src/lib/neynarClient.ts` file and add the following:
 
 ```typescript neynarClient.ts
-import { NeynarAPIClient } from "@neynar/nodejs-sdk";
+import { NeynarAPIClient, Configuration } from "@neynar/nodejs-sdk";
 import { config } from "dotenv";
+
 config();
 
 if (!process.env.NEYNAR_API_KEY) {
   throw new Error("Make sure you set NEYNAR_API_KEY in your .env file");
 }
 
-const neynarClient = new NeynarAPIClient(process.env.NEYNAR_API_KEY);
+const neynarConfig = new Configuration({
+  apiKey: process.env.NEYNAR_API_KEY,
+  baseOptions: {
+    headers: {
+      "x-neynar-experimental": true,
+    },
+  },
+});
+
+const neynarClient = new NeynarAPIClient(neynarConfig);
 
 export default neynarClient;
 ```

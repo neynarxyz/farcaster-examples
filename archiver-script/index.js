@@ -1,18 +1,21 @@
 import fs from "fs";
 
-import { NeynarAPIClient } from "@neynar/nodejs-sdk";
-const client = new NeynarAPIClient("YOUR_NEYNAR_API_KEY");
+import { NeynarAPIClient, Configuration } from "@neynar/nodejs-sdk";
+const config = new Configuration({
+	apiKey: "YOUR_NEYNAR_API_KEY"
+})
+const client = new NeynarAPIClient(config);
 
 const parser = (cast) => {
 	return {
 		fid: parseInt(cast.author.fid),
-		parentFid: parseInt(cast.parentAuthor.fid)
-			? parseInt(cast.parentAuthor.fid)
+		parentFid: parseInt(cast.parent_author.fid)
+			? parseInt(cast.parent_author.fid)
 			: undefined,
 		hash: cast.hash || undefined,
-		threadHash: cast.threadHash || undefined,
-		parentHash: cast.parentHash || undefined,
-		parentUrl: cast.parentUrl || undefined,
+		threadHash: cast.thread_hash || undefined,
+		parentHash: cast.parent_hash || undefined,
+		parentUrl: cast.parent_url || undefined,
 		text: cast.text || undefined,
 	};
 };
@@ -25,15 +28,17 @@ const dumpCast = (cast) => {
 };
 
 const fetchAndDump = async (fid, cursor) => {
-	const data = await client.fetchAllCastsCreatedByUser(fid, {
+	const response = await client.fetchCastsForUser({
+		fid,
 		limit: 150,
 		cursor,
 	});
-	data.result.casts.map(dumpCast);
+	console.log(response.casts.length);
+	response.casts.map(dumpCast);
 
   // If there is no next cursor, we are done
-	if (data.result.next.cursor === null) return;
-	await fetchAndDump(fid, data.result.next.cursor);
+	if (response.next.cursor === null) return;
+	await fetchAndDump(fid, response.next.cursor);
 };
 
 // save all @rish.eth's casts in a file called data.ndjson

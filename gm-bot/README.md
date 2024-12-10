@@ -12,13 +12,7 @@
 
 ### Setting Up the Environment
 
-1. **Install PM2**: PM2 is a process manager for Node.js applications. Install it globally using npm:
-
-   ```bash
-   npm install -g pm2
-   ```
-
-2. **Install Project Dependencies**: Navigate to the project directory and run one of the following commands to install all required dependencies:
+1. **Install Project Dependencies**: Navigate to the project directory and run one of the following commands to install all required dependencies:
 
    ```bash
    yarn install
@@ -26,7 +20,7 @@
    npm install
    ```
 
-3. **Configure Environment Variables**:
+2. **Configure Environment Variables**:
    - Copy the example environment file:
      ```bash
      cp .env.example .env
@@ -42,19 +36,28 @@ yarn get-approved-signer
 ```
 
 ### Approving a signer
+
 In order to get an approved signer you need to do an on-chain transaction on OP mainnet.
 Go to Farcaster KeyGateway optimism explorer
 https://optimistic.etherscan.io/address/0x00000000fc56947c7e7183f8ca4b62398caadf0b#writeContract
 
 Connect to Web3.
 
-Navigate to `addFor` function and add following values inside the respective placeholders. You will see values for fidOwner, keyType, key, metadataType, metadata, deadline, sig in your terminal logs. 
+Navigate to `addFor` function and add following values inside the respective placeholders. You will see values for fidOwner, keyType, key, metadataType, metadata, deadline, sig in your terminal logs.
 
 Press "Write" to execute the transaction. This will create a signer for your mnemonic on the OP mainnet.
 
 ## Running the Bot
 
-1. **Start the Bot**: Launch the bot using the following command:
+1. **Watch the bot**: To run the bot in watch mode, use the following command:
+
+   ```bash
+   yarn watch
+   # or
+   npm run watch
+   ```
+
+2. **Start the Bot**: Launch the bot using the following command:
 
    ```bash
    yarn start
@@ -62,22 +65,7 @@ Press "Write" to execute the transaction. This will create a signer for your mne
    npm run start
    ```
 
-2. **Verify the Process**: Ensure that the bot is running correctly with:
-
-   ```bash
-   pm2 status
-   ```
-
-3. **View Logs**: To check the bot's activity logs, use:
-
-   ```bash
-   pm2 logs
-   ```
-
-4. **Stopping the Bot**: If you need to stop the bot, use:
-   ```bash
-   pm2 kill
-   ```
+3. **Stopping the Bot**: If you need to stop the bot, kill the instance.
 
 ## License
 
@@ -86,4 +74,4 @@ Press "Write" to execute the transaction. This will create a signer for your mne
 ## FAQs/Troubleshooting
 
 - **Q1**: What if `gm_bot` stops sending messages?
-  - **A1**: Check the PM2 logs for any errors and ensure your system's time settings align with the specified `TIME_ZONE`, also ensure that the process is running.
+  - **A1**: Check the logs for any errors and ensure your system's time settings align with the specified `TIME_ZONE`, also ensure that the process is running.
