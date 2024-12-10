@@ -190,8 +190,7 @@ const Signin: React.FC = () => {
       console.log("Fields", {
         fid,
         signature,
-        userAddress,
-        nonce: requestedUserNonce,
+        requestedUserCustodyAddress: userAddress,
         deadline,
       });
     } catch (error) {
@@ -206,7 +205,17 @@ const Signin: React.FC = () => {
         <div className="mx-5 flex flex-col items-center justify-center">
           <h2 className="text-4xl font-extralight mb-4">Wowow Farcaster</h2>
         </div>
-        <NeynarAuthButton variant={SIWN_variant.NEYNAR} />
+
+        <div className="flex items-center justify-center">
+          <NeynarAuthButton variant={SIWN_variant.NEYNAR} />
+          <span className="mx-2">|</span>
+          <button
+            onClick={handleSignup}
+            className="flex items-center px-4 py-4 bg-white text-black font-semibold text-[14px] leading-[19px] rounded-full shadow-sm hover:shadow-md"
+          >
+            <span className="">Sign up</span>
+          </button>
+        </div>
 
         {/* Wallet Connection Status Indicator */}
         <div className="mt-4 flex items-center">
@@ -221,14 +230,6 @@ const Signin: React.FC = () => {
               : "Wallet Not Connected (For signup wallet connection is required)"}
           </span>
         </div>
-
-        {/* New Signup Button */}
-        <button
-          onClick={handleSignup}
-          className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Signup
-        </button>
       </main>
     </ScreenLayout>
   );
