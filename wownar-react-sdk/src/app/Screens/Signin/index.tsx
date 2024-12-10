@@ -16,7 +16,7 @@
 
 // export default Signin;
 
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ScreenLayout from "../layout";
 import {
   NeynarAuthButton,
@@ -34,6 +34,33 @@ const publicClient = createPublicClient({
 
 const Signin: React.FC = () => {
   const { showToast } = useNeynarContext();
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+
+  console.log("userAddress", userAddress);
+
+  // UseEffect to handle account changes
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.ethereum) {
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts && accounts.length > 0) {
+          setUserAddress(accounts[0]);
+        } else {
+          setUserAddress(null);
+        }
+      };
+
+      // Listen for account changes
+      window.ethereum.on("accountsChanged", handleAccountsChanged);
+
+      // Cleanup the event listener when component unmounts
+      return () => {
+        window.ethereum.removeListener(
+          "accountsChanged",
+          handleAccountsChanged
+        );
+      };
+    }
+  }, []);
 
   const handleSignup = async () => {
     try {
@@ -43,16 +70,26 @@ const Signin: React.FC = () => {
         typeof window.ethereum === "undefined"
       ) {
         showToast(ToastType.Error, "MetaMask is not installed. Redirecting...");
-
         window.open("https://metamask.io/download/", "_blank");
         return;
       }
 
-      // 2. Request user login in MetaMask
-      const accounts: string[] = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const userAddress = accounts[0];
+      // If we don't have a userAddress already, request it
+      if (!userAddress) {
+        const accounts: string[] = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        if (accounts.length === 0) {
+          showToast(
+            ToastType.Error,
+            "No MetaMask account detected. Please log in to MetaMask."
+          );
+          return;
+        }
+        setUserAddress(accounts[0]);
+      }
+
+      // Double-check we have a userAddress here
       if (!userAddress) {
         showToast(
           ToastType.Error,
@@ -61,7 +98,7 @@ const Signin: React.FC = () => {
         return;
       }
 
-      // 3. Switch to Optimism network
+      // 2. Switch to Optimism network
       try {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
@@ -75,7 +112,7 @@ const Signin: React.FC = () => {
         return;
       }
 
-      // 4. Fetch FID from Neynar API
+      // 3. Fetch FID from Neynar API
       const fidResponse = await fetch(
         "https://api.neynar.com/v2/farcaster/user/fid",
         {
@@ -96,7 +133,7 @@ const Signin: React.FC = () => {
         return;
       }
 
-      // 5. Fetch nonce from IdRegistry contract
+      // 4. Fetch nonce from IdRegistry contract
       const requestedUserNonce = (await publicClient.readContract({
         address: ID_REGISTRY_ADDRESS,
         abi: ID_REGISTRY_ABI,
@@ -104,11 +141,11 @@ const Signin: React.FC = () => {
         args: [userAddress],
       })) as bigint;
 
-      // 6. Compute deadline (1 hour from now)
+      // 5. Compute deadline (1 hour from now)
       const now = Math.floor(Date.now() / 1000);
       const deadline = now + 3600;
 
-      // 7. Construct EIP-712 typed data
+      // 6. Construct EIP-712 typed data
       const domain = {
         name: "Farcaster IdRegistry",
         version: "1",
@@ -139,7 +176,7 @@ const Signin: React.FC = () => {
         message,
       };
 
-      // 8. Request signature from MetaMask
+      // 7. Request signature from MetaMask
       const signature = await window.ethereum.request({
         method: "eth_signTypedData_v4",
         params: [userAddress, JSON.stringify(typedData)],
@@ -154,7 +191,7 @@ const Signin: React.FC = () => {
       // If all goes well, you have the signature and can proceed with the flow
       showToast(ToastType.Success, "Successfully signed the data.");
 
-      // Here, you might send the signature along with the fid and other info to your backend.
+      // Here, send the signature along with the fid and other info to your backend if needed.
       // await submitSignatureToYourBackend({ fid, signature, userAddress, nonce: requestedUserNonce, deadline });
     } catch (error) {
       console.error(error);
