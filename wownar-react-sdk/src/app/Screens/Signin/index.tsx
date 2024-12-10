@@ -36,6 +36,18 @@ const Signin: React.FC = () => {
   const { showToast } = useNeynarContext();
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
+  const [showSignupForm, setShowSignupForm] = useState(false);
+
+  // Form state
+  const [fname, setFname] = useState("");
+  const [profilePicUrl, setProfilePicUrl] = useState("");
+  const [username, setUsername] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [bio, setBio] = useState("");
+  const [url, setUrl] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [longitude, setLongitude] = useState("");
+
   console.log("userAddress", userAddress);
 
   // UseEffect to handle account changes
@@ -77,6 +89,8 @@ const Signin: React.FC = () => {
         return;
       }
 
+      let _userAddress;
+
       // If we don't have a userAddress already, request it
       if (!userAddress) {
         const accounts: string[] = await window.ethereum.request({
@@ -89,11 +103,12 @@ const Signin: React.FC = () => {
           );
           return;
         }
+        _userAddress = accounts[0];
         setUserAddress(accounts[0]);
       }
 
       // Double-check we have a userAddress here
-      if (!userAddress) {
+      if (!_userAddress) {
         showToast(
           ToastType.Error,
           "No wallet detected. Please log in to a wallet."
@@ -133,7 +148,7 @@ const Signin: React.FC = () => {
         address: ID_REGISTRY_ADDRESS,
         abi: ID_REGISTRY_ABI,
         functionName: "nonces",
-        args: [userAddress],
+        args: [_userAddress],
       })) as bigint;
 
       // 5. Compute deadline (1 hour from now)
@@ -159,7 +174,7 @@ const Signin: React.FC = () => {
 
       const message = {
         fid: fid.toString(),
-        to: userAddress,
+        to: _userAddress,
         nonce: requestedUserNonce.toString(),
         deadline: deadline.toString(),
       };
@@ -174,8 +189,8 @@ const Signin: React.FC = () => {
       // 7. Request signature from a wallet
       const signature = await window.ethereum.request({
         method: "eth_signTypedData_v4",
-        params: [userAddress, JSON.stringify(typedData)],
-        from: userAddress,
+        params: [_userAddress, JSON.stringify(typedData)],
+        from: _userAddress,
       });
 
       if (!signature) {
