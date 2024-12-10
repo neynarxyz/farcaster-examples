@@ -64,12 +64,15 @@ const Signin: React.FC = () => {
 
   const handleSignup = async () => {
     try {
-      // 1. Check for MetaMask
+      // 1. Check for wallet
       if (
         typeof window === "undefined" ||
         typeof window.ethereum === "undefined"
       ) {
-        showToast(ToastType.Error, "MetaMask is not installed. Redirecting...");
+        showToast(
+          ToastType.Error,
+          "No wallet is not installed. Redirecting..."
+        );
         window.open("https://metamask.io/download/", "_blank");
         return;
       }
@@ -82,7 +85,7 @@ const Signin: React.FC = () => {
         if (accounts.length === 0) {
           showToast(
             ToastType.Error,
-            "No MetaMask account detected. Please log in to MetaMask."
+            "No wallet detected. Please log in to a wallet."
           );
           return;
         }
@@ -93,7 +96,7 @@ const Signin: React.FC = () => {
       if (!userAddress) {
         showToast(
           ToastType.Error,
-          "No MetaMask account detected. Please log in to MetaMask."
+          "No wallet detected. Please log in to a wallet."
         );
         return;
       }
@@ -168,7 +171,7 @@ const Signin: React.FC = () => {
         message,
       };
 
-      // 7. Request signature from MetaMask
+      // 7. Request signature from a wallet
       const signature = await window.ethereum.request({
         method: "eth_signTypedData_v4",
         params: [userAddress, JSON.stringify(typedData)],
