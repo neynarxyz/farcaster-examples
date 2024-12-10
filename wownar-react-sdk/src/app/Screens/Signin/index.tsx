@@ -207,6 +207,20 @@ const Signin: React.FC = () => {
         </div>
         <NeynarAuthButton variant={SIWN_variant.NEYNAR} />
 
+        {/* Wallet Connection Status Indicator */}
+        <div className="mt-4 flex items-center">
+          <span
+            className={`h-3 w-3 rounded-full mr-2 ${
+              userAddress ? "bg-green-500" : "bg-red-500"
+            }`}
+          ></span>
+          <span>
+            {userAddress
+              ? `Wallet Connected (${userAddress})`
+              : "Wallet Not Connected (For signup wallet connection is required)"}
+          </span>
+        </div>
+
         {/* New Signup Button */}
         <button
           onClick={handleSignup}
