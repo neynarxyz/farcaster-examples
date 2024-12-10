@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import ScreenLayout from "../layout";
 import {
   NeynarAuthButton,
@@ -14,9 +14,11 @@ const publicClient = createPublicClient({
   transport: http(),
 });
 
+const InvalidFnameErrorMessage =
+  "Invalid format. The string must start with a letter or number, can include letters, numbers, or hyphens (up to 16 characters total), and cannot contain any other characters";
+
 const Signin: React.FC = () => {
   const { showToast } = useNeynarContext();
-  const [userAddress, setUserAddress] = useState<string | null>(null);
 
   const [showSignupForm, setShowSignupForm] = useState(false);
 
@@ -34,7 +36,6 @@ const Signin: React.FC = () => {
   // Form state
   const [fname, setFname] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState("");
-  const [username, setUsername] = useState("");
   const [latitude, setLatitude] = useState("");
   const [bio, setBio] = useState("");
   const [url, setUrl] = useState("");
@@ -46,9 +47,9 @@ const Signin: React.FC = () => {
     if (typeof window !== "undefined" && window.ethereum) {
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts && accounts.length > 0) {
-          setUserAddress(accounts[0]);
+          setRequestedUserCustodyAddress(accounts[0]);
         } else {
-          setUserAddress(null);
+          setRequestedUserCustodyAddress(null);
         }
       };
 
@@ -80,10 +81,10 @@ const Signin: React.FC = () => {
         return;
       }
 
-      let _userAddress;
+      let _requestedUserCustodyAddress;
 
       // If we don't have a userAddress already, request it
-      if (!userAddress) {
+      if (!requestedUserCustodyAddress) {
         const accounts: string[] = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
@@ -94,12 +95,12 @@ const Signin: React.FC = () => {
           );
           return;
         }
-        _userAddress = accounts[0];
-        setUserAddress(accounts[0]);
+        _requestedUserCustodyAddress = accounts[0];
+        setRequestedUserCustodyAddress(accounts[0]);
       }
 
       // Double-check we have a userAddress here
-      if (!_userAddress) {
+      if (!_requestedUserCustodyAddress) {
         showToast(
           ToastType.Error,
           "No wallet detected. Please log in to a wallet."
@@ -139,7 +140,7 @@ const Signin: React.FC = () => {
         address: ID_REGISTRY_ADDRESS,
         abi: ID_REGISTRY_ABI,
         functionName: "nonces",
-        args: [_userAddress],
+        args: [_requestedUserCustodyAddress],
       })) as bigint;
 
       // 5. Compute deadline (1 hour from now)
@@ -165,7 +166,7 @@ const Signin: React.FC = () => {
 
       const message = {
         fid: fid.toString(),
-        to: _userAddress,
+        to: _requestedUserCustodyAddress,
         nonce: requestedUserNonce.toString(),
         deadline: deadline.toString(),
       };
@@ -180,8 +181,8 @@ const Signin: React.FC = () => {
       // 7. Request signature from a wallet
       const signature = await window.ethereum.request({
         method: "eth_signTypedData_v4",
-        params: [_userAddress, JSON.stringify(typedData)],
-        from: _userAddress,
+        params: [_requestedUserCustodyAddress, JSON.stringify(typedData)],
+        from: _requestedUserCustodyAddress,
       });
 
       if (!signature) {
@@ -189,24 +190,15 @@ const Signin: React.FC = () => {
         return;
       }
 
-      // If all goes well, you have the signature and can proceed with the flow
       showToast(ToastType.Success, "Successfully signed the data.");
 
       // Set the form values
       setFid(fid);
       setSignature(signature);
-      setRequestedUserCustodyAddress(_userAddress);
+      setRequestedUserCustodyAddress(_requestedUserCustodyAddress);
       setDeadline(deadline);
 
       setShowSignupForm(true);
-
-      // Here, send the signature along with the fid and other info to your backend if needed.
-      console.log("Fields", {
-        fid,
-        signature,
-        requestedUserCustodyAddress: userAddress,
-        deadline,
-      });
     } catch (error) {
       console.error(error);
       showToast(ToastType.Error, "An error occurred during signup.");
@@ -215,10 +207,8 @@ const Signin: React.FC = () => {
 
   const handleCancel = () => {
     setShowSignupForm(false);
-    // Optionally reset the form fields
     setFname("");
     setProfilePicUrl("");
-    setUsername("");
     setLatitude("");
     setBio("");
     setUrl("");
@@ -226,23 +216,73 @@ const Signin: React.FC = () => {
     setLongitude("");
   };
 
-  const handleFormSubmit = () => {
-    // Here you can handle form submission logic.
-    // For now, just log the values or handle as needed.
-    console.log({
-      fname,
-      profilePicUrl,
-      username,
-      latitude,
-      bio,
-      url,
-      displayName,
-      longitude,
-    });
+  const handleFormSubmit = async () => {
+    if (isFnameAvailable === false) {
+      showToast(ToastType.Error, "Username is not available.");
+      return;
+    }
 
-    // Once done, you can also hide the form or keep it open.
-    // For demonstration, let's just hide it after submit.
-    setShowSignupForm(false);
+    if (fnameError) {
+      showToast(ToastType.Error, InvalidFnameErrorMessage);
+      return;
+    }
+
+    if (!fid || !signature || !requestedUserCustodyAddress || !deadline) {
+      showToast(ToastType.Error, "Missing required fields.");
+      return;
+    }
+
+    const metadata = {
+      bio,
+      pfp_url: profilePicUrl,
+      url,
+      display_name: displayName,
+      location: {
+        latitude,
+        longitude,
+      },
+    };
+
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fid,
+          signature,
+          requestedUserCustodyAddress,
+          deadline,
+          fname,
+          metadata,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message);
+      }
+
+      const data = await response.json();
+
+      showToast(ToastType.Success, "Successfully signed up!");
+
+      const neynar_authenticated_user = {
+        signer_uuid: data.signer.signer_uuid,
+        ...(data.user ? data.user : {}),
+      };
+
+      localStorage.setItem(
+        "neynar_authenticated_user",
+        JSON.stringify(neynar_authenticated_user)
+      );
+
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      showToast(ToastType.Error, "An error occurred during signup.");
+    }
   };
 
   const handleFnameBlur = async () => {
@@ -254,9 +294,7 @@ const Signin: React.FC = () => {
 
     const fnameRegex = /^[a-z0-9][a-z0-9-]{0,15}$/;
     if (!fnameRegex.test(fname)) {
-      setFnameError(
-        "Invalid format. The string must start with a letter or number, can include letters, numbers, or hyphens (up to 16 characters total), and cannot contain any other characters"
-      );
+      setFnameError(InvalidFnameErrorMessage);
       setIsFnameAvailable(null);
       return;
     }
@@ -302,12 +340,12 @@ const Signin: React.FC = () => {
             <div className="mt-4 flex items-center">
               <span
                 className={`h-3 w-3 rounded-full mr-2 ${
-                  userAddress ? "bg-green-500" : "bg-red-500"
+                  requestedUserCustodyAddress ? "bg-green-500" : "bg-red-500"
                 }`}
               ></span>
               <span>
-                {userAddress
-                  ? `Wallet Connected (${userAddress})`
+                {requestedUserCustodyAddress
+                  ? `Wallet Connected (${requestedUserCustodyAddress})`
                   : "Wallet Not Connected (For signup wallet connection is required)"}
               </span>
             </div>
@@ -318,12 +356,12 @@ const Signin: React.FC = () => {
             <div className="my-4 flex items-center">
               <span
                 className={`h-3 w-3 rounded-full mr-2 ${
-                  userAddress ? "bg-green-500" : "bg-red-500"
+                  requestedUserCustodyAddress ? "bg-green-500" : "bg-red-500"
                 }`}
               ></span>
               <span>
-                {userAddress
-                  ? `Wallet Connected (${userAddress})`
+                {requestedUserCustodyAddress
+                  ? `Wallet Connected (${requestedUserCustodyAddress})`
                   : "Wallet Not Connected (For signup wallet connection is required)"}
               </span>
             </div>
