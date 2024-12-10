@@ -113,15 +113,7 @@ const Signin: React.FC = () => {
       }
 
       // 3. Fetch FID from Neynar API
-      const fidResponse = await fetch(
-        "https://api.neynar.com/v2/farcaster/user/fid",
-        {
-          headers: {
-            "x-api-key": "YOUR_API_KEY", // Replace with your actual API key
-            accept: "application/json",
-          },
-        }
-      );
+      const fidResponse = await fetch("/api/user");
       if (!fidResponse.ok) {
         showToast(ToastType.Error, "Failed to fetch FID from Neynar API.");
         return;
@@ -192,7 +184,13 @@ const Signin: React.FC = () => {
       showToast(ToastType.Success, "Successfully signed the data.");
 
       // Here, send the signature along with the fid and other info to your backend if needed.
-      // await submitSignatureToYourBackend({ fid, signature, userAddress, nonce: requestedUserNonce, deadline });
+      console.log("Fields", {
+        fid,
+        signature,
+        userAddress,
+        nonce: requestedUserNonce,
+        deadline,
+      });
     } catch (error) {
       console.error(error);
       showToast(ToastType.Error, "An error occurred during signup.");
