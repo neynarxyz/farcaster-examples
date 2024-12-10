@@ -1,19 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import neynarClient from "@/clients/neynar";
-import { ReactionType, isApiErrorResponse } from "@neynar/nodejs-sdk";
-import { Cast } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ReactionType, Cast } from "@neynar/nodejs-sdk/build/api";
+import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export async function POST(request: NextRequest) {
   const { signerUuid, reaction, castOrCastHash } = (await request.json()) as {
     signerUuid: string;
-    reaction: ReactionType
+    reaction: ReactionType;
     castOrCastHash: string | Cast;
   };
 
   try {
-    const { success, message } = await neynarClient.publishReactionToCast(signerUuid, reaction, castOrCastHash);
+    await neynarClient.publishReaction({
+      signerUuid,
+      reactionType:
+        reaction === ReactionType.Like
+          ? ReactionType.Like
+          : ReactionType.Recast,
+      target:
+        typeof castOrCastHash === "string"
+          ? castOrCastHash
+          : castOrCastHash.hash,
+    });
     return NextResponse.json(
-      { message: `Cast ${reaction} with hash ${castOrCastHash} published successfully` },
+      {
+        message: `Cast ${reaction} with hash ${castOrCastHash} published successfully`,
+      },
       { status: 200 }
     );
   } catch (err) {
