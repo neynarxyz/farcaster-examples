@@ -3,8 +3,22 @@ import neynarClient from "@/clients/neynar";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export async function GET(request: NextRequest) {
-  const res = await neynarClient.getFreshAccountFID();
-  return NextResponse.json(res, { status: 200 });
+  try {
+    const res = await neynarClient.getFreshAccountFID();
+    return NextResponse.json(res, { status: 200 });
+  } catch (error) {
+    console.log("GET - /api/user", error);
+    if (isApiErrorResponse(error)) {
+      return NextResponse.json(
+        { ...error.response.data },
+        { status: error.response.status }
+      );
+    } else
+      return NextResponse.json(
+        { message: "Something went wrong" },
+        { status: 500 }
+      );
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -28,7 +42,7 @@ export async function POST(request: NextRequest) {
     });
     return NextResponse.json(response, { status: 200 });
   } catch (err) {
-    console.log("/api/user", err);
+    console.log("POST - /api/user", err);
     if (isApiErrorResponse(err)) {
       return NextResponse.json(
         { ...err.response.data },

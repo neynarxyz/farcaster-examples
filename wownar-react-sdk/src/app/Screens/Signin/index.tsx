@@ -1,21 +1,3 @@
-// import ScreenLayout from "../layout";
-// import { NeynarAuthButton, SIWN_variant } from "@neynar/react";
-
-// const Signin = () => {
-//   return (
-//     <ScreenLayout>
-//       <main className="flex-grow flex flex-col items-center justify-center">
-//         <div className="mx-5 flex flex-col items-center justify-center">
-//           <h2 className="text-4xl font-extralight mb-4">Wowow Farcaster</h2>
-//         </div>
-//         <NeynarAuthButton variant={SIWN_variant.NEYNAR}  />
-//       </main>
-//     </ScreenLayout>
-//   );
-// };
-
-// export default Signin;
-
 import React, { useEffect, useState, useCallback } from "react";
 import ScreenLayout from "../layout";
 import {
@@ -38,6 +20,17 @@ const Signin: React.FC = () => {
 
   const [showSignupForm, setShowSignupForm] = useState(false);
 
+  const [fid, setFid] = useState<number | null>(null);
+  const [signature, setSignature] = useState<string | null>(null);
+  const [requestedUserCustodyAddress, setRequestedUserCustodyAddress] =
+    useState<string | null>();
+  const [deadline, setDeadline] = useState<number | null>();
+
+  const [isFnameAvailable, setIsFnameAvailable] = useState<boolean | null>(
+    null
+  );
+  const [fnameError, setFnameError] = useState<string | null>(null);
+
   // Form state
   const [fname, setFname] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState("");
@@ -47,8 +40,6 @@ const Signin: React.FC = () => {
   const [url, setUrl] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [longitude, setLongitude] = useState("");
-
-  console.log("userAddress", userAddress);
 
   // UseEffect to handle account changes
   useEffect(() => {
@@ -201,6 +192,14 @@ const Signin: React.FC = () => {
       // If all goes well, you have the signature and can proceed with the flow
       showToast(ToastType.Success, "Successfully signed the data.");
 
+      // Set the form values
+      setFid(fid);
+      setSignature(signature);
+      setRequestedUserCustodyAddress(_userAddress);
+      setDeadline(deadline);
+
+      setShowSignupForm(true);
+
       // Here, send the signature along with the fid and other info to your backend if needed.
       console.log("Fields", {
         fid,
@@ -214,6 +213,73 @@ const Signin: React.FC = () => {
     }
   };
 
+  const handleCancel = () => {
+    setShowSignupForm(false);
+    // Optionally reset the form fields
+    setFname("");
+    setProfilePicUrl("");
+    setUsername("");
+    setLatitude("");
+    setBio("");
+    setUrl("");
+    setDisplayName("");
+    setLongitude("");
+  };
+
+  const handleFormSubmit = () => {
+    // Here you can handle form submission logic.
+    // For now, just log the values or handle as needed.
+    console.log({
+      fname,
+      profilePicUrl,
+      username,
+      latitude,
+      bio,
+      url,
+      displayName,
+      longitude,
+    });
+
+    // Once done, you can also hide the form or keep it open.
+    // For demonstration, let's just hide it after submit.
+    setShowSignupForm(false);
+  };
+
+  const handleFnameBlur = async () => {
+    if (!fname) {
+      setIsFnameAvailable(null);
+      setFnameError(null);
+      return;
+    }
+
+    const fnameRegex = /^[a-z0-9][a-z0-9-]{0,15}$/;
+    if (!fnameRegex.test(fname)) {
+      setFnameError(
+        "Invalid format. The string must start with a letter or number, can include letters, numbers, or hyphens (up to 16 characters total), and cannot contain any other characters"
+      );
+      setIsFnameAvailable(null);
+      return;
+    }
+
+    setFnameError(null);
+
+    try {
+      const response = await fetch(
+        `/api/user/fname/availability?fname=${fname}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to check fname availability.");
+      }
+
+      const data = await response.json();
+      setIsFnameAvailable(data.available);
+    } catch (error) {
+      console.error("Error checking fname availability:", error);
+      setIsFnameAvailable(false);
+    }
+  };
+
   return (
     <ScreenLayout>
       <main className="flex-grow flex flex-col items-center justify-center">
@@ -221,30 +287,162 @@ const Signin: React.FC = () => {
           <h2 className="text-4xl font-extralight mb-4">Wowow Farcaster</h2>
         </div>
 
-        <div className="flex items-center justify-center">
-          <NeynarAuthButton variant={SIWN_variant.NEYNAR} />
-          <span className="mx-2">|</span>
-          <button
-            onClick={handleSignup}
-            className="flex items-center px-4 py-4 bg-white text-black font-semibold text-[14px] leading-[19px] rounded-full shadow-sm hover:shadow-md"
-          >
-            <span className="">Sign up</span>
-          </button>
-        </div>
+        {!showSignupForm ? (
+          <div>
+            <div className="flex items-center justify-center space-x-2">
+              <NeynarAuthButton variant={SIWN_variant.NEYNAR} />
+              <span>|</span>
+              <button
+                onClick={handleSignup}
+                className="flex items-center px-4 py-4 bg-white text-black font-semibold text-sm rounded-full shadow-sm hover:shadow-md"
+              >
+                Sign up
+              </button>
+            </div>
+            <div className="mt-4 flex items-center">
+              <span
+                className={`h-3 w-3 rounded-full mr-2 ${
+                  userAddress ? "bg-green-500" : "bg-red-500"
+                }`}
+              ></span>
+              <span>
+                {userAddress
+                  ? `Wallet Connected (${userAddress})`
+                  : "Wallet Not Connected (For signup wallet connection is required)"}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full max-w-lg p-6 bg-white shadow-md rounded-md mt-4">
+            <h3 className="text-xl font-semibold mb-4">Complete Your Signup</h3>
+            <div className="my-4 flex items-center">
+              <span
+                className={`h-3 w-3 rounded-full mr-2 ${
+                  userAddress ? "bg-green-500" : "bg-red-500"
+                }`}
+              ></span>
+              <span>
+                {userAddress
+                  ? `Wallet Connected (${userAddress})`
+                  : "Wallet Not Connected (For signup wallet connection is required)"}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col col-span-2">
+                <label className="text-sm mb-1 font-medium">Username</label>
+                <input
+                  type="text"
+                  value={fname}
+                  onChange={(e) => {
+                    setIsFnameAvailable(null);
+                    setFname(e.target.value);
+                  }}
+                  onBlur={handleFnameBlur}
+                  className={`border p-2 rounded ${
+                    fnameError
+                      ? "border-red-500"
+                      : isFnameAvailable === false
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="john_doe"
+                />
+                {fnameError && (
+                  <p className="text-red-500 text-sm mt-1">{fnameError}</p>
+                )}
+                {isFnameAvailable === false && !fnameError && (
+                  <p className="text-red-500 text-sm mt-1">
+                    username `{fname}` is not available
+                  </p>
+                )}
+              </div>
 
-        {/* Wallet Connection Status Indicator */}
-        <div className="mt-4 flex items-center">
-          <span
-            className={`h-3 w-3 rounded-full mr-2 ${
-              userAddress ? "bg-green-500" : "bg-red-500"
-            }`}
-          ></span>
-          <span>
-            {userAddress
-              ? `Wallet Connected (${userAddress})`
-              : "Wallet Not Connected (For signup wallet connection is required)"}
-          </span>
-        </div>
+              <div className="flex flex-col">
+                <label className="text-sm mb-1 font-medium">Display Name</label>
+                <input
+                  type="text"
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1 font-medium">Bio</label>
+                <input
+                  type="text"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="Enter bio"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1 font-medium">
+                  Profile picture url
+                </label>
+                <input
+                  type="text"
+                  value={profilePicUrl}
+                  onChange={(e) => setProfilePicUrl(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="Enter profile picture url"
+                />
+              </div>
+
+              <div className="flex flex-col col-span-1">
+                <label className="text-sm mb-1 font-medium">Url</label>
+                <input
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="Enter Url"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1 font-medium">Latitude</label>
+                <input
+                  type="text"
+                  value={latitude}
+                  onChange={(e) => setLatitude(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="Enter Latitude"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1 font-medium">Longitude</label>
+                <input
+                  type="text"
+                  value={longitude}
+                  onChange={(e) => setLongitude(e.target.value)}
+                  className="border p-2 rounded"
+                  placeholder="Enter Longitude"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-2 mt-4">
+              <button
+                onClick={handleCancel}
+                className="flex items-center px-4 py-4 bg-white text-black font-semibold text-sm rounded-full shadow-sm hover:shadow-md border border-black"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleFormSubmit}
+                className="flex items-center px-4 py-4 bg-black text-white font-semibold text-sm rounded-full shadow-sm hover:shadow-md"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </ScreenLayout>
   );
