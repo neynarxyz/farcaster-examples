@@ -3,14 +3,18 @@ import neynarClient from "@/clients/neynar";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export async function POST(request: NextRequest) {
-  const { signer_uuid, castHash, action} = (await request.json()) as {
+  const { signer_uuid, castHash, action } = (await request.json()) as {
     signer_uuid: string;
     castHash: string;
     action: any;
   };
 
   try {
-    const response = await neynarClient.postFrameAction(signer_uuid, castHash, action);
+    const response = await neynarClient.postFrameAction({
+      signerUuid: signer_uuid,
+      castHash,
+      action,
+    });
 
     if (response) {
       return NextResponse.json(response, { status: 200 });

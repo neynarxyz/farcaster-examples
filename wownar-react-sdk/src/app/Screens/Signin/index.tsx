@@ -5,14 +5,9 @@ import {
   SIWN_variant,
   useNeynarContext,
 } from "@neynar/react";
-import { createPublicClient, http } from "viem";
+import { createWalletClient, custom, publicActions } from "viem";
 import { optimism } from "viem/chains";
 import { ID_REGISTRY_ABI, ID_REGISTRY_ADDRESS, ToastType } from "@/utils";
-
-const publicClient = createPublicClient({
-  chain: optimism,
-  transport: http(),
-});
 
 const InvalidFnameErrorMessage =
   "Invalid format. The string must start with a letter or number, can include letters, numbers, or hyphens (up to 16 characters total), and cannot contain any other characters";
@@ -42,6 +37,8 @@ const Signin: React.FC = () => {
   const [displayName, setDisplayName] = useState("");
   const [longitude, setLongitude] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // UseEffect to handle account changes
   useEffect(() => {
     if (typeof window !== "undefined" && window.ethereum) {
@@ -68,6 +65,7 @@ const Signin: React.FC = () => {
 
   const handleSignup = async () => {
     try {
+      setIsLoading(true);
       // 1. Check for wallet
       if (
         typeof window === "undefined" ||
@@ -112,7 +110,7 @@ const Signin: React.FC = () => {
       try {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xa" }], // Optimism chainId in hex
+          params: [{ chainId: "0xA" }], // Optimism chainId in hex
         });
       } catch (switchError) {
         showToast(
@@ -135,8 +133,13 @@ const Signin: React.FC = () => {
         return;
       }
 
+      const wallet = createWalletClient({
+        chain: optimism,
+        transport: custom(window.ethereum),
+      }).extend(publicActions);
+
       // 4. Fetch nonce from IdRegistry contract
-      const requestedUserNonce = (await publicClient.readContract({
+      const requestedUserNonce = (await wallet.readContract({
         address: ID_REGISTRY_ADDRESS,
         abi: ID_REGISTRY_ABI,
         functionName: "nonces",
@@ -152,7 +155,7 @@ const Signin: React.FC = () => {
         name: "Farcaster IdRegistry",
         version: "1",
         chainId: 10,
-        verifyingContract: "0x00000000Fc6c5F01Fc30151999387Bb99A9f489b",
+        verifyingContract: ID_REGISTRY_ADDRESS as `0x${string}`,
       };
 
       const types = {
@@ -165,24 +168,19 @@ const Signin: React.FC = () => {
       };
 
       const message = {
-        fid: fid.toString(),
+        fid: BigInt(fid),
         to: _requestedUserCustodyAddress,
-        nonce: requestedUserNonce.toString(),
-        deadline: deadline.toString(),
-      };
-
-      const typedData = {
-        domain,
-        types,
-        primaryType: "Transfer",
-        message,
+        nonce: requestedUserNonce,
+        deadline: BigInt(deadline),
       };
 
       // 7. Request signature from a wallet
-      const signature = await window.ethereum.request({
-        method: "eth_signTypedData_v4",
-        params: [_requestedUserCustodyAddress, JSON.stringify(typedData)],
-        from: _requestedUserCustodyAddress,
+      const signature = await wallet.signTypedData({
+        account: _requestedUserCustodyAddress as `0x${string}`,
+        domain,
+        types,
+        primaryType: `Transfer`,
+        message,
       });
 
       if (!signature) {
@@ -198,10 +196,12 @@ const Signin: React.FC = () => {
       setRequestedUserCustodyAddress(_requestedUserCustodyAddress);
       setDeadline(deadline);
 
+      setIsLoading(false);
       setShowSignupForm(true);
     } catch (error) {
       console.error(error);
       showToast(ToastType.Error, "An error occurred during signup.");
+      setIsLoading(false);
     }
   };
 
@@ -232,18 +232,42 @@ const Signin: React.FC = () => {
       return;
     }
 
+    // try converting latitude and longitude to numbers if they fail to convert throw an error
+
+    let _latitude;
+    let _longitude;
+
+    try {
+      _latitude = parseFloat(latitude);
+      _longitude = parseFloat(longitude);
+    } catch (error) {
+      showToast(ToastType.Error, "Latitude and Longitude must be numbers.");
+      return;
+    }
+
     const metadata = {
       bio,
       pfp_url: profilePicUrl,
       url,
       display_name: displayName,
       location: {
-        latitude,
-        longitude,
+        latitude: _latitude,
+        longitude: _longitude,
       },
     };
 
+    // remove empty fields recursively
+    const removeEmpty = (obj: any) => {
+      Object.keys(obj).forEach((key) => {
+        if (obj[key] && typeof obj[key] === "object") removeEmpty(obj[key]);
+        else if (obj[key] === undefined) delete obj[key];
+      });
+    };
+
+    removeEmpty(metadata);
+
     try {
+      setIsLoading(true);
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
@@ -266,6 +290,8 @@ const Signin: React.FC = () => {
 
       const data = await response.json();
 
+      setIsLoading(false);
+
       showToast(ToastType.Success, "Successfully signed up!");
 
       const neynar_authenticated_user = {
@@ -280,6 +306,7 @@ const Signin: React.FC = () => {
 
       window.location.reload();
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
       showToast(ToastType.Error, "An error occurred during signup.");
     }
@@ -335,6 +362,9 @@ const Signin: React.FC = () => {
                 className="flex items-center px-4 py-4 bg-white text-black font-semibold text-sm rounded-full shadow-sm hover:shadow-md"
               >
                 Sign up
+                {isLoading && (
+                  <div className="w-4 h-4 ml-2 border-4 border-gray-300 border-t-gray-800 rounded-full animate-spin"></div>
+                )}
               </button>
             </div>
             <div className="mt-4 flex items-center">
@@ -477,6 +507,9 @@ const Signin: React.FC = () => {
                 className="flex items-center px-4 py-4 bg-black text-white font-semibold text-sm rounded-full shadow-sm hover:shadow-md"
               >
                 Submit
+                {isLoading && (
+                  <div className="w-4 h-4 ml-2 border-4 border-white-300 border-t-gray-800 rounded-full animate-spin"></div>
+                )}
               </button>
             </div>
           </div>
