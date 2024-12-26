@@ -25,7 +25,7 @@ if (!NEYNAR_API_KEY) {
 const publishCast = async (msg: string) => {
   try {
     // Using the neynarClient to publish the cast.
-    await neynarClient.publishCast(SIGNER_UUID, msg);
+    await neynarClient.publishCast({ signerUuid: SIGNER_UUID, text: msg });
     console.log("Cast published successfully");
   } catch (err) {
     // Error handling, checking if it's an API response error.

@@ -8,7 +8,7 @@ import { SignedKeyRequestMetadataABI } from "./abi/SignedKeyRequestMetadata";
 import * as fs from "fs";
 import * as path from "path";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
-import { SignerStatusEnum } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { SignerStatusEnum } from "@neynar/nodejs-sdk/build/api";
 
 // A constant message for greeting or logging.
 export const MESSAGE = `gm 🪐`;
@@ -75,7 +75,9 @@ export const getApprovedSigner = async () => {
 
     // Lookup user details using the custody address.
     const { user: farcasterDeveloper } =
-      await neynarClient.lookupUserByCustodyAddress(account.address);
+      await neynarClient.lookupUserByCustodyAddress({
+        custodyAddress: account.address,
+      });
 
     console.log(
       `✅ Detected user with fid ${farcasterDeveloper.fid} and custody address: ${farcasterDeveloper.custody_address}`
@@ -182,7 +184,7 @@ export const getApprovedSigner = async () => {
 
     // Polling for the signer status until it is approved.
     while (true) {
-      const res = await neynarClient.lookupSigner(signer_uuid);
+      const res = await neynarClient.lookupSigner({ signerUuid: signer_uuid });
       if (res && res.status === SignerStatusEnum.Approved) {
         console.log("✅ Approved signer", signer_uuid);
         break;
