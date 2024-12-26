@@ -5,10 +5,10 @@ import { viemPublicClient } from "./viemClient";
 import { keyGatewayAbi } from "./abi/keyGateway";
 import { encodeAbiParameters } from "viem";
 import { SignedKeyRequestMetadataABI } from "./abi/SignedKeyRequestMetadata";
-import { SignerStatusEnum } from "@neynar/nodejs-sdk/api";
 import * as fs from "fs";
 import * as path from "path";
 import { isApiErrorResponse } from "@neynar/nodejs-sdk";
+import { SignerStatusEnum } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 
 // A constant message for greeting or logging.
 export const MESSAGE = `gm 🪐`;
