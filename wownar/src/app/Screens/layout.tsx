@@ -27,7 +27,7 @@ const ScreenLayout = ({ children }: Props) => {
       <header className="flex justify-between items-center p-5">
         <div className="flex items-center">
           <Image
-            src="/logos/wownar.svg"
+            src="/logos/wownar-logo.svg"
             width={60}
             height={60}
             alt="SimpleCaster Logo"
