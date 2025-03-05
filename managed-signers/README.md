@@ -37,10 +37,10 @@
    To start the Sample Farcaster app in development mode, run:
 
    ```bash
-   yarn start
+   yarn run dev
    ```
 
-   Your app should now be running on `localhost:3000` (or a specified port in your `.env`).
+   Your app should now be running on `http://localhost:3000` (or a specified port in your `.env`).
 
 ## Troubleshooting
 

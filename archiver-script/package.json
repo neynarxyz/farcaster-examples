@@ -4,7 +4,7 @@
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
-    "bun-types": "latest"
+    "bun-types": "^1.2.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
