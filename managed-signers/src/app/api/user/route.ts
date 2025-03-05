@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const user = await neynarClient.fetchBulkUsers([Number(fid)]);
+    const user = await neynarClient.fetchBulkUsers({ fids: [Number(fid)] });
 
     return NextResponse.json(user.users[0], { status: 200 });
   } catch (error) {

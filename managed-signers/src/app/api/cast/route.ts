@@ -5,7 +5,10 @@ export async function POST(req: Request) {
   const body = await req.json();
 
   try {
-    const cast = await neynarClient.publishCast(body.signer_uuid, body.text);
+    const cast = await neynarClient.publishCast({
+      signerUuid: body.signer_uuid,
+      text: body.text,
+    });
 
     return NextResponse.json(cast, { status: 200 });
   } catch (error) {

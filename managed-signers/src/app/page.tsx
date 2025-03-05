@@ -5,7 +5,7 @@ import axios from "axios";
 import QRCode from "qrcode.react";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { User } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { User } from "@neynar/nodejs-sdk/build/api";  
 import Image from "next/image";
 
 interface FarcasterUser {

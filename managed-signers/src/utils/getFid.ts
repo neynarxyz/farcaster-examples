@@ -10,7 +10,9 @@ export const getFid = async () => {
 
   // Lookup user details using the custody address.
   const { user: farcasterDeveloper } =
-    await neynarClient.lookupUserByCustodyAddress(account.address);
+    await neynarClient.lookupUserByCustodyAddress({
+      custodyAddress: account.address,
+    });
 
   return Number(farcasterDeveloper.fid);
 };

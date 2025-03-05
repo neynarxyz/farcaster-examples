@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
-    const signedKey = await getSignedKey(true);
+    const signedKey = await getSignedKey(false);
 
     return NextResponse.json(signedKey, {
       status: 200,
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const signer = await neynarClient.lookupSigner(signer_uuid);
+    const signer = await neynarClient.lookupSigner({ signerUuid: signer_uuid });
 
     return NextResponse.json(signer, { status: 200 });
   } catch (error) {
