@@ -45,7 +45,22 @@ const Home = () => {
       });
     }
   }
+  const curlText = `curl -X POST "https://demo.neynar.com/api/cast" \
+     -H "Content-Type: application/json" \
+     -d '{"signerUuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec", "text": "Writing to @farcaster via the @neynar APIs ✍️"}'
+`;
 
+  const reqBody = `"embeds": [
+  {
+    "cast_id": {
+      "hash": "<cast_hash>",
+      "fid": 193
+    },
+    "url": "google.com"
+  }
+],
+"channel_id": "neynar"
+`;
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
@@ -75,6 +90,29 @@ const Home = () => {
               />
             </div>
             <Button onClick={handlePublishCast} title="Cast" />
+            <div className="w-[460px] flex flex-col gap-4 pt-20 text-sm">
+              <span>
+                You can publish casts over API using the code block below. Free
+                API is rate limited, upgrade here for more features.
+              </span>
+              <span>
+                Casts will be sent from {displayName}. Sign in with a different
+                account if needed.
+              </span>
+
+              <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm">
+                <pre className="whitespace-break-spaces">{curlText}</pre>
+              </div>
+              <div className="flex flex-col gap-0.5 mt-12">
+                <span>
+                  To include embeds or post in a channel, add an embeds array or
+                  channel_id to the request body:
+                </span>
+                <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm">
+                  <pre className="whitespace-break-spaces">{reqBody}</pre>
+                </div>
+              </div>
+            </div>
           </>
         ) : (
           <p>Loading...</p>
