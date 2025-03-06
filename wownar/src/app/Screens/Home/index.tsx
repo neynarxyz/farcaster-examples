@@ -16,9 +16,8 @@ const Home = () => {
   const [user] = useLocalStorage<UserInfo>("user");
   const { displayName, pfp } = useApp();
   const [text, setText] = useState("");
-
+  const { signerUuid } = user;
   async function handlePublishCast() {
-    const { signerUuid } = user;
     try {
       const {
         data: { message },
@@ -45,11 +44,11 @@ const Home = () => {
       });
     }
   }
+
   const curlText = `curl -X POST "https://demo.neynar.com/api/cast" \
      -H "Content-Type: application/json" \
-     -d '{"signerUuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec", "text": "Writing to @farcaster via the @neynar APIs ✍️"}'
+     -d '{"signerUuid": "${signerUuid}", "text": "Writing to @farcaster via the @neynar APIs :writing_hand:"}'
 `;
-
   const reqBody = `"embeds": [
   {
     "cast_id": {
