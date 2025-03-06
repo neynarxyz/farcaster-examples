@@ -22,17 +22,28 @@ export default function RootLayout({
       <head>
         {/* Start of Neynar Frame */}
         <title>Wownar</title>
-        <meta property="og:title" content="Wownar"/>
-        <meta property="og:description" content="A demo app (powered by Neynar) that will help user to cast" />
-        <meta property="og:image" content="https://i.imgur.com/WtMhBtP.png"/>
-        <meta property="fc:frame" content="vNext"/>
-        <meta property="fc:frame:image" content="https://i.imgur.com/WtMhBtP.png"/>
-        <meta property="fc:frame:image:aspect_ratio" content="1.91:1"/> 
-        <meta property="fc:frame:button:1" content="Repo"/>
-        <meta property="fc:frame:button:1:action" content="post_redirect"/>
-        <meta property="fc:frame:button:2" content="View Wownar"/>
-        <meta property="fc:frame:button:2:action" content="post_redirect"/>
-        <meta property="fc:frame:post_url" content="https://frames.neynar.com/f/e5b5f4b9/e8d1c50b"/>
+        <meta property="og:title" content="Wownar" />
+        <meta
+          property="og:description"
+          content="A demo app (powered by Neynar) that will help user to cast"
+        />
+        <meta property="og:image" content="https://i.imgur.com/WtMhBtP.png" />
+        <meta property="fc:frame" content="vNext" />
+        <meta
+          property="fc:frame:image"
+          content="https://i.imgur.com/WtMhBtP.png"
+        />
+        <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+        <meta property="fc:frame:button:1" content="Repo" />
+        <meta property="fc:frame:button:1:action" content="post_redirect" />
+        <meta property="fc:frame:button:2" content="View Wownar" />
+        <meta property="fc:frame:button:2:action" content="post_redirect" />
+        <meta
+          property="fc:frame:post_url"
+          content="https://frames.neynar.com/f/e5b5f4b9/e8d1c50b"
+        />
+        <link rel="icon" href="/logos/wownar-logo.svg" sizes="32x32" />
+
         {/* End of Neynar Frame */}
       </head>
       <body className={inter.className}>

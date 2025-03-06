@@ -13,6 +13,8 @@ import { useApp } from "@/Context/AppContext";
 import { useState } from "react";
 
 const Home = () => {
+  const [copiedCurl, setCopiedCurl] = useState(false);
+  const [copiedReqBody, setCopiedReqBody] = useState(false);
   const [user] = useLocalStorage<UserInfo>("user");
   const { displayName, pfp } = useApp();
   const [text, setText] = useState("");
@@ -44,11 +46,25 @@ const Home = () => {
       });
     }
   }
+  const handleCopy = async (
+    text: string,
+    setCopied: (value: boolean) => void
+  ) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+  const curlText = `curl -X POST "https://demo.neynar.com/api/cast" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "signerUuid": "${signerUuid}",
+    "text": "Writing to @farcaster via the @neynar APIs ✍️"
+  }'`;
 
-  const curlText = `curl -X POST "https://demo.neynar.com/api/cast" \
-     -H "Content-Type: application/json" \
-     -d '{"signerUuid": "${signerUuid}", "text": "Writing to @farcaster via the @neynar APIs :writing_hand:"}'
-`;
   const reqBody = `"embeds": [
   {
     "cast_id": {
@@ -99,16 +115,49 @@ const Home = () => {
                 account if needed.
               </span>
 
-              <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm">
+              <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
                 <pre className="whitespace-break-spaces">{curlText}</pre>
+
+                <Image
+                  src="/logos/copy_clipboard.svg"
+                  width={30}
+                  height={30}
+                  alt="Copy Clipboard Logo"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCopy(curlText, setCopiedCurl);
+                  }}
+                  className="absolute top-2 right-2 hover:bg-neutral-600 rounded text-gray-300 transition cursor-pointer"
+                />
+                {copiedCurl && (
+                  <span className="absolute top-0 right-0 text-xs text-black">
+                    Copied!
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-0.5 mt-12">
                 <span>
                   To include embeds or post in a channel, add an embeds array or
                   channel_id to the request body:
                 </span>
-                <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm">
+                <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
                   <pre className="whitespace-break-spaces">{reqBody}</pre>
+                  <Image
+                    src="/logos/copy_clipboard.svg"
+                    width={30}
+                    height={30}
+                    alt="Copy Clipboard Logo"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCopy(reqBody, setCopiedReqBody);
+                    }}
+                    className="absolute top-2 right-2 hover:bg-neutral-600 rounded text-gray-300 transition cursor-pointer"
+                  />
+                  {copiedReqBody && (
+                    <span className="absolute top-0 right-0 text-xs text-black">
+                      Copied!
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
