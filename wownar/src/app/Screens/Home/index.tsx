@@ -65,17 +65,23 @@ const Home = () => {
     "text": "Writing to @farcaster via the @neynar APIs ✍️"
   }'`;
 
-  const reqBody = `"embeds": [
-  {
-    "cast_id": {
-      "hash": "<cast_hash>",
-      "fid": 193
-    },
-    "url": "google.com"
-  }
-],
-"channel_id": "neynar"
-`;
+  const reqBody = `curl -X POST "https://demo.neynar.com/api/cast" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "signerUuid": "${signerUuid}",
+    "text": "Writing to @farcaster via the @neynar APIs ✍️",
+    "embeds": [
+      {
+        "cast_id": {
+          "hash": "<cast_hash>",
+          "fid": 193
+        },
+        "url": "google.com"
+      }
+    ],
+    "channel_id": "neynar"
+  }'`;
+
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
