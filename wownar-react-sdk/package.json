@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "^1.69.1",
-    "@neynar/react": "^0.9.1",
+    "@neynar/nodejs-sdk": "^2.2.0",
+    "@neynar/react": "^0.9.7",
     "@pigment-css/react": "^0.0.9",
     "next": "14.2.10",
     "react": "^18",
