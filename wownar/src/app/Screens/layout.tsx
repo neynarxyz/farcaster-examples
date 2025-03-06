@@ -23,7 +23,7 @@ const ScreenLayout = ({ children }: Props) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen text-white">
+    <div className="flex flex-col min-h-screen text-white bg-gradient-to-b from-[#122744] to-[#0F1F36]">
       <header className="flex justify-between items-center p-5">
         <div className="flex items-center">
           <Image
