@@ -11,12 +11,13 @@ import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/api/models";
 import { useApp } from "@/Context/AppContext";
 import { useState } from "react";
+import Link from "next/link";
 
 const Home = () => {
   const [copiedCurl, setCopiedCurl] = useState(false);
   const [copiedReqBody, setCopiedReqBody] = useState(false);
   const [user] = useLocalStorage<UserInfo>("user");
-  const { displayName, pfp } = useApp();
+  const { displayName, pfp, fid } = useApp();
   const [text, setText] = useState("");
   const { signerUuid } = user;
   async function handlePublishCast() {
@@ -82,6 +83,7 @@ const Home = () => {
     "channel_id": "neynar"
   }'`;
 
+  const profileLink = `https://warpcast.com/~/profiles/${fid}`;
   return (
     <ScreenLayout>
       <main className="flex flex-col flex-grow justify-center items-center">
@@ -114,10 +116,25 @@ const Home = () => {
             <div className="w-[460px] flex flex-col gap-4 pt-20 text-sm">
               <span>
                 You can publish casts over API using the code block below. Free
-                API is rate limited, upgrade here for more features.
+                API is rate limited, upgrade{" "}
+                <Link
+                  href="https://neynar.com/pricing"
+                  target="_blank"
+                  className="text-blue-500 underline"
+                >
+                  here
+                </Link>{" "}
+                for more features.
               </span>
+              
               <span>
-                Casts will be sent from {displayName}. Sign in with a different
+                Casts will be sent from <Link
+                  href={profileLink}
+                  target="_blank"
+                  className="text-blue-500 underline"
+                >
+                  {displayName}
+                </Link>{""}. Sign in with a different
                 account if needed.
               </span>
 
