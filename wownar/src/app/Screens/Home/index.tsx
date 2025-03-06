@@ -45,14 +45,9 @@ const Home = () => {
       });
     }
   }
-  const curlText = `curl --request POST \
-  --url https://demo.neynar.com/v2/farcaster/cast \
-  --header 'accept: application/json' \
-  --header 'content-type: application/json' \
-  --data '{
-    "signer_uuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec",
-    "text": "Writing to @farcaster via the @neynar APIs ✍️"
-  }'
+  const curlText = `curl -X POST "https://demo.neynar.com/api/cast" \
+     -H "Content-Type: application/json" \
+     -d '{"signerUuid": "19d0c5fd-9b33-4a48-a0e2-bc7b0555baec", "text": "Writing to @farcaster via the @neynar APIs ✍️"}'
 `;
 
   const reqBody = `"embeds": [
