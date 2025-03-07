@@ -126,16 +126,17 @@ const Home = () => {
                 </Link>{" "}
                 for more features.
               </span>
-              
+
               <span>
-                Casts will be sent from <Link
+                Casts will be sent from{" "}
+                <Link
                   href={profileLink}
                   target="_blank"
                   className="text-blue-500 underline"
                 >
                   {displayName}
-                </Link>{""}. Sign in with a different
-                account if needed.
+                </Link>
+                {""}. Sign in with a different account if needed.
               </span>
 
               <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
@@ -150,10 +151,10 @@ const Home = () => {
                     e.stopPropagation();
                     handleCopy(curlText, setCopiedCurl);
                   }}
-                  className="absolute top-2 right-2 hover:bg-neutral-600 rounded text-gray-300 transition cursor-pointer"
+                  className="absolute bottom-2 right-2 hover:bg-gray-400 hover:p-1 rounded text-gray-300 transition cursor-pointer"
                 />
                 {copiedCurl && (
-                  <span className="absolute top-0 right-0 text-xs text-black">
+                  <span className="absolute bottom-10 right-0 text-xs text-black">
                     Copied!
                   </span>
                 )}
@@ -165,6 +166,7 @@ const Home = () => {
                 </span>
                 <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
                   <pre className="whitespace-break-spaces">{reqBody}</pre>
+
                   <Image
                     src="/logos/copy_clipboard.svg"
                     width={30}
@@ -174,10 +176,11 @@ const Home = () => {
                       e.stopPropagation();
                       handleCopy(reqBody, setCopiedReqBody);
                     }}
-                    className="absolute top-2 right-2 hover:bg-neutral-600 rounded text-gray-300 transition cursor-pointer"
+                    className="absolute bottom-2 right-2 rounded hover:bg-gray-400 hover:p-1 text-gray-300 transition cursor-pointer"
                   />
+
                   {copiedReqBody && (
-                    <span className="absolute top-0 right-0 text-xs text-black">
+                    <span className="absolute bottom-10 right-0 text-xs text-black">
                       Copied!
                     </span>
                   )}
