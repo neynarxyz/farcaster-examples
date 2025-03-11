@@ -151,11 +151,11 @@ const Home = () => {
                     e.stopPropagation();
                     handleCopy(curlText, setCopiedCurl);
                   }}
-                  className="absolute bottom-2 right-2 hover:bg-gray-400 hover:p-1 rounded text-gray-300 transition cursor-pointer"
+                  className="absolute bottom-2 right-2 rounded text-gray-300 transition cursor-pointer hover:brightness-90"
                 />
                 {copiedCurl && (
-                  <span className="absolute bottom-10 right-0 text-xs text-black">
-                    Copied!
+                  <span className="absolute bottom-10 right-1 text-xs text-gray-300">
+                    Copied
                   </span>
                 )}
               </div>
@@ -176,12 +176,12 @@ const Home = () => {
                       e.stopPropagation();
                       handleCopy(reqBody, setCopiedReqBody);
                     }}
-                    className="absolute bottom-2 right-2 rounded hover:bg-gray-400 hover:p-1 text-gray-300 transition cursor-pointer"
+                    className="absolute bottom-2 right-2 rounded hover:brightness-90 text-gray-300 transition cursor-pointer"
                   />
 
                   {copiedReqBody && (
-                    <span className="absolute bottom-10 right-0 text-xs text-black">
-                      Copied!
+                    <span className="absolute bottom-10 right-1 text-xs text-gray-300">
+                      Copied
                     </span>
                   )}
                 </div>
