@@ -7,7 +7,7 @@ import useLocalStorage from "@/hooks/use-local-storage-state";
 const Signin = () => {
   const [_, setUser] = useLocalStorage("user");
   const [isClient, setIsClient] = useState(false);
-
+  const [showCustomization, setShowCustomization] = useState(false);
   const [theme, setTheme] = useState("light");
   const [variant, setVariant] = useState("neynar");
   const [logoSize, setLogoSize] = useState("30px");
@@ -201,153 +201,162 @@ const Signin = () => {
           <h3 className="pt-16">
             Customize Sign in with Neynar Button. Try it live ↓
           </h3>
-
-          <div className="flex flex-wrap gap-4 justify-center items-center p-4 mt-16 max-w-6xl">
-            {renderThemeDropdown(variant)}
-            {renderVariantDropdown()}
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-logo_size
-              </label>
-              <input
-                value={logoSize}
-                onChange={(e) => setLogoSize(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="30px"
-              />
+          <button
+            onClick={() => setShowCustomization(!showCustomization)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition mt-4"
+          >
+            {showCustomization ? "Hide Customization" : "Show Customization"}
+          </button>
+          {showCustomization && (
+            <div className="flex flex-wrap gap-4 justify-center items-center p-4 mt-16 max-w-6xl">
+              {renderThemeDropdown(variant)}
+              {renderVariantDropdown()}
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-logo_size
+                </label>
+                <input
+                  value={logoSize}
+                  onChange={(e) => setLogoSize(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="30px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">data-height</label>
+                <input
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="48px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium">data-width</label>
+                <input
+                  value={width}
+                  onChange={(e) => setWidth(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="218px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-border_radius
+                </label>
+                <input
+                  value={borderRadius}
+                  onChange={(e) => setBorderRadius(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="10px 10px 10px 10px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-font_size
+                </label>
+                <input
+                  value={fontSize}
+                  onChange={(e) => setFontSize(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="24px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-font_weight
+                </label>
+                <input
+                  value={fontWeight}
+                  onChange={(e) => setFontWeight(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="normal"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-padding
+                </label>
+                <input
+                  value={padding}
+                  onChange={(e) => setPadding(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="8px 15px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">data-margin</label>
+                <input
+                  value={margin}
+                  onChange={(e) => setMargin(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="10px"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">data-text</label>
+                <input
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="Custom sign in"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">data-color</label>
+                <input
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="#ffffff"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-background_color
+                </label>
+                <input
+                  value={backgroundColor}
+                  onChange={(e) => setBackgroundColor(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="#000000"
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">data-styles</label>
+                <input
+                  value={styles}
+                  onChange={(e) => setStyles(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder={`{"minWidth" : "300px"}`}
+                />
+              </div>
+              <div className="flex flex-col items-start p-2 rounded shadow-sm">
+                <label className="mb-2 text-sm font-medium ">
+                  data-custom_logo_url
+                </label>
+                <input
+                  value={customLogoUrl}
+                  onChange={(e) => setCustomLogoUrl(e.target.value)}
+                  type="text"
+                  className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
+                  placeholder="https://demo.neynar.com/logos/wownar-black.svg"
+                />
+              </div>
             </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-height</label>
-              <input
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="48px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium">data-width</label>
-              <input
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="218px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-border_radius
-              </label>
-              <input
-                value={borderRadius}
-                onChange={(e) => setBorderRadius(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="10px 10px 10px 10px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-font_size
-              </label>
-              <input
-                value={fontSize}
-                onChange={(e) => setFontSize(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="24px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-font_weight
-              </label>
-              <input
-                value={fontWeight}
-                onChange={(e) => setFontWeight(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="normal"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-padding</label>
-              <input
-                value={padding}
-                onChange={(e) => setPadding(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="8px 15px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-margin</label>
-              <input
-                value={margin}
-                onChange={(e) => setMargin(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="10px"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-text</label>
-              <input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="Custom sign in"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-color</label>
-              <input
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="#ffffff"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-background_color
-              </label>
-              <input
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="#000000"
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">data-styles</label>
-              <input
-                value={styles}
-                onChange={(e) => setStyles(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder={`{"minWidth" : "300px"}`}
-              />
-            </div>
-            <div className="flex flex-col items-start p-2 rounded shadow-sm">
-              <label className="mb-2 text-sm font-medium ">
-                data-custom_logo_url
-              </label>
-              <input
-                value={customLogoUrl}
-                onChange={(e) => setCustomLogoUrl(e.target.value)}
-                type="text"
-                className="form-input rounded mt-1 block w-full px-3 py-2 bg-white shadow-sm  placeholder-gray-400 focus:outline-none focus:border-blue-500 sm:text-sm text-black"
-                placeholder="https://demo.neynar.com/logos/wownar-black.svg"
-              />
-            </div>
-          </div>
+          )}
         </div>
       </main>
     </ScreenLayout>
