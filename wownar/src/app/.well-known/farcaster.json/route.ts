@@ -6,7 +6,7 @@ const config = {
   "accountAssociation": {
     "header": "eyJmaWQiOjE1NjgsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiMkUyMDZGMTU0MDcxYmFDMjlDMzVENzcyNjU2MDBlYkNhMzhBMjgxIn0",
     "payload": "eyJkb21haW4iOiJkZW1vLm5leW5hci5jb20ifQ",
-    "signature": "MHg2ZTA1M2YwNzViODVjY2UwMDQxNmMzYWQwZGQ0NzQ2ZGNhMTM3OWUxYmE4OTI1OGFjMjFjYWFkMTc1MDMzYzMxMzk1NzU2YzBjYjNmMGU0MzZmOWRmZTYyYjNkMjcwYWZmYzg3ZDZlYmQ2YmMyMmUyMGZkYTc1ZjU5YzhmNjMxZDFi"
+    "signature": ""
   },
   "frame": {
     "name": "Wownar",
@@ -17,9 +17,9 @@ const config = {
     "buttonTitle": "Launch Wownar",
     "splashImageUrl": `${appUrl}/logos/powered-by-neynar.png`,
     "splashBackgroundColor": "#000000",
-    "webhookUrl": `${appUrl}/api/webhook`
+    "webhookUrl": "https://api.neynar.com/f/app/7e3bced3-7d62-4a42-a33c-abd34bb8b254/event"
   }
-}
+};
 
 export async function GET() {
   try {
