@@ -19,7 +19,7 @@ const config = {
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://api.neynar.com/f/app/7e3bced3-7d62-4a42-a33c-abd34bb8b254/event"
   }
-};
+}
 
 export async function GET() {
   try {
