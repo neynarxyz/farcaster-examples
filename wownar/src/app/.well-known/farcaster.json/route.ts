@@ -4,9 +4,9 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 
 const config = {
   "accountAssociation": {
-    "header": "eyJmaWQiOjE1NjgsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiMmUyMDZmMTU0MDcxYmFjMjljMzVkNzcyNjU2MDBlYmNhMzhhMjgxIn0",
-    "payload": "eyJkb21haW4iOiJsb2NhbGhvc3Q6NDUwMCJ9",
-    "signature": ""
+    "header": "eyJmaWQiOjE1NjgsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiMkUyMDZGMTU0MDcxYmFDMjlDMzVENzcyNjU2MDBlYkNhMzhBMjgxIn0",
+    "payload": "eyJkb21haW4iOiJkZW1vLm5leW5hci5jb20ifQ",
+    "signature": "MHg2ZTA1M2YwNzViODVjY2UwMDQxNmMzYWQwZGQ0NzQ2ZGNhMTM3OWUxYmE4OTI1OGFjMjFjYWFkMTc1MDMzYzMxMzk1NzU2YzBjYjNmMGU0MzZmOWRmZTYyYjNkMjcwYWZmYzg3ZDZlYmQ2YmMyMmUyMGZkYTc1ZjU5YzhmNjMxZDFi"
   },
   "frame": {
     "name": "Wownar",
@@ -19,7 +19,7 @@ const config = {
     "splashBackgroundColor": "#000000",
     "webhookUrl": `${appUrl}/api/webhook`
   }
-};
+}
 
 export async function GET() {
   try {
