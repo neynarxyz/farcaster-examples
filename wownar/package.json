@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@farcaster/frame-sdk": "^0.0.31",
     "@neynar/nodejs-sdk": "^2.0.3",
+    "mipd": "^0.0.7",
     "next": "14.2.10",
     "react": "^18",
     "react-dom": "^18",
@@ -26,5 +28,6 @@
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@4.5.3+sha512.3003a14012e2987072d244c720506549c1aab73ee728208f1b2580a9fd67b92d61ba6b08fe93f6dce68fd771e3af1e59a0afa28dd242dd0940d73b95fedd4e90"
 }
