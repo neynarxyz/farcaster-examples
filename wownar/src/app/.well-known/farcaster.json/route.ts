@@ -4,9 +4,9 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 
 const config = {
   "accountAssociation": {
-    "header": "eyJmaWQiOjE1NjgsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiMkUyMDZGMTU0MDcxYmFDMjlDMzVENzcyNjU2MDBlYkNhMzhBMjgxIn0",
+    "header": "eyJmaWQiOjU0OTEzOSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDIxRDgyMkQ4QkUwNERGRTYwN0FmMTY3MzE5OTZBYzBGZmI5M0QxY2EifQ",
     "payload": "eyJkb21haW4iOiJkZW1vLm5leW5hci5jb20ifQ",
-    "signature": "MHg2ZTA1M2YwNzViODVjY2UwMDQxNmMzYWQwZGQ0NzQ2ZGNhMTM3OWUxYmE4OTI1OGFjMjFjYWFkMTc1MDMzYzMxMzk1NzU2YzBjYjNmMGU0MzZmOWRmZTYyYjNkMjcwYWZmYzg3ZDZlYmQ2YmMyMmUyMGZkYTc1ZjU5YzhmNjMxZDFi"
+    "signature": "MHg3MzIwNmEwOGI5ZWMyMjUzODY5ZWUyNjNlZDE0NjA0N2I4Njc1YTVhMTAxNzZmYWI5OTE5OTU2MjBmYmQ0NWIyN2JjYTZmZjU5ZTk0MGY1MWY3M2Y2ZmUwYjlmZDU2YjRjMmE2Y2VjOTBiYWJlN2U2MTg2YjQ5NjNkYTMyZWNjYjFj"
   },
   "frame": {
     "name": "Wownar",
