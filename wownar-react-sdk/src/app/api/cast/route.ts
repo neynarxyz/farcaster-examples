@@ -14,9 +14,14 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const { hash } = await neynarClient.publishCast(signerUuid, text);
+    const response = await neynarClient.publishCast({
+      signerUuid,
+      text,
+    });
     return NextResponse.json(
-      { message: `Cast with hash ${hash} published successfully` },
+      {
+        message: `Cast with hash ${response.cast.hash} published successfully`,
+      },
       { status: 200 }
     );
   } catch (err) {
