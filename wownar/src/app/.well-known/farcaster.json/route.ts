@@ -17,7 +17,7 @@ const config = {
     "buttonTitle": "Launch Wownar",
     "splashImageUrl": `${appUrl}/logos/powered-by-neynar.png`,
     "splashBackgroundColor": "#000000",
-    "webhookUrl": "https://api.neynar.com/f/app/7e3bced3-7d62-4a42-a33c-abd34bb8b254/event"
+    "webhookUrl": "https://api.neynar.com/f/app/a1092b41-629f-45e0-b196-b3ff3a8f193f/event"
   }
 };
 
