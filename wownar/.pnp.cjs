@@ -33,6 +33,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.18"],\
           ["@types/react-dom", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:18.3.5"],\
           ["autoprefixer", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:10.4.20"],\
+          ["axios", "npm:1.9.0"],\
           ["eslint", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:9.27.0"],\
           ["eslint-config-next", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:14.0.3"],\
           ["mipd", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:0.0.7"],\
@@ -1289,6 +1290,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.18"],\
           ["@types/react-dom", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:18.3.5"],\
           ["autoprefixer", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:10.4.20"],\
+          ["axios", "npm:1.9.0"],\
           ["eslint", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:9.27.0"],\
           ["eslint-config-next", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:14.0.3"],\
           ["mipd", "virtual:6ce82e4ee1a7d2037fe35d33c871fd41c56cfc4b5839b96a51f64630c6ee4a8cf2b8ba617a27b7433832d56727339b756604706f5bd458681900a43491f092b1#npm:0.0.7"],\
@@ -1692,6 +1694,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../.yarn/berry/cache/axios-npm-1.7.9-3c98466f87-10c0.zip/node_modules/axios/",\
         "packageDependencies": [\
           ["axios", "npm:1.7.9"],\
+          ["follow-redirects", "virtual:3c98466f874305529f1a16589101c28705aa489e7ec8ffcbfb5cc062090761c951973322264d8039ff40de705a591171bac1067843c49b197410972b4a9ed9f4#npm:1.15.9"],\
+          ["form-data", "npm:4.0.2"],\
+          ["proxy-from-env", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:1.9.0", {\
+        "packageLocation": "../../../../.yarn/berry/cache/axios-npm-1.9.0-007b36cf56-10c0.zip/node_modules/axios/",\
+        "packageDependencies": [\
+          ["axios", "npm:1.9.0"],\
           ["follow-redirects", "virtual:3c98466f874305529f1a16589101c28705aa489e7ec8ffcbfb5cc062090761c951973322264d8039ff40de705a591171bac1067843c49b197410972b4a9ed9f4#npm:1.15.9"],\
           ["form-data", "npm:4.0.2"],\
           ["proxy-from-env", "npm:1.1.0"]\
