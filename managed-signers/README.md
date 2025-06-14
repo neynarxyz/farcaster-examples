@@ -30,7 +30,7 @@
    🔔 Notes:
 
    - NEYNAR_API_KEY: If you need one, sign up on [https://neynar.com](https://neynar.com)
-   - FARCASTER_DEVELOPER_MNEMONIC: The 12 or 24 word recovery phrase for the Farcaster account. Make sure the value is within single quotes.
+   - FARCASTER_DEVELOPER_MNEMONIC: The 12 or 24 word recovery phrase for the Farcaster account. Make sure the value is within single quotes. If you're using Farcaster, you can find this in your mobile app in the Advanced Settings > "Show Farcaster recovery phrase". 
    - A farcaster developer account is the same as any farcaster account. You can use your personal account as a farcaster developer account e.g. https://warpcast.com/manan or your company / branded developer account like https://warpcast.com/neynar
 
 4. **Start the App**:
