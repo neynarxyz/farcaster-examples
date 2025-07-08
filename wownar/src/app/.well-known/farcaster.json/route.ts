@@ -8,7 +8,7 @@ const config = {
     "payload": "eyJkb21haW4iOiJkZW1vLm5leW5hci5jb20ifQ",
     "signature": "MHg3MzIwNmEwOGI5ZWMyMjUzODY5ZWUyNjNlZDE0NjA0N2I4Njc1YTVhMTAxNzZmYWI5OTE5OTU2MjBmYmQ0NWIyN2JjYTZmZjU5ZTk0MGY1MWY3M2Y2ZmUwYjlmZDU2YjRjMmE2Y2VjOTBiYWJlN2U2MTg2YjQ5NjNkYTMyZWNjYjFj"
   },
-  "frame": {
+  "miniapp": {
     "name": "Wownar",
     "version": "1",
     "iconUrl": `${appUrl}/logos/neynar.svg`,
