@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import Button from "@/components/Button";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/api";
 import { useState, useEffect } from "react";
 import { NeynarFrameCard, NeynarProfileCard, NeynarCastCard, useNeynarContext } from "@neynar/react";
 import {
@@ -17,18 +17,12 @@ import {
   type TransactionReceipt,
 } from 'viem';
 import { mainnet, base } from 'viem/chains';
+import { ToastType } from "@/utils";
 
 declare global {
   interface Window {
     ethereum: any;
   }
-}
-
-export enum ToastType {
-  Success = "success",
-  Error = "error",
-  Warning = "warning",
-  Info = "info",
 }
 
 const NEYNAR_API_URL = "https://sdk-api.neynar.com";
@@ -65,7 +59,7 @@ export type NeynarFrame = {
 };
 
 const Home = () => {
-  const { user, client_id, showToast } = useNeynarContext();
+  const { user, showToast } = useNeynarContext();
   const [text, setText] = useState("");
   const [signerValue, setSignerValue] = useState<string | null>(user?.signer_uuid || null);
   const [account, setAccount] = useState<Address | null>(null);
