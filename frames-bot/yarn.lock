@@ -77,7 +77,7 @@
     path-to-regexp "8.2.0"
     tslib "2.8.1"
 
-"@neynar/nodejs-sdk@^1.69.1":
+"@neynar/nodejs-sdk@^1.71.0":
   version "1.71.0"
   resolved "https://registry.yarnpkg.com/@neynar/nodejs-sdk/-/nodejs-sdk-1.71.0.tgz#d8a87e75ad5754460108c8d8444e633cdd22069a"
   integrity sha512-HlsnKMCBQq2YoQjq7IVO1qoSiCPbk90axq0mUXHnF3cKa/dhiDFLwcgVBexsU9G5KMKfvwVLWC2kIDe18IFzuA==
