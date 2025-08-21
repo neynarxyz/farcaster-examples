@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import neynarClient from "@/clients/neynar";
-import { isApiErrorResponse } from "@neynar/nodejs-sdk";
+import { isApiErrorResponse } from "@neynar/nodejs-sdk/build/utils/is-api-error-response";
 
 export async function POST(request: NextRequest) {
   const { signer_uuid, castHash, action} = (await request.json()) as {
@@ -10,7 +10,11 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const response = await neynarClient.postFrameAction(signer_uuid, castHash, action);
+    const response = await neynarClient.postFrameAction({
+      signerUuid: signer_uuid,
+      castHash,
+      action
+    });
 
     if (response) {
       return NextResponse.json(response, { status: 200 });
