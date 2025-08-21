@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import Button from "@/components/Button";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { ErrorRes, ReactionType } from "@neynar/nodejs-sdk/build/api";
 import { useState, useEffect } from "react";
 import { NeynarFrameCard, NeynarProfileCard, NeynarCastCard, useNeynarContext } from "@neynar/react";
 import {
