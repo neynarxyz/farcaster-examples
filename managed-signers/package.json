@@ -12,7 +12,7 @@
     "@farcaster/hub-nodejs": "^0.11.24",
     "@neynar/nodejs-sdk": "^3.34.0",
     "axios": "^1.8.2",
-    "next": "14.2.25",
+    "next": "14.2.32",
     "qrcode.react": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
