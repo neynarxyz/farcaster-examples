@@ -12,7 +12,7 @@
     "@farcaster/frame-sdk": "^0.0.31",
     "@neynar/nodejs-sdk": "^3.34.0",
     "axios": "^1.11.0",
-    "cross-spawn": "^7.0.5",
+    "cross-spawn": "^7.0.6",
     "image-size": "^1.2.0",
     "mipd": "^0.0.7",
     "next": "^15.0.0",
