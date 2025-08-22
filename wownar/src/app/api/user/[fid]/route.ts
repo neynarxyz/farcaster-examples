@@ -4,15 +4,16 @@ import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { fid: string } }
+  { params }: { params: Promise<{ fid: string }> }
 ) {
   try {
-    const fid = parseInt(params.fid);
+    const resolvedParams = await params;
+    const fid = parseInt(resolvedParams.fid);
     const {
       users
     } = await neynarClient.fetchBulkUsers({ fids: [fid] });
     return NextResponse.json({ user: users[0] }, { status: 200 });
-  } catch (err) {
+  } catch (err: unknown) {
     console.log("/api/user/[fid]", err);
     if (isApiErrorResponse(err)) {
       return NextResponse.json(
