@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@neynar/react-native-signin": "^1.3.0",
@@ -33,7 +34,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.14",
-    "ip": "1.1.9",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "typescript": "^5.1.3"
   },
   "resolutions": {
