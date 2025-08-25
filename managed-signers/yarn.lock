@@ -502,9 +502,9 @@ call-bind-apply-helpers@^1.0.1, call-bind-apply-helpers@^1.0.2:
     function-bind "^1.1.2"
 
 caniuse-lite@^1.0.30001579:
-  version "1.0.30001736"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001736.tgz#3710a99cf154b653590fb6a57f81ee34173c3b47"
-  integrity sha512-ImpN5gLEY8gWeqfLUyEF4b7mYWcYoR2Si1VhnrbM4JizRFmfGaAQ12PhNykq6nvI4XvKLrsp8Xde74D5phJOSw==
+  version "1.0.30001737"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001737.tgz#8292bb7591932ff09e9a765f12fdf5629a241ccc"
+  integrity sha512-BiloLiXtQNrY5UyF0+1nSJLXUENuhka2pzy2Fx5pGxqavdrxSCW4U6Pn/PoG3Efspi2frRbHpBV2XsrPE6EDlw==
 
 chalk@4.1.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
