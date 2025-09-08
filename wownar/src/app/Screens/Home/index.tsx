@@ -114,18 +114,7 @@ const Home = () => {
             </div>
             <Button onClick={handlePublishCast} title="Cast" />
             <div className="w-[460px] flex flex-col gap-4 pt-20 text-sm">
-              <span>
-                You can publish casts over API using the code block below. Free
-                API is rate limited, upgrade{" "}
-                <Link
-                  href="https://neynar.com/pricing"
-                  target="_blank"
-                  className="text-blue-500 underline"
-                >
-                  here
-                </Link>{" "}
-                for more features.
-              </span>
+             
 
               <span>
                 Casts will be sent from{" "}
@@ -138,54 +127,6 @@ const Home = () => {
                 </Link>
                 {""}. Sign in with a different account if needed.
               </span>
-
-              <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
-                <pre className="whitespace-break-spaces">{curlText}</pre>
-
-                <Image
-                  src="/logos/copy_clipboard.svg"
-                  width={30}
-                  height={30}
-                  alt="Copy Clipboard Logo"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCopy(curlText, setCopiedCurl);
-                  }}
-                  className="absolute bottom-2 right-2 rounded text-gray-300 transition cursor-pointer hover:brightness-90"
-                />
-                {copiedCurl && (
-                  <span className="absolute bottom-10 right-1 text-xs text-gray-300">
-                    Copied
-                  </span>
-                )}
-              </div>
-              <div className="flex flex-col gap-0.5 mt-12">
-                <span>
-                  To include embeds or post in a channel, add an embeds array or
-                  channel_id to the request body:
-                </span>
-                <div className="bg-neutral-700 text-gray-200 p-4 mt-4 font-mono text-sm relative">
-                  <pre className="whitespace-break-spaces">{reqBody}</pre>
-
-                  <Image
-                    src="/logos/copy_clipboard.svg"
-                    width={30}
-                    height={30}
-                    alt="Copy Clipboard Logo"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCopy(reqBody, setCopiedReqBody);
-                    }}
-                    className="absolute bottom-2 right-2 rounded hover:brightness-90 text-gray-300 transition cursor-pointer"
-                  />
-
-                  {copiedReqBody && (
-                    <span className="absolute bottom-10 right-1 text-xs text-gray-300">
-                      Copied
-                    </span>
-                  )}
-                </div>
-              </div>
             </div>
           </>
         ) : (
