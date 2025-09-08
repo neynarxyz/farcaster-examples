@@ -193,9 +193,8 @@ const Signin = () => {
           </h2>
 
           {getButton()}
-          <button className="pt-8 text-sm italic pb-36">
-            Sign in for free API to publish casts
-          </button>
+          <div className="pt-8 text-sm italic pb-30 ">
+          </div>
           <div className="w-full border-t border-gray-300"></div>
 
           <h3 className="pt-16">
