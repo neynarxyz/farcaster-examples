@@ -10,9 +10,9 @@
   "dependencies": {
     "@neynar/nodejs-sdk": "^2.0.0",
     "dotenv": "^16.4.5",
-  "frog": "^0.18.3",
-  "hono": "^4.3.7",
-  "vite": "^6.3.5"
+    "frog": "^0.18.3",
+    "hono": "^4.3.7",
+    "vite": "^6.3.5"
   },
   "devDependencies": {
     "@types/bun": "^1.2.4",
