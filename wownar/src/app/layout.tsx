@@ -53,7 +53,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Start of Neynar Frame */}
-        <title>{appName}</title>
         <meta property="og:title" content={appName} />
         <meta
           property="og:description"
