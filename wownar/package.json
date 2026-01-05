@@ -15,7 +15,7 @@
     "cross-spawn": "^7.0.6",
     "image-size": "^1.2.0",
     "mipd": "^0.0.7",
-    "next": "^15.5.7",
+    "next": "^15.5.8",
     "path-to-regexp": "^8.2.0",
     "react": "^18",
     "react-dom": "^18",
@@ -37,7 +37,8 @@
   },
   "resolutions": {
     "axios": "^1.12.2",
-    "glob": "^11.1.0"
+    "glob": "^11.1.0",
+    "qs": "^6.14.1"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
