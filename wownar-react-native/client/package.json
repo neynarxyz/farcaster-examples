@@ -20,7 +20,7 @@
     "expo-secure-store": "~12.3.1",
     "expo-status-bar": "~1.6.0",
     "image-size": "^1.2.0",
-    "path-to-regexp": "^8.2.0",
+    "path-to-regexp": "^8.4.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -41,7 +41,7 @@
   "resolutions": {
     "ws": "^8.18.0",
     "cross-spawn": "^7.0.6",
-    "path-to-regexp": "^8.2.0",
+    "path-to-regexp": "^8.4.0",
     "image-size": "1.2.1",
     "form-data": "^4.0.2",
     "semver": "^7.6.0",
