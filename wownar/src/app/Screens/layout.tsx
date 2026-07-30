@@ -3,6 +3,7 @@
 import { ScreenState, useApp } from "@/Context/AppContext";
 import Button from "@/components/Button";
 import Signout from "@/components/icons/Signout";
+import SiwnDeprecationBanner from "@/components/SiwnDeprecationBanner";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import Image from "next/image";
@@ -44,14 +45,15 @@ const ScreenLayout = ({ children }: Props) => {
           </div>
         )}
       </header>
+      <SiwnDeprecationBanner />
       {children}
       <footer className="flex flex-col justify-center items-center gap-y-6 text-center p-4">
         <Link
-          href="https://docs.neynar.com/docs/how-to-let-users-connect-farcaster-accounts-with-write-access-for-free-using-sign-in-with-neynar-siwn"
+          href="https://docs.neynar.com/docs/integrate-managed-signers"
           target="_blank"
         >
-          Connect Farcaster accounts for free using&nbsp;
-          <span className="font-bold">Sign in with Neynar</span>
+          Connect Farcaster accounts using&nbsp;
+          <span className="font-bold">Neynar-managed signers</span>
         </Link>
         <Link
           href="https://github.com/neynarxyz/farcaster-examples/tree/main/wownar"
