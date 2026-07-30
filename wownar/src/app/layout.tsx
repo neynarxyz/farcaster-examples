@@ -5,6 +5,7 @@ import { AppProvider } from "@/Context/AppContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { FrameProvider } from "@/app/providers";
+import { QueryParamsDebug } from "@/components/QueryParamsDebug";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,6 +65,8 @@ export default function RootLayout({
         {/* End of Neynar Frame */}
       </head>
       <body className={inter.className}>
+        {/* Debug: displays launch query params, above the auth gate (NEYN-12877) */}
+        <QueryParamsDebug />
         <FrameProvider>
           <AppProvider>
             {children}
