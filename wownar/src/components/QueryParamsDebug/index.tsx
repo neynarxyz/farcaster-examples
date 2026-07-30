@@ -23,7 +23,7 @@ export function QueryParamsDebug() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setEntries([...params.entries()]);
+    setEntries(Array.from(params.entries()));
     setHref(window.location.href);
   }, []);
 
