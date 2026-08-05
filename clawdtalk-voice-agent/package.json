@@ -1,0 +1,22 @@
+{
+  "name": "clawdtalk-voice-agent",
+  "version": "1.0.0",
+  "description": "A Farcaster agent that can receive voice calls via ClawdTalk",
+  "main": "./dist/app.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "author": "Neynar",
+  "license": "MIT",
+  "dependencies": {
+    "@neynar/nodejs-sdk": "^2.7.0",
+    "dotenv": "^16.4.7",
+    "ws": "^8.18.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/ws": "^8.5.13"
+  }
+}
