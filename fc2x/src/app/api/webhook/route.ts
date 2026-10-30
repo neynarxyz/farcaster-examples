@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       for (const embedUrl of embeds) {
         try {
           const response = await axios.get(embedUrl, { responseType: 'arraybuffer' });
-          const mediaType = response.headers['content-type'];
+          const mediaType = response.headers['content-type'] as string | undefined;
           const mediaId = await client.v1.uploadMedia(Buffer.from(response.data), {
             mimeType: mediaType,
           });
