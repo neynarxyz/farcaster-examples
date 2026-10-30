@@ -24,7 +24,7 @@ cd flask-app
 
 ### Step 3: Set Up a Virtual Environment
 
-Create and activate a virtual environment for the application:
+Create and activate a virtual environment for the application. You need Python 3.10 or newer:
 
 ```sh
 python -m venv venv
