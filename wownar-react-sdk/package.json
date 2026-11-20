@@ -16,7 +16,7 @@
     "cross-spawn": "^7.0.6",
     "form-data": "^4.0.2",
     "hls.js": "^1.6.10",
-    "image-size": "^1.2.0",
+    "image-size": "^2.0.3",
     "next": "^16.1.6",
     "path-to-regexp": "^8.2.0",
     "react": "^18",
